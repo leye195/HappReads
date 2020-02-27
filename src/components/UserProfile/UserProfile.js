@@ -30,7 +30,11 @@ const getList = (from, profile, type) => {
     return from === "/me" ? (
       profile && profile.profile && profile.profile[type].length > 0 ? (
         <div>
-          <BookList booklist={profile.profile[type]} from="profile" />
+          <BookList
+            booklist={profile.profile[type]}
+            from="profile"
+            type={type}
+          />
         </div>
       ) : (
         <p className={cx("recent-empty")}>최근 아무 활동도 없습니다.</p>

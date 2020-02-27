@@ -16,6 +16,11 @@ const LOGOUT_PENDING = "LOGOUT_PENDING";
 const LOGOUT_SUCCESS = "LOGOUR_SUCCESS";
 const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 
+const POST_SHELVE = "POST_SHELVE";
+const POST_SHELVE_PENDING = "POST_SHELVE_PENDING";
+const POST_SHELVE_SUCCESS = "POST_SHELVE_SUCCESS";
+const POST_SHELVE_FAILURE = "POST_SHELVE_FAILURE";
+
 const requestLogin = (id, pw) => {
   return axios.post(`http://localhost:8080/login`, {
     email: id,
@@ -33,6 +38,18 @@ const requestCheck = atk => {
   });
   return api.post(`http://localhost:8080/profile`);
 };
+
+const requsetPostShelve = (email, isbn, title, authors, type, thumbnail) => {
+  return axios.post(`http://localhost:8080/shelve`, {
+    email,
+    isbn,
+    title,
+    authors,
+    type,
+    thumbnail
+  });
+};
+
 export const check = atk => ({
   type: USER_CHECK,
   payload: requestCheck(atk)
@@ -44,6 +61,10 @@ export const logout = () => ({
 export const login = (id, pw) => ({
   type: LOGIN,
   payload: requestLogin(id, pw)
+});
+export const postShelve = (email, isbn, title, authors, type, thumbnail) => ({
+  type: POST_SHELVE,
+  payload: requsetPostShelve(email, isbn, title, authors, type, thumbnail)
 });
 const initialState = {
   pending: false,
@@ -118,6 +139,29 @@ export default handleActions(
       };
     },
     [LOGOUT_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        pending: false,
+        error: true
+      };
+    },
+    [POST_SHELVE_PENDING]: (state, action) => {
+      return {
+        ...state,
+        pending: true,
+        error: false
+      };
+    },
+    [POST_SHELVE_SUCCESS]: (state, action) => {
+      const { data } = action.payload;
+      return {
+        ...state,
+        pending: false,
+        error: false,
+        profile: data
+      };
+    },
+    [POST_SHELVE_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,

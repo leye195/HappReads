@@ -55,6 +55,7 @@
   }
 }
 .shelve {
+  @include flex(row, none, space-between);
   margin: 10px;
   .title {
     font-weight: 700;
@@ -62,9 +63,32 @@
   .authors {
     margin-left: 10px;
   }
-  .delete {
-    display: inline;
-    float: right;
+  .setting-btns {
+    @include flex(row, none, none);
+    .edit-container {
+      position: relative;
+      .edit-form {
+        position: absolute;
+        width: 60px;
+        height: 18px;
+        box-shadow: 1px 1px 3px 0px black;
+        padding: 4px;
+        right: 30px;
+        top: -5px;
+        text-align: center;
+        border-radius: 10px;
+        z-index: 80;
+        background: white;
+        @include flex(row, center, center);
+      }
+    }
+  }
+  .edit {
     cursor: pointer;
+    margin: 5px;
+  }
+  .delete {
+    cursor: pointer;
+    margin: 5px;
   }
 }

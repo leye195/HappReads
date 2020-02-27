@@ -7,7 +7,7 @@ import Select from "react-select";
 import Rater from "../Rater";
 import Review from "../Review";
 import { connect } from "react-redux";
-import * as actions from "../../reducer/shelve";
+import * as actions from "../../reducer/login";
 const cx = classnames.bind(style);
 const formatAuthors = authors => {
   let s = "";
@@ -17,13 +17,22 @@ const formatAuthors = authors => {
   return s;
 };
 const getAvg = votes => {
-  if (votes && votes.length > 0) {
-    const total = votes.reduce((a, b) => a + b, 0);
-    return (total / votes.length).toFixed(2);
+  if (votes) {
+    let total = 0;
+    if (votes.length > 0) {
+      for (let i = 0; i < votes.length; i++) {
+        total += parseInt(votes[i].vote);
+      }
+      console.log(total);
+      return (total / votes.length).toFixed(2);
+    } else {
+      return 0;
+    }
   } else {
     return 0;
   }
 };
+
 const options = [
   {
     value: "want_read",
@@ -52,6 +61,22 @@ class BookDetail extends Component {
   checkStatus = (arr, isbn) => {
     if (arr.filter(item => item.isbn === isbn).length > 0) return true;
     return false;
+  };
+  checkUserVote = () => {
+    const {
+      votes,
+      profile: { profile }
+    } = this.props;
+    let cur = "0";
+    if (votes) {
+      for (let i = 0; i < votes.length; i++) {
+        if (votes[i]._id === profile._id) {
+          cur = String(votes[i].vote);
+          break;
+        }
+      }
+    }
+    return cur;
   };
   getStatus = () => {
     const {
@@ -134,7 +159,14 @@ class BookDetail extends Component {
                   <div>
                     <div className={cx("rate-wrapper")}>
                       <span>책 평가하기</span>
-                      <Rater postVote={postVote} book={book} id={id} />
+                      <Rater
+                        postVote={postVote}
+                        book={book}
+                        id={id}
+                        votes={
+                          votes && votes.length > 0 ? this.checkUserVote() : "0"
+                        }
+                      />
                     </div>
                     <div className={cx("add")}>
                       <Select

@@ -6,13 +6,18 @@ import { connect } from "react-redux";
 const cx = classnames.bind(style);
 const values = ["1", "2", "3", "4", "5"];
 const starStyle = {
-  color: "#f1c40f"
+  color: "#f1c40f",
+  cursor: "pointer"
 };
 class Rater extends Component {
-  state = {
-    hoveredRating: "0",
-    currentRating: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      hoveredRating: "0",
+      currentRating: "0"
+    };
+  }
+
   handleOnClick = e => {
     const { isLoggedIn } = this.props;
     const rating = e.target.parentNode.dataset.rating;
@@ -31,7 +36,8 @@ class Rater extends Component {
     await postVote(title, authors, vote, isbn, email, thumbnail);
   };
   render() {
-    const { currentRating } = this.state;
+    //const { currentRating } = this.state;
+    const { votes } = this.props;
     return (
       <div className={cx("rater")}>
         {values.map((value, idx) => {
@@ -40,7 +46,7 @@ class Rater extends Component {
               key={idx}
               data-rating={idx + 1}
               onClick={this.handleOnClick}
-              style={currentRating >= idx + 1 ? starStyle : {}}
+              style={votes >= idx + 1 ? starStyle : {}}
             />
           );
         })}

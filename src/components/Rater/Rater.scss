@@ -11,6 +11,6 @@
     color: $sun-flower;
   }
   svg:hover ~ svg {
-    color: grey;
+    color: grey !important;
   }
 }

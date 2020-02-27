@@ -8,12 +8,19 @@ const getReview = review => {
   return (
     <div className={cx("review-container")} key={review._id}>
       <div>
-        <img src={review.book.thumbnail} alt={review.book.title} />
+        <img
+          src={review.book !== undefined ? review.book.thumbnail : ""}
+          alt={review.book !== undefined ? review.book.title : ""}
+        />
       </div>
       <div>
         <div>
-          <p className={cx("review-book")}>{review.book.title}</p>
-          <p className={cx("review-text")}>{review.content}</p>
+          <p className={cx("review-book")}>
+            {review.book !== undefined ? review.book.title : ""}
+          </p>
+          <p className={cx("review-text")}>
+            {review.book !== undefined ? review.content : ""}
+          </p>
           <p className={cx("review-date")}>
             {moment(review.createdAt).format("YYYY년 MM월 DD일 HH:MM:SS")}
           </p>

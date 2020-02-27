@@ -10,6 +10,7 @@ import Search from "./route/Search";
 import Edit from "./route/Edit";
 import Upload from "./route/Upload";
 import Header from "./components/Header";
+import NoMatch from "./route/NoMatch";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/me" component={Profile}></Route>
         <Route path="/profile/:id" component={Profile}></Route>
         <Route path="/upload" component={Upload}></Route>
+        <Route component={NoMatch} />
       </Switch>
       <Footer />
     </Router>
