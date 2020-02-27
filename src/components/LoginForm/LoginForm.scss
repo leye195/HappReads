@@ -1,0 +1,23 @@
+@import "../../styles/utils.scss";
+.login-form {
+  padding-top: 80px;
+  padding-bottom: 10px;
+  form {
+    @include flex(column, center, none);
+    width: 20rem;
+    height: fit-content;
+    input {
+      margin: 10px;
+      width: 100%;
+      padding: 5px;
+      font-size: $input-fontSize;
+      &[type="submit"] {
+        @include Lbutton-style;
+      }
+    }
+  }
+  button {
+    @include Lbutton-style;
+    width: 20rem;
+  }
+}

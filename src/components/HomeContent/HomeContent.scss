@@ -1,0 +1,7 @@
+@import "../../styles/utils.scss";
+.home-content {
+  @include base-height;
+  .books-wrapper {
+    margin: 5px;
+  }
+}

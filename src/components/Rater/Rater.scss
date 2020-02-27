@@ -1,0 +1,16 @@
+@import "../../styles/utils.scss";
+.rater {
+  @include flex(row, none, none);
+  display: inline-flex;
+  font-size: 1em;
+  color: grey;
+  &:hover svg {
+    color: $sun-flower;
+  }
+  svg:hover {
+    color: $sun-flower;
+  }
+  svg:hover ~ svg {
+    color: grey;
+  }
+}

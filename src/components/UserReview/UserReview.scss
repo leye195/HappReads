@@ -1,0 +1,37 @@
+@import "../../styles/utils.scss";
+.user-review {
+  .review-container {
+    @include flex(row, none, none);
+    margin: 5px;
+    border-bottom: 1px solid #e3e3e3;
+    animation: fadeIn 1.5s ease-out;
+    div:nth-child(1) {
+      img {
+        height: 100px;
+      }
+    }
+    div:nth-child(2) {
+      margin: 5px;
+      width: 100%;
+      div {
+        height: 100%;
+        width: 100%;
+        @include flex(column, none, center);
+        .review-like,
+        .review-date,
+        .review-book,
+        .review-text {
+          font-size: 0.8rem;
+        }
+        .review-book,
+        .review-text {
+          margin-bottom: 10px;
+        }
+
+        .review-date {
+          color: $dark-grey;
+        }
+      }
+    }
+  }
+}

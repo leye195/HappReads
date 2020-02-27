@@ -1,0 +1,26 @@
+@import "../../styles/utils.scss";
+
+.social-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  h2 {
+    font-size: $h2;
+    margin: 10px;
+    font-weight: 700;
+  }
+  .facebook {
+    @include flex(row, center, center);
+    @include base-button(blue);
+  }
+  .github {
+    @include flex(row, center, center);
+    @include base-button(black);
+  }
+  .icon {
+    font-size: 25px;
+    margin-right: 10px;
+  }
+}

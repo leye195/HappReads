@@ -1,0 +1,55 @@
+@import "../../styles/utils.scss";
+.user-edit {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: 20%;
+  right: 50%;
+  transform: translate(50%);
+  background: white;
+  padding: 10px;
+  box-shadow: $box-shadow;
+  border-radius: 5px;
+  &.open {
+    animation: showModal 0.7s ease-out both;
+  }
+  &.close {
+    animation: hideModal 0.7s ease-out both;
+  }
+  .x-button {
+    @include flex(row, none, none);
+    flex-direction: row-reverse;
+    border-bottom: 0.5px solid $dark-grey;
+    p {
+      cursor: pointer;
+    }
+  }
+  .form-container {
+    height: 100%;
+    form {
+      @include flex(column, center, center);
+      input {
+        width: 100%;
+        margin: 7px;
+        padding: 7px;
+        &[type="file"] {
+          background-color: $dark-grey;
+          color: white;
+        }
+        &[type="submit"] {
+          @include base-button($blue);
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
+      textarea {
+        @include textarea-style;
+      }
+    }
+  }
+  button {
+    @include base-button(red);
+    color: white;
+    margin-top: 0px;
+  }
+}

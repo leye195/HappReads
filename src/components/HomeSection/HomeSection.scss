@@ -1,0 +1,28 @@
+@import "../../styles/utils.scss";
+.home-section {
+  @include flex(column, center, center);
+  position: relative;
+  height: calc(60vh - 11rem);
+  width: 100%;
+  z-index: 0;
+  padding-top: 50px;
+  background-image: url("../../img/tom-hermans-9BoqXzEeQqM-unsplash.jpg");
+  background-size: contain;
+  object-fit: cover;
+  background-attachment: fixed;
+  animation: fadeIn 1.5s ease-out;
+  .words {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    text-shadow: $text-shadow;
+    color: white;
+    h3 {
+      margin: 10px;
+      font-weight: 700;
+    }
+    h4 {
+      font-size: 20px;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@import "../../styles/utils.scss";
+.book-upload {
+  form {
+    @include flex(column, center, center);
+    input {
+      width: 100%;
+      margin: 5px;
+      padding: 5px;
+      &[type="file"] {
+        background-color: $dark-grey;
+        color: white;
+      }
+      &[type="submit"] {
+        @include base-button($blue);
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+    .authors {
+      width: 100%;
+      padding: 0px 6px;
+      border: 1px solid $white-grey;
+      @include flex(row, center, none);
+      .author-name {
+        color: $dark-grey;
+        overflow: hidden;
+        white-space: pre;
+        text-overflow: ellipsis;
+      }
+      .author-tag {
+        font-size: 0.8rem;
+        padding: 5px;
+        margin-right: 3px;
+        @include flex(row, none, space-between);
+        .author-name {
+          color: white;
+        }
+        .author-x {
+          color: $white-grey;
+          cursor: pointer;
+          margin-left: 3px;
+          margin-right: 3px;
+          &:hover {
+            color: red;
+          }
+        }
+      }
+      .author-input {
+        margin: 3px;
+      }
+      .author-tag {
+        background-color: $blue;
+      }
+      .author-tag,
+      .author-input {
+        width: 50px;
+        border-radius: 10px;
+        border: 1px solid $blue;
+      }
+    }
+    textarea {
+      resize: none;
+      height: 100px;
+      width: 100%;
+      margin: 5px;
+      padding: 5px;
+      border: 1px solid $white-grey;
+    }
+  }
+}
