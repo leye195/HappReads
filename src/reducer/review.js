@@ -23,6 +23,7 @@ const requestPostReview = (isbn, name, content, book) => {
     book
   });
 };
+
 export const getReview = isbn => ({
   type: GET_REVIEW,
   payload: requestGetReview(isbn)
@@ -31,11 +32,11 @@ export const postReview = (isbn, name, content, book) => ({
   type: POST_REVIEW,
   payload: requestPostReview(isbn, name, content, book)
 });
+
 const initialState = {
   pending: false,
   error: false,
-  success: false,
-  reviews: []
+  success: false
 };
 export default handleActions(
   {

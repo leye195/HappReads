@@ -14,6 +14,7 @@ class Profile extends Component {
       this.getProfile(uid);
     }
   }
+
   getProfile = async id => {
     const { getProfile } = this.props;
     try {

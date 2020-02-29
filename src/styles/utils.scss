@@ -43,6 +43,11 @@
   padding: 7px;
   border: 1px solid #e3e3e3;
 }
+@mixin table-text-align($padding, $align, $font) {
+  padding: 10px;
+  text-align: center;
+  font-size: 0.8rem;
+}
 $blue: #3a6fa5;
 $white-grey: #e3e3e3;
 $dark-grey: #a0a0a0;

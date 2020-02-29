@@ -44,7 +44,6 @@ class BookUpload extends Component {
     formData.append("uid", _id);
     //console.log(title, authors, isbn, contents);
     this.submitData(formData);
-    window.history.href = "/";
   };
   handleAuthorChange = input => {
     this.setState({
@@ -97,6 +96,7 @@ class BookUpload extends Component {
     const { postUpload } = this.props;
     try {
       await postUpload(data);
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
     }

@@ -21,6 +21,11 @@ const POST_SHELVE_PENDING = "POST_SHELVE_PENDING";
 const POST_SHELVE_SUCCESS = "POST_SHELVE_SUCCESS";
 const POST_SHELVE_FAILURE = "POST_SHELVE_FAILURE";
 
+const LIKE_REVIEW = "LIKE_REVIEW";
+const LIKE_REVIEW_PENDING = "LIKE_REVIEW_PENDING";
+const LIKE_REVIEW_SUCCESS = "LIKE_REVIEW_SUCCESS";
+const LIKE_REVIEW_FAILURE = "LIKE_REVIEW_FAILURE";
+
 const requestLogin = (id, pw) => {
   return axios.post(`http://localhost:8080/login`, {
     email: id,
@@ -49,6 +54,14 @@ const requsetPostShelve = (email, isbn, title, authors, type, thumbnail) => {
     thumbnail
   });
 };
+const requestLikeReview = (type, id, uid, m_id) => {
+  return axios.post(`http://localhost:8080/review/like`, {
+    type,
+    id,
+    uid,
+    m_id
+  });
+};
 
 export const check = atk => ({
   type: USER_CHECK,
@@ -66,15 +79,21 @@ export const postShelve = (email, isbn, title, authors, type, thumbnail) => ({
   type: POST_SHELVE,
   payload: requsetPostShelve(email, isbn, title, authors, type, thumbnail)
 });
+export const postLike = (type, id, uid, m_id) => ({
+  type: LIKE_REVIEW,
+  payload: requestLikeReview(type, id, uid, m_id)
+});
 const initialState = {
   pending: false,
   error: false,
+  success: false,
   profile: {},
   isLoggedIn: false
 };
 
 export default handleActions(
   {
+    //LOGIN
     [LOGIN_PENDING]: (state, action) => {
       return {
         ...state,
@@ -122,6 +141,7 @@ export default handleActions(
         isLoggedIn: false
       };
     },
+    //LOGOUT
     [LOGOUT_PENDING]: (state, action) => {
       return {
         ...state,
@@ -145,6 +165,7 @@ export default handleActions(
         error: true
       };
     },
+    //POST_SHELVE
     [POST_SHELVE_PENDING]: (state, action) => {
       return {
         ...state,
@@ -162,6 +183,32 @@ export default handleActions(
       };
     },
     [POST_SHELVE_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        pending: false,
+        error: true
+      };
+    },
+    ///LIKE_REVIEW
+    [LIKE_REVIEW_PENDING]: (state, action) => {
+      return {
+        ...state,
+        pending: true,
+        error: false
+      };
+    },
+    [LIKE_REVIEW_SUCCESS]: (state, action) => {
+      const { data } = action.payload;
+
+      return {
+        ...state,
+        pending: false,
+        error: false,
+        success: true,
+        profile: data
+      };
+    },
+    [LIKE_REVIEW_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,

@@ -1,0 +1,98 @@
+@import "../../styles/utils.scss";
+.book-shelve {
+  padding-top: 80px;
+  min-height: 100vh;
+  .shelve-header {
+    padding-left: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e3e3e3;
+  }
+  ul {
+    @include flex(row, center, center);
+    li {
+      padding: 10px;
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    & .show {
+      font-weight: 800;
+    }
+  }
+  table {
+    @include flex(column, center, center);
+    margin: 30px auto;
+    width: 100%;
+    thead {
+      width: 85%;
+      border: 1px solid $sun-flower;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      tr {
+        @include flex(row, none, space-between);
+        th {
+          @include table-text-align(10px, center, 0.8rem);
+          &:nth-child(1) {
+            width: 18%;
+          }
+          &:nth-child(2) {
+            width: 25%;
+          }
+          &:nth-child(3) {
+            width: 10%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: pre;
+          }
+          &:nth-child(4) {
+            width: 5%;
+          }
+          &:nth-child(5) {
+            width: 15%;
+          }
+        }
+      }
+    }
+    tbody {
+      width: 85%;
+      tr {
+        @include flex(row, flex-start, space-between);
+        border-bottom: 1px solid $white-grey;
+        td {
+          @include table-text-align(10px, center, 0.8rem);
+          &:nth-child(1) {
+            width: 18%;
+            img {
+              width: 52%;
+            }
+          }
+          &:nth-child(2) {
+            width: 25%;
+            &:hover a {
+              color: $sun-flower;
+            }
+          }
+          &:nth-child(3) {
+            width: 10%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: pre;
+          }
+          &:nth-child(4) {
+            width: 5%;
+          }
+          &:nth-child(5) {
+            width: 15%;
+          }
+          &:nth-child(7) {
+            cursor: pointer;
+            color: $sun-flower;
+          }
+        }
+      }
+    }
+  }
+}

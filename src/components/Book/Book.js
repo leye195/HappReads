@@ -100,11 +100,6 @@ const Book = props => {
               {formatAuthors(book.authors)}
             </span>
           </p>
-          <div className={cx("ser-score")}>
-            <span>{0} 평점</span>
-            <span> | </span>
-            <span>{0} 평론 </span>
-          </div>
         </div>
       </li>
     );

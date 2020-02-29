@@ -194,7 +194,19 @@ class UserProfile extends Component {
             <div style={idx === 0 ? { display: "block" } : { display: "none" }}>
               <div className={cx("uploaded")}>
                 <div className={cx("uploaded-head")}>
-                  <h2>업로드 한 책</h2>
+                  <Link
+                    to={
+                      from === "/me"
+                        ? profile && profile.profile !== undefined
+                          ? `shelve/${profile.profile._id}`
+                          : `/`
+                        : profile && profile.user !== undefined
+                        ? `shelve/${profile.user._id}`
+                        : `/  `
+                    }
+                  >
+                    <h2>업로드 한 책</h2>
+                  </Link>
                 </div>
                 <div
                   className={cx("uploaded-body")}

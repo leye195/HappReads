@@ -53,7 +53,11 @@ class Review extends Component {
     this.getReview();
   }
   componentDidUpdate(prevProps) {
-    if (this.props.reviews.length !== prevProps.reviews.length)
+    if (
+      this.props.reviews &&
+      prevProps.reviews &&
+      this.props.reviews.length !== prevProps.reviews.length
+    )
       this.getReview();
   }
   getReview = async () => {
@@ -70,10 +74,11 @@ class Review extends Component {
         profile: { email }
       },
       postReview,
-      id,
+      //id,
       books: book,
       from
     } = this.props;
+    const id = window.location.pathname.substring(1).split("/")[1];
     try {
       await postReview(id, email, content, book[0]);
     } catch (error) {

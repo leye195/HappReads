@@ -1,13 +1,13 @@
 @import "../../styles/utils.scss";
 .book {
-  width: 100%;
+  width: 95%;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 10px;
   animation: fadeIn 1.5s ease-out;
   img {
     width: 120px;
+    height: 170px;
     cursor: pointer;
   }
   p {

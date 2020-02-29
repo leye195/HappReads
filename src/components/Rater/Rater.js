@@ -20,7 +20,11 @@ class Rater extends Component {
 
   handleOnClick = e => {
     const { isLoggedIn } = this.props;
-    const rating = e.target.parentNode.dataset.rating;
+    let currentItem = e.target;
+    while (currentItem.nodeName !== "svg") {
+      currentItem = currentItem.parentNode;
+    }
+    const rating = currentItem.dataset.rating;
     if (isLoggedIn) this.postVote(rating);
     else alert("Please Login");
   };

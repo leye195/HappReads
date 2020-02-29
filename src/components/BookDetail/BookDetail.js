@@ -113,13 +113,14 @@ class BookDetail extends Component {
     } = this.state;
     const {
       postShelve,
-      book: { title, authors, isbn, thumbnail },
+      book: { title, authors, thumbnail },
       profile: {
         profile: { email }
       }
     } = this.props;
+    const id = window.location.pathname.substring(1).split("/")[1];
     try {
-      await postShelve(email, isbn, title, authors, value, thumbnail);
+      await postShelve(email, id, title, authors, value, thumbnail);
     } catch (error) {}
   };
   handleRadio = selected => {
