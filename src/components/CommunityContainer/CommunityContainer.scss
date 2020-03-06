@@ -1,0 +1,118 @@
+@import "../../styles/utils.scss";
+.community-container {
+  .range-container {
+    margin: 10px;
+    span {
+      cursor: pointer;
+    }
+  }
+  .reviews {
+    .card {
+      @include card(10px);
+      &:last-child {
+        margin-bottom: 20px;
+      }
+    }
+    .row {
+      @include flex(row, none, center);
+      margin: 0 auto;
+      margin-top: 20px;
+      width: 45%;
+      .first-col {
+        @include flex(column, center, none);
+        img {
+          width: 80px;
+          height: 100px;
+        }
+      }
+      .second-col {
+        @include flex(column, none, center);
+        margin-left: 20px;
+        .date {
+          font-size: 0.7rem;
+        }
+        .reviewer,
+        .title {
+          margin-top: 5px;
+        }
+        .content {
+          margin-top: 5px;
+          @include flex(row, none, none);
+          img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+          p {
+            word-break: break-all;
+          }
+        }
+      }
+    }
+  }
+  .table {
+    @include flex(row, center, center);
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 20px;
+    tbody {
+      width: 100%;
+      tr {
+        display: flex;
+        border-top: 1px solid $white-grey;
+        &:first-child,
+        &:nth-child(2),
+        &:nth-child(3) {
+          td:first-child {
+            font-size: 2.5rem;
+          }
+        }
+        td {
+          padding: 10px 30px;
+          &:first-child {
+            width: 10%;
+            font-size: 1rem;
+            padding-right: 20px;
+            @include flex(row, center, center);
+          }
+          &:nth-child(2) {
+            width: 10%;
+            padding-right: 50px;
+          }
+          &:nth-child(3) {
+            width: 40%;
+            @include flex(column, none, center);
+            p {
+              margin: 5px;
+              &:first-child {
+                cursor: pointer;
+                &:hover {
+                  color: $sun-flower;
+                }
+              }
+            }
+          }
+          &:nth-child(4) {
+            width: 40%;
+            @include flex(column, none, center);
+            p {
+              margin: 5px;
+              &:first-child {
+                cursor: pointer;
+                &:hover {
+                  color: $sun-flower;
+                }
+              }
+            }
+          }
+        }
+        img {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}

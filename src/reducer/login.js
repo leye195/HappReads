@@ -26,6 +26,11 @@ const LIKE_REVIEW_PENDING = "LIKE_REVIEW_PENDING";
 const LIKE_REVIEW_SUCCESS = "LIKE_REVIEW_SUCCESS";
 const LIKE_REVIEW_FAILURE = "LIKE_REVIEW_FAILURE";
 
+const DELETE_SHELVE = "DELETE_SHELVE";
+const DELETE_SHELVE_PENDING = "DELETE_SHELVE_PENDING";
+const DELETE_SHELVE_SUCCESS = "DELETE_SHELVE_SUCCESS";
+const DELETE_SHELVE_FAILURE = "DELETE_SHELVE_FAILURE";
+
 const requestLogin = (id, pw) => {
   return axios.post(`http://localhost:8080/login`, {
     email: id,
@@ -62,7 +67,12 @@ const requestLikeReview = (type, id, uid, m_id) => {
     m_id
   });
 };
-
+const requestDeleteShelve = (uid, bid, type) => {
+  return axios.post(`http://localhost:8080/shelve/${bid}`, {
+    uid,
+    type
+  });
+};
 export const check = atk => ({
   type: USER_CHECK,
   payload: requestCheck(atk)
@@ -82,6 +92,10 @@ export const postShelve = (email, isbn, title, authors, type, thumbnail) => ({
 export const postLike = (type, id, uid, m_id) => ({
   type: LIKE_REVIEW,
   payload: requestLikeReview(type, id, uid, m_id)
+});
+export const deleteShelve = (uid, bid, type) => ({
+  type: DELETE_SHELVE,
+  payload: requestDeleteShelve(uid, bid, type)
 });
 const initialState = {
   pending: false,
@@ -199,7 +213,6 @@ export default handleActions(
     },
     [LIKE_REVIEW_SUCCESS]: (state, action) => {
       const { data } = action.payload;
-
       return {
         ...state,
         pending: false,
@@ -209,6 +222,29 @@ export default handleActions(
       };
     },
     [LIKE_REVIEW_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        pending: false,
+        error: true
+      };
+    },
+    [DELETE_SHELVE_PENDING]: (state, action) => {
+      return {
+        ...state,
+        pending: true,
+        error: false
+      };
+    },
+    [DELETE_SHELVE_SUCCESS]: (state, action) => {
+      const { data } = action.payload;
+      return {
+        ...state,
+        profile: data,
+        pending: false,
+        error: false
+      };
+    },
+    [DELETE_SHELVE_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,

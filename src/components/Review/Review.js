@@ -1,12 +1,15 @@
 import React, { Component, Fragment } from "react";
 import style from "./Review.scss";
 import classnames from "classnames/bind";
+import moment from "moment";
 import { Link } from "react-router-dom";
-///import moment from "moment";
 import { connect } from "react-redux";
+import { FaHeart } from "react-icons/fa";
 import * as actions from "../../reducer/review";
+import * as loginActions from "../../reducer/login";
+
 const cx = classnames.bind(style);
-const reviewTag = (item, idx) => {
+const reviewTag = (item, idx, handleLike) => {
   console.log(item);
   return (
     <Fragment key={idx}>
@@ -24,7 +27,9 @@ const reviewTag = (item, idx) => {
           </Link>
         </div>
         <span className={cx("date")}>
-          {item.createdAt ? item.createdAt : ""}
+          {item.createdAt
+            ? moment(item.createdAt).format(`MMMM MM월 DD일 HH:MM:SS`)
+            : ""}
         </span>
         <div style={{ marginTop: "10px" }}>
           <span className={cx("user-review")}>{item.content}</span>
@@ -32,8 +37,12 @@ const reviewTag = (item, idx) => {
         <div className={cx("review-footer")}>
           <span>{item.likes} likes</span>
           <span style={{ marginLeft: "5px", marginRight: "5px" }}>·</span>
-          <span>
-            <button style={{ fontSize: "0.8rem" }}>Like</button>
+          <span
+            className={cx("heart")}
+            onClick={handleLike}
+            data-value={item._id}
+          >
+            <FaHeart />
           </span>
           <span style={{ marginLeft: "5px", marginRight: "5px" }}>·</span>
           <span className={cx("more")}>see more</span>
@@ -74,9 +83,7 @@ class Review extends Component {
         profile: { email }
       },
       postReview,
-      //id,
-      books: book,
-      from
+      books: book
     } = this.props;
     const id = window.location.pathname.substring(1).split("/")[1];
     try {
@@ -85,7 +92,6 @@ class Review extends Component {
       console.log(error);
     }
   };
-  handleLike = () => {};
   handleChange = input => {
     this.setState({
       input: input
@@ -102,6 +108,19 @@ class Review extends Component {
       });
     } else {
       alert("Please Login");
+    }
+  };
+  handleLike = e => {
+    const { currentTarget } = e;
+    const id = currentTarget.getAttribute("data-value");
+    this.postLike("like", id);
+  };
+  postLike = async (type, id) => {
+    const { me, postLike, profile } = this.props;
+    try {
+      await postLike(type, id, profile._id, me.profile._id);
+    } catch (error) {
+      console.log(error);
     }
   };
   render() {
@@ -123,7 +142,7 @@ class Review extends Component {
           <div className={cx("review-list-wrapper")}>
             {reviews !== undefined ? (
               reviews.map((item, idx) => {
-                return reviewTag(item, idx);
+                return reviewTag(item, idx, this.handleLike);
               })
             ) : (
               <div></div>
@@ -149,7 +168,8 @@ const mapDispatchToProps = dispatch => {
   return {
     postReview: (isbn, name, content, book) =>
       dispatch(actions.postReview(isbn, name, content, book)),
-    getReviews: isbn => dispatch(actions.getReview(isbn))
+    getReviews: isbn => dispatch(actions.getReview(isbn)),
+    postLike: (type, id, uid) => dispatch(loginActions.postLike(type, id, uid))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Review);

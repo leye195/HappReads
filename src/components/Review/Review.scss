@@ -68,6 +68,12 @@
       }
       .review-footer {
         margin-top: 10px;
+        .heart {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
       }
       button,
       .more {

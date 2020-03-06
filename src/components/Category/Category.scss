@@ -1,21 +1,21 @@
 @import "../../styles/utils.scss";
 .category {
   ul {
-    @include flex(row, center, space-around);
+    @include flex(row, center, none);
     text-align: center;
     li {
       flex: 1;
-      padding: 10px;
-      //background-color: $hot-stone;
-      //color: white;
+      padding: 15px;
+      cursor: pointer;
       &:first-child {
         font-weight: 800;
-        background-color: #a79f71;
-        color: white;
+        background-color: $sun-flower;
+        a {
+          color: white;
+        }
       }
       &:not(:first-child):hover {
-        color: #a79f71;
-        cursor: pointer;
+        color: $sun-flower;
       }
     }
   }

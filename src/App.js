@@ -12,6 +12,7 @@ import Upload from "./route/Upload";
 import Header from "./components/Header";
 import NoMatch from "./route/NoMatch";
 import BookShelve from "./components/BookShelve/BookShelve";
+import Community from "./route/Community";
 
 function App() {
   return (
@@ -25,8 +26,11 @@ function App() {
         <Route path="/signup" component={SignUp}></Route>
         <Route path="/edit" component={Edit}></Route>
         <Route path="/me" component={Profile}></Route>
-        <Route path="/profile/:id" component={Profile}></Route>
         <Route path="/upload" component={Upload}></Route>
+        <Route path="/community/reviews" component={Community}></Route>
+        <Route path="/community/top-readers" component={Community}></Route>
+        <Route path="/community/top-reviewers" component={Community}></Route>
+        <Route path="/profile/:id" component={Profile}></Route>
         <Route path="/shelve/:id" component={BookShelve}></Route>
         <Route component={NoMatch} />
       </Switch>

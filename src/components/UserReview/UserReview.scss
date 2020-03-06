@@ -17,6 +17,17 @@
         height: 100%;
         width: 100%;
         @include flex(column, none, center);
+        .like-container {
+          display: flex;
+          align-items: center;
+          margin-top: 5px;
+          span {
+            margin-right: 5px;
+            &.likebtn {
+              cursor: pointer;
+            }
+          }
+        }
         .review-like,
         .review-date,
         .review-book,
@@ -32,6 +43,9 @@
           color: $dark-grey;
         }
       }
+    }
+    .review-remove {
+      cursor: pointer;
     }
   }
 }

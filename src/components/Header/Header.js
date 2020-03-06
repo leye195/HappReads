@@ -74,13 +74,13 @@ class Header extends Component {
   componentDidMount() {
     this._isMounted = true;
     if (this._isMounted) {
-      window.addEventListener("scroll", this.handleScroll);
+      //window.addEventListener("scroll", this.handleScroll);
     }
     this.checkUser();
   }
   componentWillUnmount() {
     this._isMounted = false;
-    window.removeEventListener("scroll", this.handleScroll);
+    //window.removeEventListener("scroll", this.handleScroll);
   }
 
   checkUser = async () => {
@@ -142,6 +142,9 @@ class Header extends Component {
           </Link>
         </div>
         {<SearchBar />}
+        <div className={cx("community")}>
+          <Link to={"/community/reviews"}>커뮤니티</Link>
+        </div>
         <div>
           <ul className={cx("ul")}>
             {LinkContainer(

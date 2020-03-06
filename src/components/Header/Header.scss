@@ -23,6 +23,9 @@
       }
     }
   }
+  .community {
+    cursor: pointer;
+  }
   .ul {
     @include flex(row, center, none);
     margin: 10px;

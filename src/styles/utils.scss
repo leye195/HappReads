@@ -2,10 +2,10 @@
 @import "~include-media/dist/include-media";
 @import "./reset.scss";
 @import "./animation.scss";
-@mixin base-button($color) {
+@mixin base-button($color, $width: 20rem) {
   color: white;
   cursor: pointer;
-  width: 20rem;
+  width: $width;
   border-radius: 10px;
   background-color: $color;
   font-size: 0.9rem;
@@ -48,13 +48,21 @@
   text-align: center;
   font-size: 0.8rem;
 }
+@mixin card($padding) {
+  box-shadow: 1px 1px 6px 0px #3a3a3a;
+  border-radius: 10px;
+  padding: $padding;
+}
 $blue: #3a6fa5;
+$river: #3498db;
+$green: #2ecc71;
 $white-grey: #e3e3e3;
 $dark-grey: #a0a0a0;
 $hot-stone: #aaa69d;
 $sun-flower: #f1c40f;
 $dark-yellow-0: #8e8c17;
 $dark-yellow-9: #8e8c17b8;
+$red: #e74c3c;
 $border-radius: 10px;
 $h2: 1.8rem;
 $input-fontSize: 0.9rem;

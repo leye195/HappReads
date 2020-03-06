@@ -24,6 +24,7 @@
 - Search (검색)
 - Books (서재 관련)
 - Upload (책 정보 업로드)
+- Community (커뮤니티)
 - NoMatch (404 에러 처리 페이지)
 
 3. scss에서 관리될 색상 및 mixin 정리
@@ -85,3 +86,13 @@
 - 리뷰를 삭제하면 해당 책 상세 화면 및 관련 화면에서 에러가 발생
 - 책의 평균 평점을 가져와야되는데 NaN 값이 발생함...?? (이벤트 핸들러를 수정, e.target 확인 )
 - 리부 like 진행시 redux를 통해 갱신된 값을 가져와야 되는데 2번 눌러야 반응이 옴...(front,back단 다 체크해봐야 됨, back단에 데이터를 처리하는데 로직상 문제가 있을 수도 있는 가능성이 있어 체크 필요, front 단은 리랜더링에 관한 문제인가 체크)
+
+### 2020.03.05~03.06
+
+-아...요즘 너무 갑자기 너무 피곤하고 다른거 공부하느라 진행을 못했다... 젠장
+
+1. 전에 완성 못했던 modal을 완성 시켰으며 안에서 책 읽음 여부를 수정 가능힘.
+2. community 라우터를 추가 community에는 recent-reviews, top-readers, top-reviewers 가 포함.
+
+- recent-review의 경우 말그대로 최근에 올라온 리뷰틀(시간순서대로)을 보여줌 (책 이미지,리뷰내용, 유저 이름 포함)
+- top-reviewer 와 top-readers는 리뷰 랭킹과 책읽은 랭킹을 보여줄것임 (all time, this week , this month 별로 랭킹을 확인 가능)

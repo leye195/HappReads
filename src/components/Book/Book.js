@@ -16,7 +16,6 @@ const Book = props => {
   } = props;
   const [isOpen, setOpen] = useState(false);
   //useEffect(() => {}, [profile.reading, profile.want_read, profile.read]);
-  //alert(book.isbn);
   const url = book.isbn !== undefined ? book.isbn.split(" ") : undefined;
   const formatAuthors = authors => {
     let format = "";

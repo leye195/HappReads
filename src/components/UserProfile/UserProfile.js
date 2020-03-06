@@ -293,7 +293,6 @@ class UserProfile extends Component {
             </div>
           </div>
         </div>
-
         {openEdit(isOpen, this.handleCancel, profile)}
       </Fragment>
     );
