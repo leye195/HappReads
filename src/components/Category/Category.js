@@ -11,10 +11,20 @@ const Category = ({ path }) => {
           <Link to={`/community/reviews`}>최근 리뷰</Link>
         </li>
         <li>
-          <Link to={`/community/top-readers`}>Top Readers</Link>
+          <Link
+            to={`/community/top-readers`}
+            style={path === "top-readers" ? { fontWeight: 800 } : {}}
+          >
+            Top Readers
+          </Link>
         </li>
         <li>
-          <Link to={`/community/top-reviewers`}>Top Reviewers</Link>
+          <Link
+            to={`/community/top-reviewers`}
+            style={path === "top-reviewers" ? { fontWeight: 800 } : {}}
+          >
+            Top Reviewers
+          </Link>
         </li>
       </ul>
     </div>

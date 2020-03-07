@@ -75,13 +75,13 @@ class BookShelve extends Component {
     const want_read = user.want_read;
     const reading = user.reading;
     for (let i = 0; i < want_read.length; i++) {
-      if (want_read[i].isbn === item.isbn) return "읽기";
+      if (want_read[i].book.isbn === item.isbn) return "읽기";
     }
     for (let i = 0; i < reading.length; i++) {
-      if (reading[i].isbn === item.isbn) return "읽는중";
+      if (reading[i].book.isbn === item.isbn) return "읽는중";
     }
     for (let i = 0; i < read.length; i++) {
-      if (read[i].isbn === item.isbn) return "읽음";
+      if (read[i].book.isbn === item.isbn) return "읽음";
     }
   };
   getBooks = val => {
@@ -90,7 +90,6 @@ class BookShelve extends Component {
     } = this.props;
     const type = parseInt(val, 10);
     if (user) {
-      //let all=[];
       if (type === 1) {
         const read = user.read;
         const want_read = user.want_read;
@@ -103,27 +102,36 @@ class BookShelve extends Component {
           });
         const tags = all.map(item => {
           return (
-            <tr key={item._id}>
+            <tr key={item.book._id}>
               <td>
                 <Link to={`/book/${item.isbn}`}>
-                  <img src={item.thumbnail} alt={item.thumbnail}></img>
+                  <img
+                    src={item.book.thumbnail}
+                    alt={item.book.thumbnail}
+                  ></img>
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.isbn}`}>{item.title}</Link>
+                <Link to={`/book/${item.book.isbn}`}>{item.book.title}</Link>
               </td>
               <td>
-                {item.authors.length > 1
-                  ? item.authors[0] + "*"
-                  : item.authors[0]}
+                {item.book.authors.length > 1
+                  ? item.book.authors[0] + "*"
+                  : item.book.authors[0]}
               </td>
               <td>{0.0}</td>
-              <td>{moment(item.createdAt).format("YY년MM월DD일 HH:MM:SS")}</td>
-              <td>{this.checkType(item)} </td>
+              <td>
+                {moment(item.book.createdAt).format("YY년MM월DD일 HH:MM:SS")}
+              </td>
+              <td>{this.checkType(item.book)} </td>
               <td
                 className={cx("settings all")}
                 onClick={e =>
-                  this.handleSettings(e.target, item, this.checkType(item))
+                  this.handleSettings(
+                    e.target,
+                    item.book,
+                    this.checkType(item.book)
+                  )
                 }
               >
                 <span>수정</span>
@@ -137,24 +145,38 @@ class BookShelve extends Component {
         const uploaded = user.uploaded;
         const tags = uploaded.map(item => {
           return (
-            <tr key={item._id}>
+            <tr key={item.book._id}>
               <td>
-                <Link to={`/book/${item.isbn}`}>
-                  <img src={item.thumbnail} alt={item.thumbnail}></img>
+                <Link to={`/book/${item.book.isbn}`}>
+                  <img
+                    src={item.book.thumbnail}
+                    alt={item.book.thumbnail}
+                  ></img>
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.isbn}`}>{item.title}</Link>
+                <Link to={`/book/${item.book.isbn}`}>{item.book.title}</Link>
               </td>
               <td>
-                {item.authors.length > 1
-                  ? item.authors[0] + "*"
-                  : item.authors[0]}
+                {item.book.authors.length > 1
+                  ? item.book.authors[0] + "*"
+                  : item.book.authors[0]}
               </td>
               <td>{0.0}</td>
-              <td>{moment(item.createdAt).format("YY년MM월DD일 HH:MM:SS")}</td>
+              <td>
+                {moment(item.book.createdAt).format("YY년MM월DD일 HH:MM:SS")}
+              </td>
               <td>업로드</td>
-              <td className={cx("settings uploaded")}>
+              <td
+                className={cx("settings uploaded")}
+                onClick={e =>
+                  this.handleSettings(
+                    e.target,
+                    item.book,
+                    this.checkType(item.book)
+                  )
+                }
+              >
                 <span>수정</span>
                 <span>X</span>
               </td>
@@ -166,27 +188,36 @@ class BookShelve extends Component {
         const want_read = user.want_read;
         const tags = want_read.map(item => {
           return (
-            <tr key={item._id}>
+            <tr key={item.book._id}>
               <td>
                 <Link to={`/book/${item.isbn}`}>
-                  <img src={item.thumbnail} alt={item.thumbnail}></img>
+                  <img
+                    src={item.book.thumbnail}
+                    alt={item.book.thumbnail}
+                  ></img>
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.isbn}`}>{item.title}</Link>
+                <Link to={`/book/${item.book.isbn}`}>{item.book.title}</Link>
               </td>
               <td>
-                {item.authors.length > 1
-                  ? item.authors[0] + "*"
-                  : item.authors[0]}
+                {item.book.authors.length > 1
+                  ? item.book.authors[0] + "*"
+                  : item.book.authors[0]}
               </td>
               <td>{0.0}</td>
-              <td>{moment(item.createdAt).format("YY년MM월DD일 HH:MM:SS")}</td>
+              <td>
+                {moment(item.book.createdAt).format("YY년MM월DD일 HH:MM:SS")}
+              </td>
               <td>읽기</td>
               <td
                 className={cx("settings want")}
                 onClick={e =>
-                  this.handleSettings(e.target, item, this.checkType(item))
+                  this.handleSettings(
+                    e.target,
+                    item.book,
+                    this.checkType(item.book)
+                  )
                 }
               >
                 <span>수정</span>
@@ -202,25 +233,34 @@ class BookShelve extends Component {
           return (
             <tr key={item._id}>
               <td>
-                <Link to={`/book/${item.isbn}`}>
-                  <img src={item.thumbnail} alt={item.thumbnail}></img>
+                <Link to={`/book/${item.book.isbn}`}>
+                  <img
+                    src={item.book.thumbnail}
+                    alt={item.book.thumbnail}
+                  ></img>
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.isbn}`}>{item.title}</Link>
+                <Link to={`/book/${item.book.isbn}`}>{item.book.title}</Link>
               </td>
               <td>
-                {item.authors.length > 1
-                  ? item.authors[0] + "*"
-                  : item.authors[0]}
+                {item.book.authors.length > 1
+                  ? item.book.authors[0] + "*"
+                  : item.book.authors[0]}
               </td>
               <td>{0.0}</td>
-              <td>{moment(item.createdAt).format("YY년MM월DD일 HH:MM:SS")}</td>
+              <td>
+                {moment(item.book.createdAt).format("YY년MM월DD일 HH:MM:SS")}
+              </td>
               <td>읽는중</td>
               <td
                 className={cx("settings reading")}
                 onClick={e =>
-                  this.handleSettings(e.target, item, this.checkType(item))
+                  this.handleSettings(
+                    e.target,
+                    item.book,
+                    this.checkType(item.book)
+                  )
                 }
               >
                 <span>수정</span>
@@ -234,27 +274,36 @@ class BookShelve extends Component {
         const read = user.read;
         const tags = read.map(item => {
           return (
-            <tr key={item._id}>
+            <tr key={item.book._id}>
               <td>
-                <Link to={`/book/${item.isbn}`}>
-                  <img src={item.thumbnail} alt={item.thumbnail}></img>
+                <Link to={`/book/${item.book.isbn}`}>
+                  <img
+                    src={item.book.thumbnail}
+                    alt={item.book.thumbnail}
+                  ></img>
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.isbn}`}>{item.title}</Link>
+                <Link to={`/book/${item.book.isbn}`}>{item.book.title}</Link>
               </td>
               <td>
-                {item.authors.length > 1
-                  ? item.authors[0] + "*"
-                  : item.authors[0]}
+                {item.book.authors.length > 1
+                  ? item.book.authors[0] + "*"
+                  : item.book.authors[0]}
               </td>
               <td>{0.0}</td>
-              <td>{moment(item.createdAt).format("YY년MM월DD일 HH:MM:SS")}</td>
+              <td>
+                {moment(item.book.createdAt).format("YY년MM월DD일 HH:MM:SS")}
+              </td>
               <td>읽음</td>
               <td
                 className={cx("settings")}
                 onClick={e =>
-                  this.handleSettings(e.target, item, this.checkType(item))
+                  this.handleSettings(
+                    e.target,
+                    item.book,
+                    this.checkType(item.book)
+                  )
                 }
               >
                 <span>수정</span>

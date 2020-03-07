@@ -1,6 +1,11 @@
 import { handleActions } from "redux-actions";
 import axios from "axios";
 
+const GET_REVIEWS = "GET_REVIEWS";
+const GET_REVIEWS_PENDING = "GET_REVIEWS_PENDING";
+const GET_REVIEWS_SUCCESS = "GET_REVIEWS_SUCCESS";
+const GET_REVIEWS_FAILURE = "GET_REVIEWS_FAILURE";
+
 const GET_REVIEW = "GET_REVIEW";
 const GET_REVIEW_PENDING = "GET_REVIEW_PENDING";
 const GET_REVIEW_SUCCESS = "GET_REVIEW_SUCCESS";
@@ -16,6 +21,9 @@ const DELETE_REVIEW_PENDING = "DELETE_REVIEW_PENDING";
 const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
 const DELETE_REVIEW_FAILURE = "DELETE_REVIEW_FAILURE";
 
+const requestGetReviews = () => {
+  return axios.get(`http://localhost:8080/reviews`);
+};
 const requestGetReview = isbn => {
   return axios.get(`http://localhost:8080/book/${isbn}/review`);
 };
@@ -34,6 +42,11 @@ const requestDeleteReview = (uid, isbn, rid, from) => {
     from
   });
 };
+
+export const getReviews = () => ({
+  type: GET_REVIEWS,
+  payload: requestGetReviews()
+});
 export const getReview = isbn => ({
   type: GET_REVIEW,
   payload: requestGetReview(isbn)
@@ -48,12 +61,40 @@ export const deleteReview = (uid, isbn, rid, from) => ({
 });
 
 const initialState = {
+  reviews: [],
   pending: false,
   error: false,
   success: false
 };
 export default handleActions(
   {
+    [GET_REVIEWS_PENDING]: (state, action) => {
+      return {
+        ...state,
+        pending: true,
+        error: false,
+        success: false
+      };
+    },
+    [GET_REVIEWS_SUCCESS]: (state, action) => {
+      const {
+        data: { reviews }
+      } = action.payload;
+      return {
+        reviews: reviews,
+        pending: false,
+        error: false,
+        success: true
+      };
+    },
+    [GET_REVIEWS_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        pending: false,
+        error: true,
+        success: false
+      };
+    },
     [POST_REVIEW_PENDING]: (state, action) => {
       return {
         ...state,

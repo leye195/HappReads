@@ -8,7 +8,6 @@ import * as actions from "../../reducer/login";
 const cx = classnames.bind(style);
 const Book = props => {
   const {
-    book,
     from,
     type,
     profile: { profile },
@@ -16,7 +15,6 @@ const Book = props => {
   } = props;
   const [isOpen, setOpen] = useState(false);
   //useEffect(() => {}, [profile.reading, profile.want_read, profile.read]);
-  const url = book.isbn !== undefined ? book.isbn.split(" ") : undefined;
   const formatAuthors = authors => {
     let format = "";
     authors.forEach(ele => {
@@ -24,42 +22,8 @@ const Book = props => {
     });
     return format;
   };
-  const handleDelete = () => {
-    console.log("Delete");
-  };
-  const handleEdit = (isOpen, setOpen) => {
-    setOpen(!isOpen);
-  };
-  const handleChange = async e => {
-    const {
-      target: { value }
-    } = e;
-    //서버에 수정 요청 전송 코드입력
-    try {
-      await postShelve(
-        profile.email,
-        book.isbn,
-        book.title,
-        book.authors,
-        value,
-        book.thumbnail
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const editTags = type => {
-    return (
-      <div className={cx("edit-form")}>
-        <select defaultValue={type} onChange={handleChange}>
-          <option value={"want_read"}>읽을 책</option>
-          <option value={"reading"}>읽고 있음</option>
-          <option value={"read"}>읽음</option>
-        </select>
-      </div>
-    );
-  };
   if (from === "home") {
+    const { book } = props;
     return (
       <div className={cx("book")}>
         <img src={book.thumbnail} alt="book" />
@@ -67,6 +31,9 @@ const Book = props => {
       </div>
     );
   } else if (from === "search") {
+    const { book } = props;
+    const url =
+      book && book.isbn !== undefined ? book.isbn.split(" ") : undefined;
     return (
       <li className={cx("ser-bg")}>
         <div className={cx("ser-book")}>
@@ -103,7 +70,48 @@ const Book = props => {
       </li>
     );
   } else if (from === "profile") {
+    const {
+      book: { book }
+    } = props;
+
     const isMe = window.location.pathname === "/me";
+    const url =
+      book && book.isbn !== undefined ? book.isbn.split(" ") : undefined;
+    const handleChange = async e => {
+      const {
+        target: { value }
+      } = e;
+      //서버에 수정 요청 전송 코드입력
+      try {
+        await postShelve(
+          profile.email,
+          book.isbn,
+          book.title,
+          book.authors,
+          value,
+          book.thumbnail
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const editTags = type => {
+      return (
+        <div className={cx("edit-form")}>
+          <select defaultValue={type} onChange={handleChange}>
+            <option value={"want_read"}>읽을 책</option>
+            <option value={"reading"}>읽고 있음</option>
+            <option value={"read"}>읽음</option>
+          </select>
+        </div>
+      );
+    };
+    const handleDelete = () => {
+      console.log("Delete");
+    };
+    const handleEdit = (isOpen, setOpen) => {
+      setOpen(!isOpen);
+    };
     return (
       <div className={cx("shelve")} style={{ margin: "10px" }}>
         <Link

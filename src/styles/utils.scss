@@ -53,6 +53,10 @@
   border-radius: 10px;
   padding: $padding;
 }
+@mixin hoverLink() {
+  color: $sun-flower;
+  cursor: pointer;
+}
 $blue: #3a6fa5;
 $river: #3498db;
 $green: #2ecc71;

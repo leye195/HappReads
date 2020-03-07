@@ -7,7 +7,7 @@
 - Redux(상태관리),미들웨어(Redux logger,Redux Promise-Middleware) 이용
 - React Router (Route,Link를 이용해 페이지 라우팅 진행)
 - moment.js 이용 날짜 조작
-  <!--- 해외 goodreads 같은 페이지를 만들어 보고자 진행, 기능이 좀 부족하지만 개선중*/-->
+  <!--- 해외 goodreads 같은 페이지를 만들어 보고자 진행, 기능이 좀 부족하지만 개선중-->
 
 ## Daily Coding 기록
 
@@ -96,3 +96,8 @@
 
 - recent-review의 경우 말그대로 최근에 올라온 리뷰틀(시간순서대로)을 보여줌 (책 이미지,리뷰내용, 유저 이름 포함)
 - top-reviewer 와 top-readers는 리뷰 랭킹과 책읽은 랭킹을 보여줄것임 (all time, this week , this month 별로 랭킹을 확인 가능)
+
+### 2020.03.07
+
+- community 관련 작업을 진행, 기존의 스타일 틀만 잡아논것들을 backend에서 받아온 정보들을 이용해 정상적으로 보여질수 있게 해줌.
+- top-readers 와 top-reviewer의 all time, this week , this month 별로 리스트 보여주는 기능 구현 완료 (front에서 선별작없을 해줄지 그냥 back에서 진행한 뒤 보내줄지 고민하다가 back에서 mongoose를 이용햐 하는게 더 편하고 빠르겠다라고 생각함)

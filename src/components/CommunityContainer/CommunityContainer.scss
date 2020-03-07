@@ -1,5 +1,6 @@
 @import "../../styles/utils.scss";
 .community-container {
+  min-height: 60vh;
   .range-container {
     margin: 10px;
     span {
@@ -7,6 +8,11 @@
     }
   }
   .reviews {
+    width: 60%;
+    margin: 0 auto;
+    padding: 0 10px;
+    border-left: 15px solid $sun-flower;
+    box-shadow: -6px 0px 3px 0px $white-grey;
     .card {
       @include card(10px);
       &:last-child {
@@ -14,10 +20,9 @@
       }
     }
     .row {
-      @include flex(row, none, center);
+      @include flex(row, none, flex-start);
       margin: 0 auto;
       margin-top: 20px;
-      width: 45%;
       .first-col {
         @include flex(column, center, none);
         img {
@@ -34,6 +39,10 @@
         .reviewer,
         .title {
           margin-top: 5px;
+          &.reviewer:hover a,
+          &.title:hover a {
+            @include hoverLink();
+          }
         }
         .content {
           margin-top: 5px;
@@ -46,6 +55,7 @@
           }
           p {
             word-break: break-all;
+            font-size: 0.7rem;
           }
         }
       }
@@ -67,6 +77,9 @@
           td:first-child {
             font-size: 2.5rem;
           }
+        }
+        &:last-child {
+          border-bottom: 1px solid $white-grey;
         }
         td {
           padding: 10px 30px;
