@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import * as userActions from "../../reducer/user";
 import * as loginActions from "../../reducer/login";
 import { Link } from "react-router-dom";
-import Modal from "../Modal";
+import BookModal from "../BookModal";
 const cx = classnames.bind(style);
 let currentItem = null;
 let shelveHeader = null;
@@ -143,38 +143,30 @@ class BookShelve extends Component {
         return tags;
       } else if (type === 2) {
         const uploaded = user.uploaded;
+        console.log(uploaded);
         const tags = uploaded.map(item => {
           return (
-            <tr key={item.book._id}>
+            <tr key={item._id}>
               <td>
-                <Link to={`/book/${item.book.isbn}`}>
-                  <img
-                    src={item.book.thumbnail}
-                    alt={item.book.thumbnail}
-                  ></img>
+                <Link to={`/book/${item.isbn}`}>
+                  <img src={item.thumbnail} alt={item.thumbnail}></img>
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.book.isbn}`}>{item.book.title}</Link>
+                <Link to={`/book/${item.isbn}`}>{item.title}</Link>
               </td>
               <td>
-                {item.book.authors.length > 1
-                  ? item.book.authors[0] + "*"
-                  : item.book.authors[0]}
+                {item.authors.length > 1
+                  ? item.authors[0] + "*"
+                  : item.authors[0]}
               </td>
               <td>{0.0}</td>
-              <td>
-                {moment(item.book.createdAt).format("YY년MM월DD일 HH:MM:SS")}
-              </td>
+              <td>{moment(item.createdAt).format("YY년MM월DD일 HH:MM:SS")}</td>
               <td>업로드</td>
               <td
                 className={cx("settings uploaded")}
                 onClick={e =>
-                  this.handleSettings(
-                    e.target,
-                    item.book,
-                    this.checkType(item.book)
-                  )
+                  this.handleSettings(e.target, item, this.checkType(item))
                 }
               >
                 <span>수정</span>
@@ -400,7 +392,7 @@ class BookShelve extends Component {
     return (
       <div className={cx("book-shelve")}>
         {openModal ? (
-          <Modal
+          <BookModal
             handleCancel={this.handleCancel}
             handleChange={this.handleChange}
             item={item}

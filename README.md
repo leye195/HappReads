@@ -101,3 +101,8 @@
 
 - community 관련 작업을 진행, 기존의 스타일 틀만 잡아논것들을 backend에서 받아온 정보들을 이용해 정상적으로 보여질수 있게 해줌.
 - top-readers 와 top-reviewer의 all time, this week , this month 별로 리스트 보여주는 기능 구현 완료 (front에서 선별작없을 해줄지 그냥 back에서 진행한 뒤 보내줄지 고민하다가 back에서 mongoose를 이용햐 하는게 더 편하고 빠르겠다라고 생각함)
+
+### 2020.03.09
+
+- 코드 에러 점검
+- 기존에 미뤄두었던 리뷰 수정 기능 추가. (EDIT_REVIEW 액션을 통해 Reducer의 editReview를 실행시켜 비동기적 통신 요청 보냉)

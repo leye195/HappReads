@@ -21,6 +21,10 @@ const DELETE_REVIEW_PENDING = "DELETE_REVIEW_PENDING";
 const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
 const DELETE_REVIEW_FAILURE = "DELETE_REVIEW_FAILURE";
 
+const EDIT_REVIEW = "EDIT_REVIEW";
+const EDIT_REVIEW_PENDING = "EDIT_REVIEW_PENDING";
+const EDIT_REVIEW_SUCCESS = "EDIT_REVIEW_SUCCESS";
+const EDIT_REVIEW_FAILURE = "EDIT_REVIEW_FAILURE";
 const requestGetReviews = () => {
   return axios.get(`http://localhost:8080/reviews`);
 };
@@ -42,6 +46,11 @@ const requestDeleteReview = (uid, isbn, rid, from) => {
     from
   });
 };
+const requestEditReview = (rid, content) => {
+  return axios.post(`http://localhost:8080/book/review/${rid}`, {
+    content
+  });
+};
 
 export const getReviews = () => ({
   type: GET_REVIEWS,
@@ -59,7 +68,10 @@ export const deleteReview = (uid, isbn, rid, from) => ({
   type: DELETE_REVIEW,
   payload: requestDeleteReview(uid, isbn, rid, from)
 });
-
+export const editReview = (rid, content) => ({
+  type: EDIT_REVIEW,
+  payload: requestEditReview(rid, content)
+});
 const initialState = {
   reviews: [],
   pending: false,
@@ -158,6 +170,31 @@ export default handleActions(
       };
     },
     [DELETE_REVIEW_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        pending: false,
+        error: true,
+        success: false
+      };
+    },
+    [EDIT_REVIEW_PENDING]: (state, action) => {
+      return {
+        ...state,
+        pending: true,
+        error: false,
+        success: false
+      };
+    },
+    [EDIT_REVIEW_SUCCESS]: (state, action) => {
+      return {
+        ...state,
+        reviews: action.payload.data.reviews,
+        pending: false,
+        error: false,
+        success: true
+      };
+    },
+    [EDIT_REVIEW_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,
