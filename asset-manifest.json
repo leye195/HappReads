@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/HappReads-front/static/css/main.b5f21a20.chunk.css",
-    "main.js": "/HappReads-front/static/js/main.9e9a20b1.chunk.js",
-    "main.js.map": "/HappReads-front/static/js/main.9e9a20b1.chunk.js.map",
+    "main.css": "/HappReads-front/static/css/main.b5b53176.chunk.css",
+    "main.js": "/HappReads-front/static/js/main.fb6e2b7c.chunk.js",
+    "main.js.map": "/HappReads-front/static/js/main.fb6e2b7c.chunk.js.map",
     "runtime-main.js": "/HappReads-front/static/js/runtime-main.a81acd66.js",
     "runtime-main.js.map": "/HappReads-front/static/js/runtime-main.a81acd66.js.map",
     "static/js/2.24eec601.chunk.js": "/HappReads-front/static/js/2.24eec601.chunk.js",
     "static/js/2.24eec601.chunk.js.map": "/HappReads-front/static/js/2.24eec601.chunk.js.map",
     "index.html": "/HappReads-front/index.html",
-    "precache-manifest.9a8546badf1d0218dcf59422e91e2ad1.js": "/HappReads-front/precache-manifest.9a8546badf1d0218dcf59422e91e2ad1.js",
+    "precache-manifest.685524d92e3a5cba37861899cf77b914.js": "/HappReads-front/precache-manifest.685524d92e3a5cba37861899cf77b914.js",
     "service-worker.js": "/HappReads-front/service-worker.js",
-    "static/css/main.b5f21a20.chunk.css.map": "/HappReads-front/static/css/main.b5f21a20.chunk.css.map",
+    "static/css/main.b5b53176.chunk.css.map": "/HappReads-front/static/css/main.b5b53176.chunk.css.map",
     "static/js/2.24eec601.chunk.js.LICENSE.txt": "/HappReads-front/static/js/2.24eec601.chunk.js.LICENSE.txt",
     "static/media/1.jpg": "/HappReads-front/static/media/1.f081dab0.jpg",
     "static/media/go_back.png": "/HappReads-front/static/media/go_back.62137145.png",
@@ -19,7 +19,7 @@
   "entrypoints": [
     "static/js/runtime-main.a81acd66.js",
     "static/js/2.24eec601.chunk.js",
-    "static/css/main.b5f21a20.chunk.css",
-    "static/js/main.9e9a20b1.chunk.js"
+    "static/css/main.b5b53176.chunk.css",
+    "static/js/main.fb6e2b7c.chunk.js"
   ]
 }
