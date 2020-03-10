@@ -30,14 +30,14 @@ class Rater extends Component {
   };
   postVote = async vote => {
     const {
-      book: { title, authors, thumbnail },
+      book: { isbn, title, authors, thumbnail },
       profile: {
         profile: { email }
       },
       postVote
     } = this.props;
-    const isbn = window.location.pathname.substring(1).split("/")[1];
-    await postVote(title, authors, vote, isbn, email, thumbnail);
+    //const isbn = window.location.pathname.substring(1).split("/")[1];
+    await postVote(title, authors, vote, isbn.split(" ")[0], email, thumbnail);
   };
   render() {
     //const { currentRating } = this.state;

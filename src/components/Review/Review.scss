@@ -1,83 +1,261 @@
 @import "../../styles/utils.scss";
-.review {
-  padding: 0 20px;
-  p {
-    font-size: 1.1rem;
-    border-bottom: 1px solid #e3e3e3;
-    margin-top: 10px;
-    font-weight: 100;
-    padding-bottom: 5px;
-  }
-  .form-container {
-    height: 100px;
-    form {
-      @include flex(row, center, center);
-      width: 100%;
-      textarea {
-        resize: none;
-        height: 40px;
-        flex-grow: 1;
-        font-size: 1rem;
-      }
-      input {
-        height: 30px;
-        flex-grow: 1;
-        padding: 5px;
-        &[type="submit"] {
-          all: unset;
-          height: 100%;
-          padding-left: 5px;
-          padding-right: 5px;
-          background-color: $blue;
-          color: white;
-          cursor: pointer;
+@include mobile {
+  .review {
+    padding: 0 20px;
+    p {
+      font-size: 1.1rem;
+      border-bottom: 1px solid #e3e3e3;
+      margin-top: 10px;
+      font-weight: 100;
+      padding-bottom: 5px;
+    }
+    .form-container {
+      height: 100px;
+      form {
+        @include flex(row, center, center);
+        width: 100%;
+        textarea {
+          resize: none;
+          height: 40px;
+          flex-grow: 1;
+          font-size: 1rem;
+          border: 1px solid $white-grey;
+        }
+        input {
+          height: 30px;
+          flex-grow: 1;
+          padding: 5px;
+          &[type="submit"] {
+            all: unset;
+            height: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: $blue;
+            color: white;
+            cursor: pointer;
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
+          }
         }
       }
     }
-  }
-  .review-list-wrapper {
-    margin: 5px;
-    & > div {
-      padding-bottom: 20px;
-    }
-    div {
-      margin: 10;
-      a {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
+    .review-list-wrapper {
+      margin: 5px;
+      & > div {
+        padding-bottom: 20px;
       }
-      .user-img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-      }
-      .user {
-        color: black;
-        text-decoration: none;
-        margin-left: 10px;
-        font-size: 1.1rem;
-      }
-      .date {
-        margin-right: 10px;
-        margin-bottom: 10px;
-        color: $dark-grey;
-      }
-      .user-review {
-        white-space: pre;
-      }
-      .review-footer {
-        margin-top: 10px;
-        .heart {
-          display: inline-flex;
+      div {
+        margin: 10;
+        a {
+          display: flex;
           align-items: center;
-          justify-content: center;
+          margin-bottom: 10px;
+        }
+        .user-img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+        .user {
+          color: black;
+          text-decoration: none;
+          margin-left: 10px;
+          font-size: 1.1rem;
+        }
+        .date {
+          margin-right: 10px;
+          margin-bottom: 10px;
+          color: $dark-grey;
+        }
+        .user-review {
+          white-space: pre-wrap;
+        }
+        .review-footer {
+          margin-top: 10px;
+          .heart {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+          }
+        }
+        button,
+        .more {
           cursor: pointer;
         }
       }
-      button,
-      .more {
-        cursor: pointer;
+    }
+  }
+}
+@include tablet {
+  .review {
+    padding: 0 20px;
+    p {
+      font-size: 1.1rem;
+      border-bottom: 1px solid #e3e3e3;
+      margin-top: 10px;
+      font-weight: 100;
+      padding-bottom: 5px;
+    }
+    .form-container {
+      height: 100px;
+      form {
+        @include flex(row, center, center);
+        width: 100%;
+        textarea {
+          resize: none;
+          height: 40px;
+          flex-grow: 1;
+          font-size: 1rem;
+          border: 1px solid $white-grey;
+        }
+        input {
+          height: 30px;
+          flex-grow: 1;
+          padding: 5px;
+          &[type="submit"] {
+            all: unset;
+            height: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: $blue;
+            color: white;
+            cursor: pointer;
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
+          }
+        }
+      }
+    }
+    .review-list-wrapper {
+      margin: 5px;
+      & > div {
+        padding-bottom: 20px;
+      }
+      div {
+        margin: 10;
+        a {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+        .user-img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+        .user {
+          color: black;
+          text-decoration: none;
+          margin-left: 10px;
+          font-size: 1.1rem;
+        }
+        .date {
+          margin-right: 10px;
+          margin-bottom: 10px;
+          color: $dark-grey;
+        }
+        .user-review {
+          white-space: pre-wrap;
+        }
+        .review-footer {
+          margin-top: 10px;
+          .heart {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+          }
+        }
+        button,
+        .more {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+@include desktop {
+  .review {
+    padding: 0 20px;
+    p {
+      font-size: 1.1rem;
+      border-bottom: 1px solid #e3e3e3;
+      margin-top: 10px;
+      font-weight: 100;
+      padding-bottom: 5px;
+    }
+    .form-container {
+      height: 100px;
+      form {
+        @include flex(row, center, center);
+        width: 100%;
+        textarea {
+          resize: none;
+          height: 40px;
+          flex-grow: 1;
+          font-size: 1rem;
+        }
+        input {
+          height: 30px;
+          flex-grow: 1;
+          padding: 5px;
+          &[type="submit"] {
+            all: unset;
+            height: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: $blue;
+            color: white;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .review-list-wrapper {
+      margin: 5px;
+      & > div {
+        padding-bottom: 20px;
+      }
+      div {
+        margin: 10;
+        a {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+        .user-img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+        .user {
+          color: black;
+          text-decoration: none;
+          margin-left: 10px;
+          font-size: 1.1rem;
+        }
+        .date {
+          margin-right: 10px;
+          margin-bottom: 10px;
+          color: $dark-grey;
+        }
+        .user-review {
+          white-space: pre;
+        }
+        .review-footer {
+          margin-top: 10px;
+          .heart {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+          }
+        }
+        button,
+        .more {
+          cursor: pointer;
+        }
       }
     }
   }

@@ -15,13 +15,13 @@ class BookList extends Component {
         <div className={cx("book-list")}>
           {booklist ? (
             booklist.map(book => {
-              const url = book.isbn.split(" ");
+              const url = (book.isbn && book.isbn.split(" ")) || "";
               return (
                 <Link
                   to={
                     url[0] !== ""
-                      ? `/book/${book.isbn.split(" ")[0]}`
-                      : `/book/${book.isbn.split(" ")[1]}`
+                      ? `/book/${(book.isbn && book.isbn.split(" ")[0]) || ""}`
+                      : `/book/${(book.isbn && book.isbn.split(" ")[1]) || ""}`
                   }
                   key={v4()}
                 >

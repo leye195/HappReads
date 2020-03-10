@@ -1,84 +1,256 @@
 @import "../../styles/utils.scss";
-.book-detail {
-  margin-top: 70px;
-  .book-info-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 20px 10px;
-    .img-col {
+@include mobile {
+  .book-detail {
+    margin-top: 70px;
+    .book-info-wrapper {
       @include flex(column, center, center);
-      margin-right: 30px;
-      width: 30%;
-      img {
-        width: 250px;
-        height: 400px;
-        margin-left: 10px;
-        cursor: pointer;
-        animation: fadeIn 1s ease-out;
+      padding: 40px 30px;
+      .img-col {
+        @include flex(column, center, center);
+        margin-right: 30px;
+        width: 30%;
+        img {
+          width: 320px;
+          height: 400px;
+          margin-left: 10px;
+          cursor: pointer;
+          animation: fadeIn 1s ease-out;
+          @include boxShadox(4px, 0px, 1px, 1px, black);
+        }
+      }
+      .book-content {
+        @include flex(column, none, none);
+        margin-top: 30px;
+        width: 100%;
+        .bookmeta {
+          @include flex(row, center, flex-start);
+          margin-bottom: 10px;
+          span {
+            margin-right: 10px;
+          }
+          .score {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg {
+              margin-bottom: 5px;
+              margin-right: 5px;
+              color: $sun-flower;
+            }
+            .angle-down {
+              cursor: pointer;
+            }
+          }
+        }
+        .title {
+          font-size: 1.2rem;
+        }
+        .title,
+        .author,
+        .discription {
+          margin-bottom: 15px;
+        }
+        .discription {
+          display: inline;
+          line-height: 20px;
+          white-space: pre-line;
+        }
+        .rate-wrapper {
+          margin-top: 10px;
+          span {
+            color: #b0b0b0;
+            display: block;
+          }
+        }
+        .add {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          .select {
+            width: 120px;
+          }
+          .want-read {
+            @include flex(row, center, center);
+            @include base-button(#27ae60);
+            margin-left: 0;
+            width: 80px;
+            span {
+              margin-right: 5px;
+              margin-top: 5px;
+            }
+          }
+        }
       }
     }
-    .book-content {
-      display: flex;
-      flex-direction: column;
-      margin-right: 100px;
-      margin-bottom: 15px;
-      width: 70%;
-      .bookmeta {
-        @include flex(row, center, flex-start);
-        margin-bottom: 10px;
-        span {
-          margin-right: 10px;
-        }
-        .score {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          svg {
-            margin-bottom: 5px;
-            margin-right: 5px;
-            color: $sun-flower;
-          }
-          .angle-down {
-            cursor: pointer;
-          }
+  }
+}
+@include tablet {
+  .book-detail {
+    margin-top: 70px;
+    .book-info-wrapper {
+      @include flex(column, center, center);
+      padding: 40px 30px;
+      .img-col {
+        @include flex(column, center, center);
+        margin-right: 30px;
+        width: 30%;
+        img {
+          width: 320px;
+          height: 400px;
+          margin-left: 10px;
+          cursor: pointer;
+          animation: fadeIn 1s ease-out;
+          @include boxShadox(4px, 0px, 1px, 1px, black);
         }
       }
-      .title {
-        font-size: 2rem;
-      }
-      .title,
-      .author,
-      .discription {
-        margin-bottom: 15px;
-      }
-      .discription {
-        display: inline;
-        line-height: 20px;
-        white-space: pre-line;
-      }
-      .rate-wrapper {
-        margin-top: 10px;
-        span {
-          color: #b0b0b0;
-          display: block;
-        }
-      }
-      .add {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        .select {
-          width: 120px;
-        }
-        .want-read {
-          @include flex(row, center, center);
-          @include base-button(#27ae60);
-          margin-left: 0;
-          width: 80px;
+      .book-content {
+        @include flex(column, none, none);
+        margin-top: 30px;
+        width: 70%;
+        .bookmeta {
+          @include flex(row, center, flex-start);
+          margin-bottom: 10px;
           span {
-            margin-right: 5px;
-            margin-top: 5px;
+            margin-right: 10px;
+          }
+          .score {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg {
+              margin-bottom: 5px;
+              margin-right: 5px;
+              color: $sun-flower;
+            }
+            .angle-down {
+              cursor: pointer;
+            }
+          }
+        }
+        .title {
+          font-size: 1.2rem;
+        }
+        .title,
+        .author,
+        .discription {
+          margin-bottom: 15px;
+        }
+        .discription {
+          display: inline;
+          line-height: 20px;
+          white-space: pre-line;
+        }
+        .rate-wrapper {
+          margin-top: 10px;
+          span {
+            color: #b0b0b0;
+            display: block;
+          }
+        }
+        .add {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          .select {
+            width: 120px;
+          }
+          .want-read {
+            @include flex(row, center, center);
+            @include base-button(#27ae60);
+            margin-left: 0;
+            width: 80px;
+            span {
+              margin-right: 5px;
+              margin-top: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@include desktop {
+  .book-detail {
+    margin-top: 70px;
+    .book-info-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding: 20px 10px;
+      .img-col {
+        @include flex(column, center, center);
+        margin-right: 30px;
+        width: 30%;
+        img {
+          width: 250px;
+          height: 400px;
+          margin-left: 10px;
+          cursor: pointer;
+          animation: fadeIn 1s ease-out;
+        }
+      }
+      .book-content {
+        display: flex;
+        flex-direction: column;
+        margin-right: 100px;
+        margin-bottom: 15px;
+        width: 70%;
+        .bookmeta {
+          @include flex(row, center, flex-start);
+          margin-bottom: 10px;
+          span {
+            margin-right: 10px;
+          }
+          .score {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg {
+              margin-bottom: 5px;
+              margin-right: 5px;
+              color: $sun-flower;
+            }
+            .angle-down {
+              cursor: pointer;
+            }
+          }
+        }
+        .title {
+          font-size: 2rem;
+        }
+        .title,
+        .author,
+        .discription {
+          margin-bottom: 15px;
+        }
+        .discription {
+          display: inline;
+          line-height: 20px;
+          white-space: pre-line;
+        }
+        .rate-wrapper {
+          margin-top: 10px;
+          span {
+            color: #b0b0b0;
+            display: block;
+          }
+        }
+        .add {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          .select {
+            width: 120px;
+          }
+          .want-read {
+            @include flex(row, center, center);
+            @include base-button(#27ae60);
+            margin-left: 0;
+            width: 80px;
+            span {
+              margin-right: 5px;
+              margin-top: 5px;
+            }
           }
         }
       }

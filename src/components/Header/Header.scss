@@ -1,66 +1,205 @@
 @import "../../styles/utils.scss";
-.header {
-  position: fixed;
-  @include flex(row, center, space-between);
-  height: 10vh;
-  top: 0;
-  width: 100%;
-  background-color: rgb(236, 234, 222);
-  border-bottom: 2px solid $white-grey;
-  z-index: 1;
-  transition: all 0.3s ease-out;
-  .title {
-    font-size: 25px;
-    margin: 10px;
-    cursor: pointer;
-    a {
-      color: #bdc100;
-      .fr {
-        font-weight: 100;
-      }
-      .en {
-        font-weight: 600;
-      }
-    }
-  }
-  .community {
-    cursor: pointer;
-  }
-  .ul {
-    @include flex(row, center, none);
-    margin: 10px;
-    li {
-      margin: 10px;
+
+@include mobile {
+  .header {
+    position: fixed;
+    @include flex(row, center, space-between);
+    height: 10vh;
+    top: 0;
+    width: 100%;
+    background-color: rgb(236, 234, 222);
+    border-bottom: 2px solid $white-grey;
+    z-index: 1;
+    transition: all 0.3s ease-out;
+    .title {
+      font-size: 17px;
+      margin: 6px;
       cursor: pointer;
-      position: relative;
-      @include flex(column, none, none);
-      span {
-        font-size: 35px;
-      }
-      .menu {
-        display: none;
-        position: absolute;
-        left: 0;
-        top: 5px;
-        transform: translateY(40px) translateX(-100px);
-        width: 155px;
-        background: white;
-        box-shadow: 0px 2px 10px 2px #ababab;
-        .callout {
-          position: absolute;
-          width: 0;
-          height: 0;
-          top: -10px;
-          right: 20%;
-          border-style: solid;
-          border-width: 6px;
-          border-color: transparent;
-          border-bottom-color: rgba(255, 255, 255, 1);
+      a {
+        color: #bdc100;
+        .fr {
+          font-weight: 100;
+        }
+        .en {
+          font-weight: 600;
         }
       }
     }
-    .login {
-      @include flex(row, none, none);
+    .community {
+      cursor: pointer;
+      font-size: 0.65rem;
+    }
+    .ul {
+      @include flex(row, center, none);
+      margin: 0px;
+      li {
+        margin: 10px;
+        cursor: pointer;
+        position: relative;
+        @include flex(column, none, none);
+        span {
+          font-size: 35px;
+        }
+        .menu {
+          display: none;
+          position: absolute;
+          left: 0;
+          top: 5px;
+          transform: translateY(40px) translateX(-100px);
+          width: 155px;
+          background: white;
+          box-shadow: 0px 2px 10px 2px #ababab;
+          .callout {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: -10px;
+            right: 20%;
+            border-style: solid;
+            border-width: 6px;
+            border-color: transparent;
+            border-bottom-color: rgba(255, 255, 255, 1);
+          }
+        }
+      }
+      .login {
+        @include flex(row, none, none);
+      }
+    }
+  }
+}
+@include tablet {
+  .header {
+    position: fixed;
+    @include flex(row, center, space-between);
+    height: 10vh;
+    top: 0;
+    width: 100%;
+    background-color: rgb(236, 234, 222);
+    border-bottom: 2px solid $white-grey;
+    z-index: 1;
+    transition: all 0.3s ease-out;
+    .title {
+      font-size: 19px;
+      margin: 10px;
+      cursor: pointer;
+      a {
+        color: #bdc100;
+        .fr {
+          font-weight: 100;
+        }
+        .en {
+          font-weight: 600;
+        }
+      }
+    }
+    .community {
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .ul {
+      @include flex(row, center, none);
+      margin: 5px;
+      li {
+        margin: 10px;
+        cursor: pointer;
+        position: relative;
+        @include flex(column, none, none);
+        span {
+          font-size: 35px;
+        }
+        .menu {
+          display: none;
+          position: absolute;
+          left: 0;
+          top: 5px;
+          transform: translateY(40px) translateX(-100px);
+          width: 155px;
+          background: white;
+          box-shadow: 0px 2px 10px 2px #ababab;
+          .callout {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: -10px;
+            right: 20%;
+            border-style: solid;
+            border-width: 6px;
+            border-color: transparent;
+            border-bottom-color: rgba(255, 255, 255, 1);
+          }
+        }
+      }
+      .login {
+        @include flex(row, none, none);
+      }
+    }
+  }
+}
+@include desktop {
+  .header {
+    position: fixed;
+    @include flex(row, center, space-between);
+    height: 10vh;
+    top: 0;
+    width: 100%;
+    background-color: rgb(236, 234, 222);
+    border-bottom: 2px solid $white-grey;
+    z-index: 1;
+    transition: all 0.3s ease-out;
+    .title {
+      font-size: 25px;
+      margin: 10px;
+      cursor: pointer;
+      a {
+        color: #bdc100;
+        .fr {
+          font-weight: 100;
+        }
+        .en {
+          font-weight: 600;
+        }
+      }
+    }
+    .community {
+      cursor: pointer;
+    }
+    .ul {
+      @include flex(row, center, none);
+      margin: 10px;
+      li {
+        margin: 10px;
+        cursor: pointer;
+        position: relative;
+        @include flex(column, none, none);
+        span {
+          font-size: 35px;
+        }
+        .menu {
+          display: none;
+          position: absolute;
+          left: 0;
+          top: 5px;
+          transform: translateY(40px) translateX(-100px);
+          width: 155px;
+          background: white;
+          box-shadow: 0px 2px 10px 2px #ababab;
+          .callout {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: -10px;
+            right: 20%;
+            border-style: solid;
+            border-width: 6px;
+            border-color: transparent;
+            border-bottom-color: rgba(255, 255, 255, 1);
+          }
+        }
+      }
+      .login {
+        @include flex(row, none, none);
+      }
     }
   }
 }

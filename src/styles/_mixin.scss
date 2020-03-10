@@ -1,0 +1,78 @@
+@import "./variables";
+
+@mixin mobile {
+  @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-desktop}) {
+    @content;
+  }
+}
+
+@mixin base-button($color, $width: 20rem) {
+  color: white;
+  cursor: pointer;
+  width: $width;
+  border-radius: 10px;
+  background-color: $color;
+  font-size: 0.9rem;
+  box-shadow: 2px 4px 4px #5f5f5f33;
+  padding: 5px;
+  margin: 10px;
+}
+@mixin flex($directon, $align, $justify) {
+  display: flex;
+  flex-direction: $directon;
+  align-items: $align;
+  justify-content: $justify;
+}
+@mixin Lbutton-style {
+  all: unset;
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  padding: 3px;
+  border-radius: $border-radius;
+  background-color: $blue;
+  margin: 10px;
+  cursor: pointer;
+}
+@mixin base-height {
+  width: 100%;
+  min-height: calc(100vh - 10rem);
+}
+@mixin textarea-style {
+  resize: none;
+  height: 100px;
+  width: 100%;
+  margin: 5px;
+  padding: 7px;
+  border: 1px solid #e3e3e3;
+}
+@mixin table-text-align($padding, $align, $font) {
+  padding: $padding;
+  text-align: $align;
+  font-size: $font;
+}
+@mixin card($padding) {
+  box-shadow: 1px 1px 6px 0px #3a3a3a;
+  border-radius: 10px;
+  padding: $padding;
+}
+@mixin hoverLink() {
+  color: $sun-flower;
+  cursor: pointer;
+}
+@mixin boxShadox($a, $b, $c, $d, $color) {
+  box-shadow: $a $b $c $d $color;
+}

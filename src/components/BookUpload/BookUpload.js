@@ -73,9 +73,14 @@ class BookUpload extends Component {
     });
   };
   handleFile = e => {
+    const {
+      target: { files }
+    } = e;
     this.setState({
-      selected: e.target.files[0]
+      selected: files[0]
     });
+    const imgURL = URL.createObjectURL(files[0]);
+    document.querySelector(".preview-img").src = imgURL;
   };
   handleTitle = title => {
     this.setState({
@@ -102,12 +107,19 @@ class BookUpload extends Component {
     }
   };
   render() {
-    const { title, isbn, contents, author, authors } = this.state;
+    const { title, isbn, contents, author, authors, selected } = this.state;
     return (
       <div className={cx("book-upload")}>
         <div className={cx("form-container")}>
           <form onSubmit={this.handleSubmit}>
-            <input type="file" onChange={this.handleFile} required />
+            <div className={cx("upload-btn-wrapper")}>
+              <img className={cx("preview-img")} alt="" />
+              <div style={{ position: "relative" }}>
+                <button className={cx("btn")}>이미지 선택</button>
+                <input type="file" onChange={this.handleFile} required />
+              </div>
+            </div>
+
             <input
               type="text"
               value={title}

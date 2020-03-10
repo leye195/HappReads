@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import * as actions from "../reducer/login";
 import { Redirect } from "react-router";
 class Login extends Component {
+  state = {
+    isLoggedIn: false
+  };
   saveATK = t => {
     localStorage.setItem("atk", t);
   };
@@ -17,14 +20,17 @@ class Login extends Component {
       } = response;
       if (status === 200) {
         this.saveATK(data.token);
-        window.location.href = "/";
+        this.setState({
+          isLoggedIn: true
+        });
+        //window.location.href = "/";
       }
     } catch (error) {
       console.log(error);
     }
   };
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn } = this.state;
     if (isLoggedIn === true) {
       return <Redirect to="/" />;
     }

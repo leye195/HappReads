@@ -1,55 +1,244 @@
 @import "../../styles/utils.scss";
-.user-edit {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  top: 20%;
-  right: 50%;
-  transform: translate(50%);
-  background: white;
-  padding: 10px;
-  box-shadow: $box-shadow;
-  border-radius: 5px;
-  &.open {
-    animation: showModal 0.7s ease-out both;
-  }
-  &.close {
-    animation: hideModal 0.7s ease-out both;
-  }
-  .x-button {
-    @include flex(row, none, none);
-    flex-direction: row-reverse;
-    border-bottom: 0.5px solid $dark-grey;
-    p {
-      cursor: pointer;
+@include mobile {
+  .user-edit {
+    position: absolute;
+    width: 90%;
+    height: 500px;
+    top: 15%;
+    right: 50%;
+    transform: translate(50%);
+    background: white;
+    padding: 10px;
+    box-shadow: $box-shadow;
+    border-radius: 5px;
+    &.open {
+      animation: showModal 0.7s ease-out both;
     }
-  }
-  .form-container {
-    height: 100%;
-    form {
-      @include flex(column, center, center);
-      input {
-        width: 100%;
-        margin: 7px;
-        padding: 7px;
-        &[type="file"] {
-          background-color: $dark-grey;
-          color: white;
-        }
-        &[type="submit"] {
-          @include base-button($blue);
-          margin-left: 0;
-          margin-right: 0;
-        }
-      }
-      textarea {
-        @include textarea-style;
+    &.close {
+      animation: hideModal 0.7s ease-out both;
+    }
+    .x-button {
+      @include flex(row, none, none);
+      flex-direction: row-reverse;
+      p {
+        cursor: pointer;
       }
     }
+    .form-container {
+      height: 100%;
+      form {
+        @include flex(column, center, center);
+        .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          margin-bottom: 10px;
+          @include flex(column, center, center);
+          .preview-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid $white-grey;
+          }
+          .btn {
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+          }
+          input[type="file"] {
+            font-size: 17.5px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+          }
+        }
+        input:not([type="file"]) {
+          width: 100%;
+          margin: 7px;
+          padding: 7px;
+          border: 1px solid $white-grey;
+
+          &[type="submit"] {
+            @include base-button($blue);
+            margin-left: 0;
+            margin-right: 0;
+          }
+        }
+        textarea {
+          @include textarea-style;
+        }
+      }
+    }
+    button {
+      @include base-button(red);
+      color: white;
+      margin-top: 0px;
+    }
   }
-  button {
-    @include base-button(red);
-    color: white;
-    margin-top: 0px;
+}
+@include tablet {
+  .user-edit {
+    position: absolute;
+    width: 450px;
+    height: 500px;
+    top: 15%;
+    right: 50%;
+    transform: translate(50%);
+    background: white;
+    padding: 10px;
+    box-shadow: $box-shadow;
+    border-radius: 5px;
+    &.open {
+      animation: showModal 0.7s ease-out both;
+    }
+    &.close {
+      animation: hideModal 0.7s ease-out both;
+    }
+    .x-button {
+      @include flex(row, none, none);
+      flex-direction: row-reverse;
+      border-bottom: 0.5px solid $dark-grey;
+      p {
+        cursor: pointer;
+      }
+    }
+    .form-container {
+      height: 100%;
+      form {
+        @include flex(column, center, center);
+        .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          margin-bottom: 10px;
+          @include flex(column, center, center);
+          .preview-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid $white-grey;
+          }
+          .btn {
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+          }
+          input[type="file"] {
+            font-size: 17.5px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+          }
+        }
+        input:not([type="file"]) {
+          width: 100%;
+          margin: 7px;
+          padding: 7px;
+          border: 1px solid $white-grey;
+
+          &[type="submit"] {
+            @include base-button($blue);
+            margin-left: 0;
+            margin-right: 0;
+          }
+        }
+        textarea {
+          @include textarea-style;
+        }
+      }
+    }
+    button {
+      @include base-button(red);
+      color: white;
+      margin-top: 0px;
+    }
+  }
+}
+@include desktop {
+  .user-edit {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: 20%;
+    right: 50%;
+    transform: translate(50%);
+    background: white;
+    padding: 10px;
+    box-shadow: $box-shadow;
+    border-radius: 5px;
+    &.open {
+      animation: showModal 0.7s ease-out both;
+    }
+    &.close {
+      animation: hideModal 0.7s ease-out both;
+    }
+    .x-button {
+      @include flex(row, none, none);
+      flex-direction: row-reverse;
+      border-bottom: 0.5px solid $dark-grey;
+      p {
+        cursor: pointer;
+      }
+    }
+    .form-container {
+      height: 100%;
+      form {
+        @include flex(column, center, center);
+        .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          @include flex(column, center, center);
+          .preview-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+          }
+          .btn {
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+          }
+          input[type="file"] {
+            font-size: 17.5px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+          }
+        }
+        input:not([type="file"]) {
+          width: 100%;
+          margin: 7px;
+          padding: 7px;
+          border: 1px solid $white-grey;
+
+          &[type="submit"] {
+            @include base-button($blue);
+            margin-left: 0;
+            margin-right: 0;
+          }
+        }
+        textarea {
+          @include textarea-style;
+        }
+      }
+    }
+    button {
+      @include base-button(red);
+      color: white;
+      margin-top: 0px;
+    }
   }
 }

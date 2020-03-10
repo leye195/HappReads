@@ -5,6 +5,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const cx = classnames.bind(style);
+const readURL = file => {
+  const render = URL.createObjectURL(file);
+  document.querySelector(".preview-img").src = render;
+};
 class UserEdit extends Component {
   constructor(props) {
     super(props);
@@ -52,9 +56,13 @@ class UserEdit extends Component {
     //form data post 요청 진행
   };
   handleFile = e => {
+    const {
+      target: { files }
+    } = e;
     this.setState({
-      seletedImg: e.target.files[0]
+      seletedImg: files[0]
     });
+    readURL(files[0]);
   };
   handleNickName = val => {
     this.setState({
@@ -77,7 +85,7 @@ class UserEdit extends Component {
     });
   };
   render() {
-    const { nickname, website, intro, interest } = this.state;
+    const { nickname, website, intro, interest, seletedImg } = this.state;
     const { handleClose, isOpen } = this.props;
     return (
       <div className={cx("user-edit", isOpen ? "close" : "open")}>
@@ -90,11 +98,19 @@ class UserEdit extends Component {
         </div>
         <div className={cx("form-container")}>
           <form onSubmit={this.handleSubmit}>
-            <input
-              type="file"
-              name="avatar"
-              onChange={e => this.handleFile(e)}
-            />
+            <div className={cx("upload-btn-wrapper")}>
+              <img className={cx("preview-img")} />
+              <div style={{ position: "relative" }}>
+                <button className={cx("btn")}>
+                  {seletedImg === null ? "이미지 업로드" : seletedImg.name}
+                </button>
+                <input
+                  type="file"
+                  name="avatar"
+                  onChange={e => this.handleFile(e)}
+                />
+              </div>
+            </div>
             <input
               type="text"
               name="nickname"

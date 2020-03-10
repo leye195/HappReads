@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import style from "./Header.scss";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import classnames from "classnames/bind";
 import SearchBar from "../SearchBar";
 import { connect } from "react-redux";
@@ -48,9 +48,9 @@ const menu = (showMenu, requestLogOut, isLoggedIn) => {
     <div className={cx("menu", `${showMenu ? "show" : ""}`)}>
       <ul>
         <li>
-          <a href="/me">
+          <Link to="/me">
             <p>프로필</p>
-          </a>
+          </Link>
         </li>
         <li>
           <Link to="/upload">
@@ -69,7 +69,8 @@ class Header extends Component {
   _isMounted = false;
   state = {
     showMenu: false,
-    lastPos: window.pageYOffset
+    lastPos: window.pageYOffset,
+    isLogOut: false
   };
   componentDidMount() {
     this._isMounted = true;
@@ -103,7 +104,9 @@ class Header extends Component {
       } = response;
       if (status === 200) {
         localStorage.removeItem("atk");
-        window.location.href = "/";
+        this.setState({
+          isLogOut: true
+        });
       }
     } catch (error) {
       console.log(error);
@@ -130,7 +133,7 @@ class Header extends Component {
     }
   };
   render() {
-    const { showMenu } = this.state;
+    const { showMenu, isLogOut } = this.state;
     const { isLoggedIn, profile } = this.props;
     this.handleScroll();
     return (
@@ -156,6 +159,7 @@ class Header extends Component {
             )}
           </ul>
         </div>
+        {isLogOut && <Redirect to="/" />}
       </div>
     );
   }

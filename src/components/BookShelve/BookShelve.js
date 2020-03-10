@@ -59,7 +59,8 @@ class BookShelve extends Component {
     }
   };
   getUser = async () => {
-    const uid = window.location.pathname.substring(1).split("/")[1];
+    const tmp = window.location.hash.split("/");
+    const uid = tmp[tmp.length - 1]; //pathname.substring(1).split("/")[1];
     const { getUser } = this.props;
     try {
       await getUser(uid);
@@ -420,7 +421,7 @@ class BookShelve extends Component {
                 <th>커버</th>
                 <th>제목</th>
                 <th>저자</th>
-                <th>평균 평점</th>
+                <th>평균</th>
                 <th>생성 날짜</th>
                 <th>상태</th>
                 {profile && uid === profile._id ? (

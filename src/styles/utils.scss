@@ -2,79 +2,9 @@
 @import "~include-media/dist/include-media";
 @import "./reset.scss";
 @import "./animation.scss";
-@mixin base-button($color, $width: 20rem) {
-  color: white;
-  cursor: pointer;
-  width: $width;
-  border-radius: 10px;
-  background-color: $color;
-  font-size: 0.9rem;
-  box-shadow: 2px 4px 4px #5f5f5f33;
-  padding: 5px;
-  margin: 10px;
-}
-@mixin flex($directon, $align, $justify) {
-  display: flex;
-  flex-direction: $directon;
-  align-items: $align;
-  justify-content: $justify;
-}
-@mixin Lbutton-style {
-  all: unset;
-  height: 30px;
-  width: 100%;
-  text-align: center;
-  color: white;
-  padding: 3px;
-  border-radius: $border-radius;
-  background-color: $blue;
-  margin: 10px;
-  cursor: pointer;
-}
-@mixin base-height {
-  width: 100%;
-  min-height: calc(100vh - 10rem);
-}
-@mixin textarea-style {
-  resize: none;
-  height: 100px;
-  width: 100%;
-  margin: 5px;
-  padding: 7px;
-  border: 1px solid #e3e3e3;
-}
-@mixin table-text-align($padding, $align, $font) {
-  padding: 10px;
-  text-align: center;
-  font-size: 0.8rem;
-}
-@mixin card($padding) {
-  box-shadow: 1px 1px 6px 0px #3a3a3a;
-  border-radius: 10px;
-  padding: $padding;
-}
-@mixin hoverLink() {
-  color: $sun-flower;
-  cursor: pointer;
-}
-@mixin boxShadox($a, $b, $c, $d, $color) {
-  box-shadow: $a $b $c $d $color;
-}
-$blue: #3a6fa5;
-$river: #3498db;
-$green: #2ecc71;
-$white-grey: #e3e3e3;
-$dark-grey: #a0a0a0;
-$hot-stone: #aaa69d;
-$sun-flower: #f1c40f;
-$dark-yellow-0: #8e8c17;
-$dark-yellow-9: #8e8c17b8;
-$red: #e74c3c;
-$border-radius: 10px;
-$h2: 1.8rem;
-$input-fontSize: 0.9rem;
-$box-shadow: 2px 4px 6px 1px #676262;
-$text-shadow: 1px 1px 10px black;
+@import "./variables";
+@import "./mixin";
+
 * {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
