@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/HappReads-front/static/css/main.b5f21a20.chunk.css",
-    "main.js": "/HappReads-front/static/js/main.e1e82453.chunk.js",
-    "main.js.map": "/HappReads-front/static/js/main.e1e82453.chunk.js.map",
+    "main.js": "/HappReads-front/static/js/main.e928f618.chunk.js",
+    "main.js.map": "/HappReads-front/static/js/main.e928f618.chunk.js.map",
     "runtime-main.js": "/HappReads-front/static/js/runtime-main.a81acd66.js",
     "runtime-main.js.map": "/HappReads-front/static/js/runtime-main.a81acd66.js.map",
     "static/js/2.24eec601.chunk.js": "/HappReads-front/static/js/2.24eec601.chunk.js",
     "static/js/2.24eec601.chunk.js.map": "/HappReads-front/static/js/2.24eec601.chunk.js.map",
     "index.html": "/HappReads-front/index.html",
-    "precache-manifest.f0720e17659489eaa724a371c9340d7e.js": "/HappReads-front/precache-manifest.f0720e17659489eaa724a371c9340d7e.js",
+    "precache-manifest.768a462db756504cc74b031b13109a2e.js": "/HappReads-front/precache-manifest.768a462db756504cc74b031b13109a2e.js",
     "service-worker.js": "/HappReads-front/service-worker.js",
     "static/css/main.b5f21a20.chunk.css.map": "/HappReads-front/static/css/main.b5f21a20.chunk.css.map",
     "static/js/2.24eec601.chunk.js.LICENSE.txt": "/HappReads-front/static/js/2.24eec601.chunk.js.LICENSE.txt",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.a81acd66.js",
     "static/js/2.24eec601.chunk.js",
     "static/css/main.b5f21a20.chunk.css",
-    "static/js/main.e1e82453.chunk.js"
+    "static/js/main.e928f618.chunk.js"
   ]
 }
