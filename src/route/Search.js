@@ -26,9 +26,10 @@ class Search extends Component {
     super(props);
     const type = window.location.search.split("type=")[1];
     this.state = {
-      keyword: "",
+      keyword: null,
       type: type ? type : "0",
-      page: 1
+      page: 1,
+      isSubmited: false
     };
   }
   componentDidMount() {
@@ -40,7 +41,6 @@ class Search extends Component {
       .replace(/[%20]/gi, " ")
       .split("&")[0];
     const type = window.location.search.split("type=")[1];
-    console.log(q, type);
     this.getBooks(q, type);
     window.addEventListener("scroll", this.handleScroll); //스크롤 이벤트 추가
   }
@@ -50,8 +50,17 @@ class Search extends Component {
   getBooks = async (q, type, page = 1) => {
     const { getBooks } = this.props;
     try {
-      const response = await getBooks(q, type, page);
-      console.log(response);
+      await getBooks(q, type, page);
+      //console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getMoreBooks = async (q, type, page = 1) => {
+    const { getMoreBooks } = this.props;
+    try {
+      await getMoreBooks(q, type, page);
+      //console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +82,7 @@ class Search extends Component {
     const type = window.location.search.split("type=")[1];
     if (scrollHeight - innerHeight - scrollTop < 100) {
       //스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
-      this.getBooks(q, type, page + 1);
+      this.getMoreBooks(q, type, page + 1);
       this.setState({
         page: page + 1
       });
@@ -83,7 +92,11 @@ class Search extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { keyword, type } = this.state;
-    window.location.href = `/search?p=${keyword}&type=${type} `;
+    this.props.history.push(`/search?p=${keyword}&type=${type} `);
+    this.setState({
+      isSubmited: true
+    });
+    this.getBooks(keyword, type);
   };
   handleChange = query => {
     this.setState({
@@ -107,7 +120,6 @@ class Search extends Component {
   };
   render() {
     const {
-      history,
       location: { search },
       books,
       keyword
@@ -175,6 +187,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
+    getMoreBooks: (q, type = 0, page = 1) =>
+      dispatch(actions.getMore(q, type, page)),
     getBooks: (q, type = 0, page = 1) =>
       dispatch(actions.getBooks(q, type, page))
   };

@@ -1,16 +1,18 @@
 import React, { useState, Fragment } from "react";
+import { withRouter } from "react-router";
 import style from "./SearchBar.scss";
 import classnames from "classnames/bind";
 const cx = classnames.bind(style);
-const SearchBar = () => {
+const SearchBar = ({ match, location, history }) => {
   const [keyword, setKeyword] = useState("");
   const handleChangeKeyword = query => {
     setKeyword(query);
   };
   const handleSubmit = e => {
-    window.location.href = `/search?p=${keyword}`;
+    history.push(`/search?p=${keyword}`);
     e.preventDefault();
   };
+  console.log(match, location, history);
   return (
     <Fragment>
       <div className={cx("search-bar")}>
@@ -28,4 +30,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default withRouter(SearchBar);

@@ -11,6 +11,11 @@ const GET_SEARCH_BOOKS_PENGIND = "GET_SEARCH_BOOKS_PENDING";
 const GET_SEARCH_BOOKS_SUCCESS = "GET_SEARCH_BOOKS_SUCCESS";
 const GET_SEARCH_BOOKS_FAILURE = "GET_SEARCH_BOOKS_FAILURE";
 
+const GET_MORE_BOOKS = "GET_MORE_BOOKS";
+const GET_MORE_BOOKS_PENGIND = "GET_MORE_BOOKS_PENDING";
+const GET_MORE_BOOKS_SUCCESS = "GET_MORE_BOOKS_SUCCESS";
+const GET_MORE_BOOKS_FAILURE = "GET_MORE_BOOKS_FAILURE";
+
 const POST_BOOK = "POST_BOOK";
 const POST_BOOK_PENDING = "POST_BOOK_PENDING";
 const POST_BOOK_SUCCESS = "POST_BOOK_SUCCESS";
@@ -51,7 +56,7 @@ const requestgetBooks = (query, type, page) => {
     return api.get(
       `https://dapi.kakao.com/v3/search/book?query=${query}&page=${page}`
     );
-  else if (type === 1)
+  else if (parseInt(type) === 1)
     return api.get(
       `https://dapi.kakao.com/v3/search/book?target=title&query=${query}&page=${page}`
     );
@@ -84,6 +89,11 @@ export const getBooks = (query = " ", type = 0, page = 1) => ({
   type: GET_SEARCH_BOOKS,
   payload: requestgetBooks(query, type, page)
 });
+export const getMore = (query = "", type = 0, page = 1) => ({
+  type: GET_MORE_BOOKS,
+  payload: requestgetBooks(query, type, page)
+});
+
 export const getDetail = query => ({
   type: GET_DETAIL,
   payload: requestgetBooks(query, 3, 1)
@@ -145,10 +155,28 @@ export default handleActions(
         ...state,
         pending: false,
         error: false,
+        books: [...documents]
+      };
+    },
+    [GET_MORE_BOOKS_PENGIND]: (state, action) => {
+      return {
+        ...state,
+        pending: true,
+        error: false
+      };
+    },
+    [GET_MORE_BOOKS_SUCCESS]: (state, action) => {
+      const {
+        data: { documents }
+      } = action.payload;
+      return {
+        ...state,
+        pending: false,
+        error: false,
         books: [...state.books, ...documents]
       };
     },
-    [GET_SEARCH_BOOKS_FAILURE]: (state, action) => {
+    [GET_MORE_BOOKS_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,

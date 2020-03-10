@@ -4,7 +4,7 @@
   .header {
     position: fixed;
     @include flex(row, center, space-between);
-    height: 10vh;
+    height: 11vh;
     top: 0;
     width: 100%;
     background-color: rgb(236, 234, 222);

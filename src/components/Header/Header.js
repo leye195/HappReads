@@ -4,7 +4,9 @@ import { Link, Redirect } from "react-router-dom";
 import classnames from "classnames/bind";
 import SearchBar from "../SearchBar";
 import { connect } from "react-redux";
-import * as actions from "../../reducer/login";
+import * as loginActions from "../../reducer/login";
+import * as bookActions from "../../reducer/books";
+
 const cx = classnames.bind(style);
 const LinkContainer = (
   isLoggedIn,
@@ -134,7 +136,7 @@ class Header extends Component {
   };
   render() {
     const { showMenu, isLogOut } = this.state;
-    const { isLoggedIn, profile } = this.props;
+    const { isLoggedIn, profile, getBooks } = this.props;
     this.handleScroll();
     return (
       <div className={cx("header")}>
@@ -172,8 +174,10 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    checkUser: atk => dispatch(actions.check(atk)), //유저 로그인 상태 체크
-    userLogOut: () => dispatch(actions.logout())
+    checkUser: atk => dispatch(loginActions.check(atk)), //유저 로그인 상태 체크
+    userLogOut: () => dispatch(loginActions.logout()),
+    getBooks: (q, type = 0, page = 1) =>
+      dispatch(bookActions.getBooks(q, type, page))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
