@@ -111,4 +111,4 @@
 
 - media query 적용 및 스타일 수정
 - 검색 결과 창에서 검색 진행시 새로운 항목들을 다시 보여주지 않고 데이터 뒤에 누적시키는 문제가 발생해 원하는 결과 값을 받아오지 못함
-  reducer에 기존에 사용하던 GET_SEARCH_BOOKS 와 데이터를 더 불러오는 GET_MORE_BOOKS 액션을 이용해 문제 해결
+  reducer에 기존에 사용하던 GET_SEARCH_BOOKS 와 추가한 데이터를 더 불러오는 GET_MORE_BOOKS 액션을 이용해 문제 해결
