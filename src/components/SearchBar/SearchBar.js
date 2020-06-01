@@ -3,16 +3,17 @@ import { withRouter } from "react-router";
 import style from "./SearchBar.scss";
 import classnames from "classnames/bind";
 const cx = classnames.bind(style);
-const SearchBar = ({ match, location, history }) => {
+const SearchBar = ({ match, location, history, getBooks }) => {
   const [keyword, setKeyword] = useState("");
-  const handleChangeKeyword = query => {
+  const handleChangeKeyword = (query) => {
     setKeyword(query);
   };
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
+    getBooks(keyword, 0, 1);
     history.push(`/search?p=${keyword}`);
     e.preventDefault();
   };
-  console.log(match, location, history);
+  //console.log(match, location, history);
   return (
     <Fragment>
       <div className={cx("search-bar")}>
@@ -22,7 +23,7 @@ const SearchBar = ({ match, location, history }) => {
             placeholder="책 검색..."
             value={keyword}
             name="q"
-            onChange={e => handleChangeKeyword(e.target.value)}
+            onChange={(e) => handleChangeKeyword(e.target.value)}
           />
         </form>
       </div>

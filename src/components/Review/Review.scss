@@ -15,6 +15,9 @@
         @include flex(row, center, center);
         width: 100%;
         textarea {
+          width: 70vw;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
           resize: none;
           height: 40px;
           flex-grow: 1;
@@ -103,6 +106,9 @@
         @include flex(row, center, center);
         width: 100%;
         textarea {
+          width: 90vw;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
           resize: none;
           height: 40px;
           flex-grow: 1;
@@ -191,6 +197,9 @@
         @include flex(row, center, center);
         width: 100%;
         textarea {
+          width: 90vw;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
           resize: none;
           height: 40px;
           flex-grow: 1;

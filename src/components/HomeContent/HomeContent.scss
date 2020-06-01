@@ -2,6 +2,8 @@
 .home-content {
   @include base-height;
   .books-wrapper {
-    margin: 5px;
+    width: 80vw;
+    padding: 10vh 0;
+    margin: 0 auto;
   }
 }

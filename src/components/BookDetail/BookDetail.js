@@ -8,15 +8,19 @@ import Rater from "../Rater";
 import Review from "../Review";
 import { connect } from "react-redux";
 import * as actions from "../../reducer/login";
+import * as bookActions from "../../reducer/books";
+
 const cx = classnames.bind(style);
-const formatAuthors = authors => {
+const formatAuthors = (authors) => {
   let s = "";
-  for (let i = 0; i < authors.length; i++) {
-    s += `${authors[i]} `;
+  if (authors) {
+    for (let i = 0; i < authors.length; i++) {
+      s += `${authors[i]} `;
+    }
   }
   return s;
 };
-const getAvg = votes => {
+const getAvg = (votes) => {
   if (votes) {
     let total = 0;
     if (votes.length > 0) {
@@ -36,41 +40,41 @@ const getAvg = votes => {
 const options = [
   {
     value: "want_read",
-    label: "읽기"
+    label: "읽기",
   },
   {
     value: "reading",
-    label: "읽는중"
+    label: "읽는중",
   },
   {
     value: "read",
-    label: "읽음"
-  }
+    label: "읽음",
+  },
 ];
 class BookDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: null,
-      status: "읽기"
+      selected: { value: "want_read", label: "읽기" },
+      status: "읽기",
     };
   }
   async componentDidMount() {
     this.getStatus();
   }
   checkStatus = (arr, isbn) => {
-    if (arr.filter(item => item.isbn === isbn).length > 0) return true;
+    if (arr.filter((item) => item.isbn === isbn).length > 0) return true;
     return false;
   };
   checkUserVote = () => {
     const {
       votes,
-      profile: { profile }
+      profile: { profile },
     } = this.props;
     let cur = "0";
     if (votes) {
       for (let i = 0; i < votes.length; i++) {
-        if (votes[i]._id === profile._id) {
+        if (votes[i]?._id === profile?._id) {
           cur = String(votes[i].vote);
           break;
         }
@@ -81,27 +85,27 @@ class BookDetail extends Component {
   getStatus = () => {
     const {
       profile: { profile },
-      id: isbn
+      id: isbn,
     } = this.props;
     if (profile) {
       if (this.checkStatus(profile.want_read, isbn)) {
         this.setState({
           selected: options[0],
-          status: options[0].label
+          status: options[0].label,
         });
         return;
       }
       if (this.checkStatus(profile.reading, isbn)) {
         this.setState({
           selected: options[1],
-          status: options[1].label
+          status: options[1].label,
         });
         return;
       }
       if (this.checkStatus(profile.read, isbn)) {
         this.setState({
           selected: options[2],
-          status: options[2].label
+          status: options[2].label,
         });
         return;
       }
@@ -109,28 +113,27 @@ class BookDetail extends Component {
   };
   handleOnClick = async () => {
     const {
-      selected: { value }
+      selected: { value },
     } = this.state;
     const {
       postShelve,
-      book: { title, authors, thumbnail },
+      book,
       profile: {
-        profile: { email }
-      }
+        profile: { email },
+      },
     } = this.props;
-    const id = window.location.pathname.substring(1).split("/")[1];
     try {
-      await postShelve(email, id, title, authors, value, thumbnail);
+      await postShelve(email, book._id, value);
     } catch (error) {}
   };
-  handleRadio = selected => {
-    this.setState({ selected }, () =>
-      console.log(`Selected: ${this.state.selected}`)
-    );
+  handleRadio = (selected) => {
+    console.log(selected);
+    this.setState({ selected });
   };
   render() {
     const { book, votes, postVote, id, reviews } = this.props;
     const { selected, status } = this.state;
+    //console.log(book);
     return (
       <Fragment>
         {book ? (
@@ -192,7 +195,7 @@ class BookDetail extends Component {
                 </div>
               </div>
             </div>
-            <Review id={id} />
+            <Review />
           </Fragment>
         ) : (
           <ChasingDots color="white" size={60} />
@@ -202,10 +205,10 @@ class BookDetail extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    postShelve: (email, isbn, title, authors, type, thumbnail) =>
-      dispatch(actions.postShelve(email, isbn, title, authors, type, thumbnail))
+    postShelve: (email, id, type) =>
+      dispatch(actions.postShelve(email, id, type)),
   };
 };
 export default connect(null, mapDispatchToProps)(BookDetail);

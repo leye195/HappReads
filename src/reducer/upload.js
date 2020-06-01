@@ -1,10 +1,10 @@
 import { handleActions } from "redux-actions";
 import axios from "axios";
 
-const UPLOAD = "UPLOAD";
-const UPLOAD_PENDING = "UPLOAD_PENDING";
-const UPLOAD_SUCCESS = "UPLOAD_SUCCESS";
-const UPLOAD_FAILURE = "UPLOAD_FAILURE";
+export const UPLOAD = "UPLOAD";
+export const UPLOAD_PENDING = "UPLOAD_PENDING";
+export const UPLOAD_SUCCESS = "UPLOAD_SUCCESS";
+export const UPLOAD_FAILURE = "UPLOAD_FAILURE";
 const requestUpload = data => {
   return axios.post(`http://localhost:8080/upload`, data);
 };

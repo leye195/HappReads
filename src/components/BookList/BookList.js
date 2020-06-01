@@ -14,17 +14,9 @@ class BookList extends Component {
       return (
         <div className={cx("book-list")}>
           {booklist ? (
-            booklist.map(book => {
-              const url = (book.isbn && book.isbn.split(" ")) || "";
+            booklist.map((book) => {
               return (
-                <Link
-                  to={
-                    url[0] !== ""
-                      ? `/book/${(book.isbn && book.isbn.split(" ")[0]) || ""}`
-                      : `/book/${(book.isbn && book.isbn.split(" ")[1]) || ""}`
-                  }
-                  key={v4()}
-                >
+                <Link to={`/book/${book._id}`} key={v4()}>
                   <Book book={book} from={from} />
                 </Link>
               );
@@ -36,20 +28,19 @@ class BookList extends Component {
       );
     } else if (from === "search") {
       return (
-        <div>
+        <div className={cx("ser-container")}>
           <ul className={cx("ser-ul")}>
-            {booklist.map(book => {
+            {booklist.map((book) => {
               return <Book book={book} from={from} key={v4()} />;
             })}
           </ul>
         </div>
       );
     } else if (from === "profile") {
-      //const [bookState,setBookState] = useState(booklist);
       return (
         <div>
           <ul>
-            {booklist.map(book => {
+            {booklist.map((book) => {
               return <Book book={book} from={from} key={v4()} type={type} />;
             })}
           </ul>

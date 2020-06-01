@@ -6,39 +6,36 @@ const POST_SHELVE_PENDING = "POST_SHELVE_PENDING";
 const POST_SHELVE_SUCCESS = "POST_SHELVE_SUCCESS";
 const POST_SHELVE_FAILURE = "POST_SHELVE_FAILURE";
 
-const requsetPostShelve = (email, isbn, title, authors, type, thumbnail) => {
+const requsetPostShelve = (email, id, type) => {
   return axios.post(`http://localhost:8080/shelve`, {
     email,
-    isbn,
-    title,
-    authors,
+    id,
     type,
-    thumbnail
   });
 };
-export const postShelve = (email, isbn, title, authors, type, thumbnail) => ({
+export const postShelve = (email, id, type) => ({
   type: POST_SHELVE,
-  payload: requsetPostShelve(email, isbn, title, authors, type, thumbnail)
+  payload: requsetPostShelve(email, id, type),
 });
 const initialState = {
   pending: false,
-  error: false
+  error: false,
 };
 export default handleActions(
   {
     [POST_SHELVE_PENDING]: (state, action) => {
       return {
         pending: true,
-        error: false
+        error: false,
       };
     },
     [POST_SHELVE_SUCCESS]: (state, action) => {},
     [POST_SHELVE_FAILURE]: (state, action) => {
       return {
         pending: false,
-        error: true
+        error: true,
       };
-    }
+    },
   },
   initialState
 );

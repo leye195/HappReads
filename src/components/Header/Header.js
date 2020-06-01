@@ -72,7 +72,7 @@ class Header extends Component {
   state = {
     showMenu: false,
     lastPos: window.pageYOffset,
-    isLogOut: false
+    isLogOut: false,
   };
   componentDidMount() {
     this._isMounted = true;
@@ -102,12 +102,12 @@ class Header extends Component {
     try {
       const response = await userLogOut();
       const {
-        value: { status }
+        value: { status },
       } = response;
       if (status === 200) {
         localStorage.removeItem("atk");
         this.setState({
-          isLogOut: true
+          isLogOut: true,
         });
       }
     } catch (error) {
@@ -117,10 +117,10 @@ class Header extends Component {
   clickMenu = () => {
     const { showMenu } = this.state;
     this.setState({
-      showMenu: !showMenu
+      showMenu: !showMenu,
     });
   };
-  handleScroll = e => {
+  handleScroll = (e) => {
     let currentScrollPos = window.pageYOffset;
     const { lastPos } = this.state;
     if (e) {
@@ -130,7 +130,7 @@ class Header extends Component {
         document.querySelector(".header").classList.add("header-up");
       }
       this.setState({
-        lastPos: currentScrollPos
+        lastPos: currentScrollPos,
       });
     }
   };
@@ -146,7 +146,7 @@ class Header extends Component {
             <span className={cx("en")}>Reads</span>
           </Link>
         </div>
-        {<SearchBar />}
+        <SearchBar getBooks={getBooks} />
         <div className={cx("community")}>
           <Link to={"/community/reviews"}>커뮤니티</Link>
         </div>
@@ -166,18 +166,18 @@ class Header extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.login.isLoggedIn,
-    profile: state.login.profile
+    profile: state.login.profile,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    checkUser: atk => dispatch(loginActions.check(atk)), //유저 로그인 상태 체크
+    checkUser: (atk) => dispatch(loginActions.check(atk)), //유저 로그인 상태 체크
     userLogOut: () => dispatch(loginActions.logout()),
     getBooks: (q, type = 0, page = 1) =>
-      dispatch(bookActions.getBooks(q, type, page))
+      dispatch(bookActions.getBooks(q, type, page)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

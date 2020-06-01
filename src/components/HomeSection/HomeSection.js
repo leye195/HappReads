@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./HomeSection.scss";
 import classname from "classnames/bind";
+
 const cx = classname.bind(style);
 const HomeSection = () => {
   return (

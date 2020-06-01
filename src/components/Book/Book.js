@@ -6,18 +6,17 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { connect } from "react-redux";
 import * as actions from "../../reducer/login";
 const cx = classnames.bind(style);
-const Book = props => {
+const Book = (props) => {
   const {
     from,
     type,
     profile: { profile },
-    postShelve
+    postShelve,
   } = props;
   const [isOpen, setOpen] = useState(false);
-  //useEffect(() => {}, [profile.reading, profile.want_read, profile.read]);
-  const formatAuthors = authors => {
+  const formatAuthors = (authors) => {
     let format = "";
-    authors.forEach(ele => {
+    authors.forEach((ele) => {
       format += ele;
     });
     return format;
@@ -37,28 +36,12 @@ const Book = props => {
     return (
       <li className={cx("ser-bg")}>
         <div className={cx("ser-book")}>
-          <Link
-            to={
-              url !== undefined
-                ? url[0] !== ""
-                  ? `/book/${book.isbn.split(" ")[0]}`
-                  : `/book/${book.isbn.split(" ")[1]}`
-                : ""
-            }
-          >
+          <Link to={`/book/${book._id}`}>
             <img src={book.thumbnail} alt="book" />
           </Link>
         </div>
         <div className={cx("ser-info")}>
-          <Link
-            to={
-              url !== undefined
-                ? url[0] !== ""
-                  ? `/book/${book.isbn.split(" ")[0]}`
-                  : `/book/${book.isbn.split(" ")[1]}`
-                : ""
-            }
-          >
+          <Link to={`/book/${book._id}`}>
             <h3 className={cx("ser-title")}>{book.title}</h3>
           </Link>
           <p>
@@ -71,21 +54,21 @@ const Book = props => {
     );
   } else if (from === "profile") {
     const {
-      book: { book }
+      book: { book },
     } = props;
 
     const isMe = window.location.pathname === "/me";
     const url =
       book && book.isbn !== undefined ? book.isbn.split(" ") : undefined;
-    const handleChange = async e => {
+    const handleChange = async (e) => {
       const {
-        target: { value }
+        target: { value },
       } = e;
       //서버에 수정 요청 전송 코드입력
       try {
         await postShelve(
           profile.email,
-          book.isbn,
+          book.id,
           book.title,
           book.authors,
           value,
@@ -95,7 +78,7 @@ const Book = props => {
         console.log(error);
       }
     };
-    const editTags = type => {
+    const editTags = (type) => {
       return (
         <div className={cx("edit-form")}>
           <select defaultValue={type} onChange={handleChange}>
@@ -114,18 +97,10 @@ const Book = props => {
     };
     return (
       <div className={cx("shelve")} style={{ margin: "10px" }}>
-        <Link
-          to={
-            url !== undefined
-              ? url[0] !== ""
-                ? `/book/${book.isbn.split(" ")[0]}`
-                : `/book/${book.isbn.split(" ")[1]}`
-              : ""
-          }
-        >
-          <span className={cx("title")}>{book.title}</span>
+        <Link to={`/book/${book._id}`}>
+          <span className={cx("title")}>{book?.title}</span>
           <span className={cx("authors")}>
-            지은이: {book.authors ? formatAuthors(book.authors) : ""}
+            지은이: {book?.authors ? formatAuthors(book?.authors) : ""}
           </span>
         </Link>
         {isMe ? (
@@ -152,15 +127,17 @@ const Book = props => {
     );
   }
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    profile: state.login.profile
+    profile: state.login.profile,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     postShelve: (email, isbn, title, authors, type, thumbnail) =>
-      dispatch(actions.postShelve(email, isbn, title, authors, type, thumbnail))
+      dispatch(
+        actions.postShelve(email, isbn, title, authors, type, thumbnail)
+      ),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Book);

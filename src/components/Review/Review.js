@@ -55,62 +55,42 @@ class Review extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: ""
+      input: "",
     };
   }
-  componentDidMount() {
-    this.getReview();
-  }
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.reviews &&
-      prevProps.reviews &&
-      this.props.reviews.length !== prevProps.reviews.length
-    )
-      this.getReview();
-  }
-  getReview = async () => {
-    const { id, getReviews } = this.props;
-    try {
-      await getReviews(id);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  postReview = async content => {
+  postReview = async (content) => {
     const {
       profile: {
-        profile: { email }
+        profile: { email },
       },
       postReview,
-      books: book
+      book,
     } = this.props;
-    const id = window.location.pathname.substring(1).split("/")[1];
     try {
-      await postReview(id, email, content, book[0]);
+      await postReview(book._id, email, content, book);
     } catch (error) {
       console.log(error);
     }
   };
-  handleChange = input => {
+  handleChange = (input) => {
     this.setState({
-      input: input
+      input: input,
     });
   };
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { isLoggedIn } = this.props;
     const { input } = this.state;
     if (isLoggedIn) {
       this.postReview(input);
       this.setState({
-        input: ""
+        input: "",
       });
     } else {
       alert("Please Login");
     }
   };
-  handleLike = e => {
+  handleLike = (e) => {
     const { currentTarget } = e;
     const id = currentTarget.getAttribute("data-value");
     this.postLike("like", id);
@@ -133,14 +113,14 @@ class Review extends Component {
           <div className={cx("form-container")}>
             <form onSubmit={this.handleSubmit}>
               <textarea
-                onChange={e => this.handleChange(e.target.value)}
+                onChange={(e) => this.handleChange(e.target.value)}
                 value={input}
               />
               <input type="submit" value="등록" />
             </form>
           </div>
           <div className={cx("review-list-wrapper")}>
-            {reviews !== undefined ? (
+            {reviews ? (
               reviews.map((item, idx) => {
                 return reviewTag(item, idx, this.handleLike);
               })
@@ -153,7 +133,7 @@ class Review extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     pending: state.review.pending,
     error: state.review.error,
@@ -161,15 +141,14 @@ const mapStateToProps = state => {
     isLoggedIn: state.login.isLoggedIn,
     profile: state.login.profile,
     reviews: state.review.reviews,
-    books: state.books.books
+    book: state.books.book,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     postReview: (isbn, name, content, book) =>
       dispatch(actions.postReview(isbn, name, content, book)),
-    getReviews: isbn => dispatch(actions.getReview(isbn)),
-    postLike: (type, id, uid) => dispatch(loginActions.postLike(type, id, uid))
+    postLike: (type, id, uid) => dispatch(loginActions.postLike(type, id, uid)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Review);

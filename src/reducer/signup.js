@@ -1,24 +1,24 @@
 import { handleActions } from "redux-actions";
 import axios from "axios";
-const SIGNUP = "SIGNUP";
-const SIGNUP_PENDING = "SIGNUP_PENDING";
-const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
-const SIGNUP_FAILURE = "SIGNUP_FAILURE";
+export const SIGNUP = "SIGNUP";
+export const SIGNUP_PENDING = "SIGNUP_PENDING";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 
 const requestSignUp = (email, password) => {
   return axios.post("http://localhost:8080/signup", {
     email: email,
-    password: password
+    password: password,
   });
 };
 export const userSignup = (email, password) => ({
   type: SIGNUP,
-  payload: requestSignUp(email, password)
+  payload: requestSignUp(email, password),
 });
 const initialState = {
   error: false,
   pending: false,
-  success: false
+  success: false,
 };
 export default handleActions(
   {
@@ -26,23 +26,23 @@ export default handleActions(
       return {
         pending: true,
         error: false,
-        success: false
+        success: false,
       };
     },
     [SIGNUP_SUCCESS]: (state, action) => {
       return {
         pending: false,
         error: false,
-        success: true
+        success: true,
       };
     },
     [SIGNUP_FAILURE]: (state, action) => {
       return {
         pending: false,
         error: true,
-        success: false
+        success: false,
       };
-    }
+    },
   },
   initialState
 );

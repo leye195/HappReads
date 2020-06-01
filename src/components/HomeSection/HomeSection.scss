@@ -6,13 +6,16 @@
     height: calc(60vh - 11rem);
     width: 100%;
     z-index: 0;
-    padding-top: 100px;
+    padding-top: 40px;
     background-image: url("../../img/tom-hermans-9BoqXzEeQqM-unsplash.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     object-fit: cover;
     background-attachment: fixed;
     animation: fadeIn 1.5s ease-out;
+    img {
+      height: 100%;
+    }
     .words {
       position: absolute;
       top: 50%;
@@ -36,12 +39,15 @@
     height: calc(60vh - 11rem);
     width: 100%;
     z-index: 0;
-    padding-top: 50px;
+    padding-top: 45px;
     background-image: url("../../img/tom-hermans-9BoqXzEeQqM-unsplash.jpg");
     background-size: contain;
     object-fit: cover;
     background-attachment: fixed;
     animation: fadeIn 1.5s ease-out;
+    img {
+      height: 100%;
+    }
     .words {
       position: absolute;
       top: 50%;
@@ -71,6 +77,9 @@
     object-fit: cover;
     background-attachment: fixed;
     animation: fadeIn 1.5s ease-out;
+    img {
+      height: 100%;
+    }
     .words {
       position: absolute;
       top: 50%;

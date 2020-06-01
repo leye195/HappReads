@@ -28,6 +28,7 @@
     width: 100%;
     padding: 15px;
     padding-bottom: 0px;
+    border-bottom: 1px solid #e3e3e3;
     &:not(:last-child) {
       border-bottom: 1px solid $dark-grey;
     }
@@ -128,6 +129,7 @@
     width: 100%;
     padding: 15px;
     padding-bottom: 0px;
+    border-bottom: 1px solid #e3e3e3;
     &:not(:last-child) {
       border-bottom: 1px solid $dark-grey;
     }
@@ -223,6 +225,7 @@
     width: 100%;
     padding: 15px;
     padding-bottom: 0px;
+    border-bottom: 1px solid #e3e3e3;
     &:not(:last-child) {
       border-bottom: 1px solid $dark-grey;
     }
