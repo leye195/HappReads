@@ -56,24 +56,14 @@ const Book = (props) => {
     const {
       book: { book },
     } = props;
-
     const isMe = window.location.pathname === "/me";
-    const url =
-      book && book.isbn !== undefined ? book.isbn.split(" ") : undefined;
     const handleChange = async (e) => {
       const {
         target: { value },
       } = e;
       //서버에 수정 요청 전송 코드입력
       try {
-        await postShelve(
-          profile.email,
-          book.id,
-          book.title,
-          book.authors,
-          value,
-          book.thumbnail
-        );
+        await postShelve(profile.email, book.id, value);
       } catch (error) {
         console.log(error);
       }
@@ -89,15 +79,18 @@ const Book = (props) => {
         </div>
       );
     };
-    const handleDelete = () => {
+    const handleDelete = (type) => () => {
+      const { deleteShelve, book, profile } = props;
       console.log("Delete");
+      deleteShelve(profile.profile._id, book._id, type);
     };
     const handleEdit = (isOpen, setOpen) => {
       setOpen(!isOpen);
     };
+    console.log(book);
     return (
       <div className={cx("shelve")} style={{ margin: "10px" }}>
-        <Link to={`/book/${book._id}`}>
+        <Link to={`/book/${book?.id}`}>
           <span className={cx("title")}>{book?.title}</span>
           <span className={cx("authors")}>
             지은이: {book?.authors ? formatAuthors(book?.authors) : ""}
@@ -115,7 +108,7 @@ const Book = (props) => {
               {isOpen ? editTags(type) : <Fragment />}
             </div>
             <div>
-              <span className={cx("delete")} onClick={() => handleDelete()}>
+              <span className={cx("delete")} onClick={handleDelete(type)}>
                 <FaTrash />
               </span>
             </div>
@@ -134,10 +127,10 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    postShelve: (email, isbn, title, authors, type, thumbnail) =>
-      dispatch(
-        actions.postShelve(email, isbn, title, authors, type, thumbnail)
-      ),
+    postShelve: (email, id, type) =>
+      dispatch(actions.postShelve(email, id, type)),
+    deleteShelve: (id, bid, type) =>
+      dispatch(actions.deleteShelve(id, bid, type)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Book);

@@ -37,6 +37,7 @@ class BookList extends Component {
         </div>
       );
     } else if (from === "profile") {
+      //console.log(booklist);
       return (
         <div>
           <ul>

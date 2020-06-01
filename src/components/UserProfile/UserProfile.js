@@ -27,6 +27,7 @@ const openEdit = (isOpen, handleClose, profile) => {
 };
 const getList = (from, profile, type) => {
   if (type !== "uploaded") {
+    //console.log(profile && profile.profile && profile.profile[type], type);
     return from === "/me" ? (
       profile && profile.profile && profile.profile[type].length > 0 ? (
         <div>
@@ -50,7 +51,7 @@ const getList = (from, profile, type) => {
     return from === "/me" ? (
       profile && profile.profile && profile.profile.uploaded.length > 0 ? (
         <div className={cx("uploaded-list")}>
-          {profile.profile.uploaded.map(book => {
+          {profile.profile.uploaded.map((book) => {
             return (
               <div className={cx("uploaded-img-wrapper")} key={book._id}>
                 <img
@@ -70,7 +71,7 @@ const getList = (from, profile, type) => {
       )
     ) : profile && profile.user && profile.user.uploaded.length > 0 ? (
       <div className={cx("uploaded-list")}>
-        {profile.user.uploaded.map(book => {
+        {profile.user.uploaded.map((book) => {
           return (
             <div className={cx("uploaded-img-wrapper")} key={book._id}>
               <img
@@ -93,16 +94,16 @@ const getList = (from, profile, type) => {
 class UserProfile extends Component {
   state = {
     isOpen: false,
-    idx: 0
+    idx: 0,
   };
   handleOpen = () => {
     this.setState({
-      isOpen: true
+      isOpen: true,
     });
   };
   handleCancel = () => {
     this.setState({
-      isOpen: false
+      isOpen: false,
     });
   };
   render() {

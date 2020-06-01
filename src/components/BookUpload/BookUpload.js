@@ -6,7 +6,7 @@ import { v4 } from "uuid";
 import * as actions from "../../reducer/upload";
 const cx = classnames.bind(style);
 const authorTag = (authors, handleDeleteTag) => {
-  return authors.map(author => {
+  return authors.map((author) => {
     const uid = v4();
     return (
       <div className={cx("author-tag")} key={uid}>
@@ -25,15 +25,15 @@ class BookUpload extends Component {
     authors: [],
     author: "",
     isbn: "",
-    contents: ""
+    contents: "",
   };
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { selected, title, authors, isbn, contents } = this.state;
     const {
       profile: {
-        profile: { _id }
-      }
+        profile: { _id },
+      },
     } = this.props;
     const formData = new FormData();
     formData.append("thumbnail", selected);
@@ -45,59 +45,59 @@ class BookUpload extends Component {
     //console.log(title, authors, isbn, contents);
     this.submitData(formData);
   };
-  handleAuthorChange = input => {
+  handleAuthorChange = (input) => {
     this.setState({
-      author: input
+      author: input,
     });
   };
-  handleKeyPress = key => {
+  handleKeyPress = (key) => {
     const { author, authors } = this.state;
     if (author !== "") {
       if (key === 13) {
         this.setState({
           authors: [...authors, author],
-          author: ""
+          author: "",
         });
       }
     }
   };
-  handleDeleteTag = e => {
+  handleDeleteTag = (e) => {
     const { authors } = this.state;
     const target = e.target.previousSibling.innerHTML;
-    let newAuthors = authors.filter(author => {
+    let newAuthors = authors.filter((author) => {
       return author !== target;
     });
     //console.log(newAuthors);
     this.setState({
-      authors: newAuthors
+      authors: newAuthors,
     });
   };
-  handleFile = e => {
+  handleFile = (e) => {
     const {
-      target: { files }
+      target: { files },
     } = e;
     this.setState({
-      selected: files[0]
+      selected: files[0],
     });
     const imgURL = URL.createObjectURL(files[0]);
     document.querySelector(".preview-img").src = imgURL;
   };
-  handleTitle = title => {
+  handleTitle = (title) => {
     this.setState({
-      title: title
+      title: title,
     });
   };
-  handleContents = contents => {
+  handleContents = (contents) => {
     this.setState({
-      contents: contents
+      contents: contents,
     });
   };
-  handleIsbn = isbn => {
+  handleIsbn = (isbn) => {
     this.setState({
-      isbn: isbn
+      isbn: isbn,
     });
   };
-  submitData = async data => {
+  submitData = async (data) => {
     const { postUpload } = this.props;
     try {
       await postUpload(data);
@@ -114,7 +114,10 @@ class BookUpload extends Component {
           <form onSubmit={this.handleSubmit}>
             <div className={cx("upload-btn-wrapper")}>
               <img className={cx("preview-img")} alt="" />
-              <div style={{ position: "relative" }}>
+              <div
+                className={cx("btn-container")}
+                style={{ position: "relative" }}
+              >
                 <button className={cx("btn")}>이미지 선택</button>
                 <input type="file" onChange={this.handleFile} required />
               </div>
@@ -123,7 +126,7 @@ class BookUpload extends Component {
             <input
               type="text"
               value={title}
-              onChange={e => this.handleTitle(e.target.value)}
+              onChange={(e) => this.handleTitle(e.target.value)}
               placeholder="책 이름"
               required
             />
@@ -134,21 +137,21 @@ class BookUpload extends Component {
                 type="text"
                 placeholder="저자 +"
                 value={author}
-                onChange={e => this.handleAuthorChange(e.target.value)}
-                onKeyDown={e => this.handleKeyPress(e.keyCode)}
+                onChange={(e) => this.handleAuthorChange(e.target.value)}
+                onKeyDown={(e) => this.handleKeyPress(e.keyCode)}
               />
             </div>
             <input
               type="text"
               value={isbn}
-              onChange={e => this.handleIsbn(e.target.value)}
+              onChange={(e) => this.handleIsbn(e.target.value)}
               placeholder="ISBN"
               required
             />
             <textarea
               placeholder="요약"
               value={contents}
-              onChange={e => this.handleContents(e.target.value)}
+              onChange={(e) => this.handleContents(e.target.value)}
               required
             />
             <input type="submit" value="제출" />
@@ -158,17 +161,17 @@ class BookUpload extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     pending: state.upload.pending,
     error: state.upload.error,
     success: state.upload.success,
-    profile: state.login.profile
+    profile: state.login.profile,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    postUpload: data => dispatch(actions.postUpload(data))
+    postUpload: (data) => dispatch(actions.postUpload(data)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BookUpload);

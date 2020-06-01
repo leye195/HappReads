@@ -34,29 +34,26 @@ const DELETE_SHELVE_FAILURE = "DELETE_SHELVE_FAILURE";
 const requestLogin = (id, pw) => {
   return axios.post(`http://localhost:8080/login`, {
     email: id,
-    password: pw
+    password: pw,
   });
 };
 const requestLogout = () => {
   return axios.post(`http://localhost:8080/logout`);
 };
-const requestCheck = atk => {
+const requestCheck = (atk) => {
   const api = axios.create({
     headers: {
-      Authorization: `${atk}`
-    }
+      Authorization: `${atk}`,
+    },
   });
   return api.post(`http://localhost:8080/profile`);
 };
 
-const requsetPostShelve = (email, isbn, title, authors, type, thumbnail) => {
+const requsetPostShelve = (uid, id, type) => {
   return axios.post(`http://localhost:8080/shelve`, {
-    email,
-    isbn,
-    title,
-    authors,
+    uid,
+    id,
     type,
-    thumbnail
   });
 };
 const requestLikeReview = (type, id, uid, m_id) => {
@@ -64,45 +61,45 @@ const requestLikeReview = (type, id, uid, m_id) => {
     type,
     id,
     uid,
-    m_id
+    m_id,
   });
 };
-const requestDeleteShelve = (uid, bid, type) => {
-  return axios.post(`http://localhost:8080/shelve/${bid}`, {
-    uid,
-    type
+const requestDeleteShelve = (uid, id, type) => {
+  console.log(uid, id, type);
+  return axios.delete(`http://localhost:8080/shelve`, {
+    data: { uid, id, type },
   });
 };
-export const check = atk => ({
+export const check = (atk) => ({
   type: USER_CHECK,
-  payload: requestCheck(atk)
+  payload: requestCheck(atk),
 });
 export const logout = () => ({
   type: LOGOUT,
-  payload: requestLogout()
+  payload: requestLogout(),
 });
 export const login = (id, pw) => ({
   type: LOGIN,
-  payload: requestLogin(id, pw)
+  payload: requestLogin(id, pw),
 });
 export const postShelve = (email, isbn, title, authors, type, thumbnail) => ({
   type: POST_SHELVE,
-  payload: requsetPostShelve(email, isbn, title, authors, type, thumbnail)
+  payload: requsetPostShelve(email, isbn, title, authors, type, thumbnail),
 });
 export const postLike = (type, id, uid, m_id) => ({
   type: LIKE_REVIEW,
-  payload: requestLikeReview(type, id, uid, m_id)
+  payload: requestLikeReview(type, id, uid, m_id),
 });
 export const deleteShelve = (uid, bid, type) => ({
   type: DELETE_SHELVE,
-  payload: requestDeleteShelve(uid, bid, type)
+  payload: requestDeleteShelve(uid, bid, type),
 });
 const initialState = {
   pending: false,
   error: false,
   success: false,
   profile: {},
-  isLoggedIn: false
+  isLoggedIn: false,
 };
 
 export default handleActions(
@@ -112,7 +109,7 @@ export default handleActions(
       return {
         ...state,
         pending: true,
-        error: false
+        error: false,
       };
     },
     [LOGIN_SUCCESS]: (state, action) => {
@@ -120,7 +117,7 @@ export default handleActions(
         profile: action.payload.data,
         pending: false,
         error: false,
-        isLoggedIn: true
+        isLoggedIn: true,
       };
     },
     [LOGIN_FAILURE]: (state, action) => {
@@ -128,7 +125,7 @@ export default handleActions(
         ...state,
         pending: false,
         error: true,
-        isLoggedIn: false
+        isLoggedIn: false,
       };
     },
     //USER_CHECK
@@ -137,7 +134,7 @@ export default handleActions(
         ...state,
         pending: true,
         error: false,
-        isLoggedIn: false
+        isLoggedIn: false,
       };
     },
     [USER_CHECK_SUCCESS]: (state, action) => {
@@ -145,14 +142,14 @@ export default handleActions(
         pending: false,
         error: false,
         isLoggedIn: true,
-        profile: action.payload.data
+        profile: action.payload.data,
       };
     },
     [USER_CHECK_FAILURE]: (state, action) => {
       return {
         pending: false,
         error: true,
-        isLoggedIn: false
+        isLoggedIn: false,
       };
     },
     //LOGOUT
@@ -161,7 +158,7 @@ export default handleActions(
         ...state,
         pending: true,
         error: false,
-        isLoggedIn: false
+        isLoggedIn: false,
       };
     },
     [LOGOUT_SUCCESS]: (state, action) => {
@@ -169,14 +166,14 @@ export default handleActions(
         pending: false,
         error: false,
         isLoggedIn: false,
-        profile: {}
+        profile: {},
       };
     },
     [LOGOUT_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,
-        error: true
+        error: true,
       };
     },
     //POST_SHELVE
@@ -184,7 +181,7 @@ export default handleActions(
       return {
         ...state,
         pending: true,
-        error: false
+        error: false,
       };
     },
     [POST_SHELVE_SUCCESS]: (state, action) => {
@@ -193,14 +190,14 @@ export default handleActions(
         ...state,
         pending: false,
         error: false,
-        profile: data
+        profile: data,
       };
     },
     [POST_SHELVE_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,
-        error: true
+        error: true,
       };
     },
     ///LIKE_REVIEW
@@ -208,7 +205,7 @@ export default handleActions(
       return {
         ...state,
         pending: true,
-        error: false
+        error: false,
       };
     },
     [LIKE_REVIEW_SUCCESS]: (state, action) => {
@@ -218,21 +215,21 @@ export default handleActions(
         pending: false,
         error: false,
         success: true,
-        profile: data
+        profile: data,
       };
     },
     [LIKE_REVIEW_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,
-        error: true
+        error: true,
       };
     },
     [DELETE_SHELVE_PENDING]: (state, action) => {
       return {
         ...state,
         pending: true,
-        error: false
+        error: false,
       };
     },
     [DELETE_SHELVE_SUCCESS]: (state, action) => {
@@ -241,16 +238,16 @@ export default handleActions(
         ...state,
         profile: data,
         pending: false,
-        error: false
+        error: false,
       };
     },
     [DELETE_SHELVE_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,
-        error: true
+        error: true,
       };
-    }
+    },
   },
   initialState
 );
