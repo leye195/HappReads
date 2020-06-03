@@ -1,36 +1,49 @@
 @import "../../styles/utils.scss";
+.nav {
+  display: flex;
+  align-items: center;
+}
+.header {
+  position: fixed;
+  @include flex(row, center, space-between);
+  top: 0;
+  width: 100%;
+  background-color: rgb(236, 234, 222);
+  border-bottom: 2px solid $white-grey;
+  z-index: 1;
+  transition: all 0.3s ease-out;
+  .title {
+    cursor: pointer;
+    a {
+      color: #bdc100;
+      .fr {
+        font-weight: 100;
+      }
+      .en {
+        font-weight: 600;
+      }
+    }
+  }
+  .ul {
+    @include flex(row, center, none);
+  }
+  .login {
+    @include flex(row, none, none);
+  }
+}
 
 @include mobile {
   .header {
-    position: fixed;
-    @include flex(row, center, space-between);
     height: 11vh;
-    top: 0;
-    width: 100%;
-    background-color: rgb(236, 234, 222);
-    border-bottom: 2px solid $white-grey;
-    z-index: 1;
-    transition: all 0.3s ease-out;
     .title {
       font-size: 17px;
       margin: 6px;
-      cursor: pointer;
-      a {
-        color: #bdc100;
-        .fr {
-          font-weight: 100;
-        }
-        .en {
-          font-weight: 600;
-        }
-      }
     }
     .community {
       cursor: pointer;
       font-size: 0.65rem;
     }
     .ul {
-      @include flex(row, center, none);
       margin: 0px;
       li {
         margin: 10px;
@@ -62,43 +75,21 @@
           }
         }
       }
-      .login {
-        @include flex(row, none, none);
-      }
     }
   }
 }
 @include tablet {
   .header {
-    position: fixed;
-    @include flex(row, center, space-between);
     height: 10vh;
-    top: 0;
-    width: 100%;
-    background-color: rgb(236, 234, 222);
-    border-bottom: 2px solid $white-grey;
-    z-index: 1;
-    transition: all 0.3s ease-out;
     .title {
       font-size: 19px;
       margin: 10px;
-      cursor: pointer;
-      a {
-        color: #bdc100;
-        .fr {
-          font-weight: 100;
-        }
-        .en {
-          font-weight: 600;
-        }
-      }
     }
     .community {
       cursor: pointer;
       font-size: 0.85rem;
     }
     .ul {
-      @include flex(row, center, none);
       margin: 5px;
       li {
         margin: 10px;
@@ -130,42 +121,20 @@
           }
         }
       }
-      .login {
-        @include flex(row, none, none);
-      }
     }
   }
 }
 @include desktop {
   .header {
-    position: fixed;
-    @include flex(row, center, space-between);
-    height: 10vh;
-    top: 0;
-    width: 100%;
-    background-color: rgb(236, 234, 222);
-    border-bottom: 2px solid $white-grey;
-    z-index: 1;
-    transition: all 0.3s ease-out;
+    height: 12vh;
     .title {
       font-size: 25px;
       margin: 10px;
-      cursor: pointer;
-      a {
-        color: #bdc100;
-        .fr {
-          font-weight: 100;
-        }
-        .en {
-          font-weight: 600;
-        }
-      }
     }
     .community {
       cursor: pointer;
     }
     .ul {
-      @include flex(row, center, none);
       margin: 10px;
       li {
         margin: 10px;
@@ -196,9 +165,6 @@
             border-bottom-color: rgba(255, 255, 255, 1);
           }
         }
-      }
-      .login {
-        @include flex(row, none, none);
       }
     }
   }

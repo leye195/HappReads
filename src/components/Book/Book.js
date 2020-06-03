@@ -31,8 +31,6 @@ const Book = (props) => {
     );
   } else if (from === "search") {
     const { book } = props;
-    const url =
-      book && book.isbn !== undefined ? book.isbn.split(" ") : undefined;
     return (
       <li className={cx("ser-bg")}>
         <div className={cx("ser-book")}>
@@ -87,10 +85,10 @@ const Book = (props) => {
     const handleEdit = (isOpen, setOpen) => {
       setOpen(!isOpen);
     };
-    console.log(book);
+    //console.log(book);
     return (
       <div className={cx("shelve")} style={{ margin: "10px" }}>
-        <Link to={`/book/${book?.id}`}>
+        <Link to={`/book/${book?._id}`}>
           <span className={cx("title")}>{book?.title}</span>
           <span className={cx("authors")}>
             지은이: {book?.authors ? formatAuthors(book?.authors) : ""}

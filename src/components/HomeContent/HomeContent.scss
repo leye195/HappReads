@@ -1,9 +1,66 @@
 @import "../../styles/utils.scss";
 .home-content {
   @include base-height;
+  padding-bottom: 40px;
+  .books-wrapper {
+    margin: 0 auto;
+    .book-category-ul {
+      display: flex;
+      align-items: center;
+      li {
+        padding: 10px;
+        cursor: pointer;
+        &.selected {
+          background-color: $sun-flower;
+          color: white;
+        }
+      }
+    }
+  }
+}
+@include mobile {
+  .books-wrapper {
+    width: 100vw;
+    padding: 0;
+    .book-category-ul {
+      justify-content: space-between;
+      border-bottom: 1px solid #e3e3e3;
+      li {
+        padding: 10px;
+        font-size: 0.7rem;
+      }
+    }
+  }
+}
+@include tablet {
+  .books-wrapper {
+    width: 85vw;
+    .book-category-ul {
+      justify-content: center;
+      padding: 5px 0;
+      li {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #e3e3e3;
+        border-radius: 20px;
+        margin: 2px;
+      }
+    }
+  }
+}
+@include desktop {
   .books-wrapper {
     width: 80vw;
-    padding: 10vh 0;
-    margin: 0 auto;
+    .book-category-ul {
+      justify-content: center;
+      padding: 10px 0px;
+      li {
+        padding: 10px;
+        font-size: 1.2rem;
+        border: 1px solid $sun-flower;
+        border-radius: 20px;
+        margin: 2px;
+      }
+    }
   }
 }

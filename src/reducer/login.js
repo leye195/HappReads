@@ -95,7 +95,7 @@ export const deleteShelve = (uid, bid, type) => ({
   payload: requestDeleteShelve(uid, bid, type),
 });
 const initialState = {
-  pending: false,
+  pending: true,
   error: false,
   success: false,
   profile: {},
@@ -113,6 +113,7 @@ export default handleActions(
       };
     },
     [LOGIN_SUCCESS]: (state, action) => {
+      console.log(action.payload.data);
       return {
         profile: action.payload.data,
         pending: false,

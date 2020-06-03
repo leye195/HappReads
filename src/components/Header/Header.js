@@ -16,12 +16,13 @@ const LinkContainer = (
   profile
 ) => {
   if (isLoggedIn) {
+    console.log(profile);
     return (
       <Fragment>
         <li>
           <span>
             <img
-              src={profile.profile ? profile.profile.avatarUrl : ""}
+              src={profile.user ? profile.user.avatarUrl : ""}
               alt={"me"}
               onClick={clickMenu}
               style={{ width: "40px", height: "40px", borderRadius: "50%" }}
@@ -139,7 +140,7 @@ class Header extends Component {
     const { isLoggedIn, profile, getBooks } = this.props;
     this.handleScroll();
     return (
-      <div className={cx("header")}>
+      <header className={cx("header")}>
         <div className={cx("title")}>
           <Link to={"/"}>
             <span className={cx("fr")}>Happ</span>
@@ -147,10 +148,10 @@ class Header extends Component {
           </Link>
         </div>
         <SearchBar getBooks={getBooks} />
-        <div className={cx("community")}>
-          <Link to={"/community/reviews"}>커뮤니티</Link>
-        </div>
-        <div>
+        <nav className={cx("nav")}>
+          <div className={cx("community")}>
+            <Link to={"/community/reviews"}>커뮤니티</Link>
+          </div>
           <ul className={cx("ul")}>
             {LinkContainer(
               isLoggedIn,
@@ -160,9 +161,9 @@ class Header extends Component {
               profile
             )}
           </ul>
-        </div>
+        </nav>
         {isLogOut && <Redirect to="/" />}
-      </div>
+      </header>
     );
   }
 }

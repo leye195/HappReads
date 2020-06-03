@@ -26,13 +26,14 @@ class BookUpload extends Component {
     author: "",
     isbn: "",
     contents: "",
+    genres: "",
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    const { selected, title, authors, isbn, contents } = this.state;
+    const { selected, title, authors, isbn, contents, genres } = this.state;
     const {
       profile: {
-        profile: { _id },
+        user: { _id },
       },
     } = this.props;
     const formData = new FormData();
@@ -42,6 +43,7 @@ class BookUpload extends Component {
     formData.append("isbn", isbn);
     formData.append("contents", contents);
     formData.append("uid", _id);
+    formData.append("genres", genres);
     //console.log(title, authors, isbn, contents);
     this.submitData(formData);
   };
@@ -84,17 +86,22 @@ class BookUpload extends Component {
   };
   handleTitle = (title) => {
     this.setState({
-      title: title,
+      title,
     });
   };
   handleContents = (contents) => {
     this.setState({
-      contents: contents,
+      contents,
     });
   };
   handleIsbn = (isbn) => {
     this.setState({
-      isbn: isbn,
+      isbn,
+    });
+  };
+  handleGenres = (genres) => {
+    this.setState({
+      genres,
     });
   };
   submitData = async (data) => {
@@ -107,7 +114,15 @@ class BookUpload extends Component {
     }
   };
   render() {
-    const { title, isbn, contents, author, authors, selected } = this.state;
+    const {
+      title,
+      isbn,
+      contents,
+      author,
+      authors,
+      genres,
+      selected,
+    } = this.state;
     return (
       <div className={cx("book-upload")}>
         <div className={cx("form-container")}>
@@ -141,6 +156,13 @@ class BookUpload extends Component {
                 onKeyDown={(e) => this.handleKeyPress(e.keyCode)}
               />
             </div>
+            <input
+              type="text"
+              value={genres}
+              placeholder="책 장르 ( ,구분진행)"
+              onChange={(e) => this.handleGenres(e.target.value)}
+              required
+            />
             <input
               type="text"
               value={isbn}

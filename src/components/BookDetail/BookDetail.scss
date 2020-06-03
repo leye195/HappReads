@@ -1,4 +1,23 @@
 @import "../../styles/utils.scss";
+.title,
+.author,
+.discription {
+  margin-bottom: 15px;
+}
+.discription {
+  display: inline;
+  line-height: 20px;
+  white-space: pre-line;
+  max-height: 10rem;
+  min-height: 3rem;
+}
+.rate-wrapper {
+  margin-top: 10px;
+  span {
+    color: #b0b0b0;
+    display: block;
+  }
+}
 @include mobile {
   .book-detail {
     margin-top: 70px;
@@ -44,23 +63,6 @@
         }
         .title {
           font-size: 1.2rem;
-        }
-        .title,
-        .author,
-        .discription {
-          margin-bottom: 15px;
-        }
-        .discription {
-          display: inline;
-          line-height: 20px;
-          white-space: pre-line;
-        }
-        .rate-wrapper {
-          margin-top: 10px;
-          span {
-            color: #b0b0b0;
-            display: block;
-          }
         }
         .add {
           display: flex;
@@ -129,23 +131,6 @@
         }
         .title {
           font-size: 1.2rem;
-        }
-        .title,
-        .author,
-        .discription {
-          margin-bottom: 15px;
-        }
-        .discription {
-          display: inline;
-          line-height: 20px;
-          white-space: pre-line;
-        }
-        .rate-wrapper {
-          margin-top: 10px;
-          span {
-            color: #b0b0b0;
-            display: block;
-          }
         }
         .add {
           display: flex;
@@ -218,23 +203,7 @@
         .title {
           font-size: 2rem;
         }
-        .title,
-        .author,
-        .discription {
-          margin-bottom: 15px;
-        }
-        .discription {
-          display: inline;
-          line-height: 20px;
-          white-space: pre-line;
-        }
-        .rate-wrapper {
-          margin-top: 10px;
-          span {
-            color: #b0b0b0;
-            display: block;
-          }
-        }
+
         .add {
           display: flex;
           justify-content: flex-start;

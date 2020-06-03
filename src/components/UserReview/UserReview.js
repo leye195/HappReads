@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import style from "./UserReview.scss";
 import classnames from "classnames/bind";
 import moment from "moment";
+import { v4 } from "uuid";
 import { connect } from "react-redux";
 import * as actions from "../../reducer/login";
 import { FaHeart, FaTrash, FaEdit } from "react-icons/fa";
@@ -10,9 +11,9 @@ const cx = classnames.bind(style);
 class UserReview extends Component {
   state = {
     review: null,
-    isOpen: false
+    isOpen: false,
   };
-  handleLike = e => {
+  handleLike = (e) => {
     const { currentTarget } = e;
     const id = currentTarget.getAttribute("data-value");
     this.postLike("like", id);
@@ -21,16 +22,16 @@ class UserReview extends Component {
     console.log(currentTarget.getAttribute("data-value"));
     this.setState({
       isOpen: true,
-      review
+      review,
     });
   };
   handleClose = () => {
     this.setState({
       isOpen: false,
-      review: null
+      review: null,
     });
   };
-  handleDelete = e => {
+  handleDelete = (e) => {
     const { currentTarget } = e;
     const bid = currentTarget.getAttribute("data-value");
     console.log(bid);
@@ -46,12 +47,8 @@ class UserReview extends Component {
   getReview = (review, handleLike, handleDelete, handleEdit, mid, uid) => {
     console.log(mid, uid);
     return (
-      <Fragment>
-        <div
-          className={cx("review-container")}
-          id={review._id}
-          key={review._id}
-        >
+      <Fragment key={v4()}>
+        <div className={cx("review-container")} id={review._id}>
           <div>
             <img
               src={review.book !== undefined ? review.book.thumbnail : ""}
@@ -74,7 +71,7 @@ class UserReview extends Component {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  marginTop: "5px"
+                  marginTop: "5px",
                 }}
               >
                 <span className={cx("review-like")}>{review.likes} likes</span>
@@ -94,7 +91,7 @@ class UserReview extends Component {
               <span
                 className={cx("review-edit")}
                 data-value={review._id}
-                onClick={e => handleEdit(e.currentTarget, review)}
+                onClick={(e) => handleEdit(e.currentTarget, review)}
               >
                 <FaEdit />
               </span>
@@ -114,23 +111,23 @@ class UserReview extends Component {
     );
   };
   render() {
-    const {
-      profile: { _id, reviews },
-      me
-    } = this.props;
+    const { profile, me, userloading } = this.props;
     const { isOpen, review } = this.state;
     return (
       <div className={cx("user-review")}>
-        {reviews.map(review => {
-          return this.getReview(
-            review,
-            this.handleLike,
-            this.handleDelete,
-            this.handleEdit,
-            me.profile._id,
-            _id
-          );
-        })}
+        {userloading === false &&
+          profile &&
+          profile.reviews &&
+          profile.reviews.map((review) => {
+            return this.getReview(
+              review,
+              this.handleLike,
+              this.handleDelete,
+              this.handleEdit,
+              me.user._id,
+              profile._id
+            );
+          })}
         {isOpen && (
           <ReviewModal review={review} handleClose={this.handleClose} />
         )}
@@ -138,14 +135,15 @@ class UserReview extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    me: state.login.profile
+    me: state.login.profile,
+    userloading: state.login.pending,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    postLike: (type, id, uid) => dispatch(actions.postLike(type, id, uid))
+    postLike: (type, id, uid) => dispatch(actions.postLike(type, id, uid)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UserReview);

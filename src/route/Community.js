@@ -5,13 +5,13 @@ class Community extends Component {
   render() {
     const {
       history: {
-        location: { pathname }
-      }
+        location: { pathname },
+      },
     } = this.props;
     const path = pathname.substr(1).split("/")[1];
     return (
       <Fragment>
-        <div style={{ paddingTop: "70px" }}>
+        <div style={{ paddingTop: "11vh" }}>
           <Category path={path} />
           <CommunityContainer path={path} />
         </div>

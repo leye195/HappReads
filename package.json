@@ -14,7 +14,6 @@
     "gh-pages": "^2.2.0",
     "helmet": "^3.21.2",
     "immer": "^6.0.9",
-    "immutable": "^4.0.0-rc.12",
     "include-media": "^1.4.9",
     "jsonwebtoken": "^8.5.1",
     "lqip-react": "^1.0.1",
@@ -30,12 +29,14 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "react-select": "^3.0.8",
+    "react-slick": "^0.26.1",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^6.1.2",
     "redux-saga": "^1.1.3",
     "sass-loader": "^8.0.2",
+    "slick-carousel": "^1.8.1",
     "uuid": "^7.0.1"
   },
   "scripts": {

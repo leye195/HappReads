@@ -1,0 +1,45 @@
+@import "../../styles/utils.scss";
+
+.slider-container {
+  background-color: #282e38;
+  margin-bottom: 2rem;
+  .slick-slider {
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .slick-slide {
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .slick-dots {
+    display: none !important;
+  }
+}
+@include mobile {
+  .slick-slider {
+    width: 85vw;
+  }
+}
+@include tablet {
+  .slick-slider {
+    width: 80vw;
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 1.5rem !important;
+  }
+}
+@include desktop {
+  .slick-slider {
+    width: 75vw;
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 2rem !important;
+  }
+}

@@ -39,7 +39,7 @@ class Detail extends Component {
     } = this.props;
     return (
       <Fragment>
-        <div className="main-container">
+        <main className="main-container">
           <BookDetail
             book={book}
             id={id}
@@ -48,7 +48,7 @@ class Detail extends Component {
             reviews={reviews}
             profile={profile}
           />
-        </div>
+        </main>
       </Fragment>
     );
   }

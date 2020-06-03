@@ -1,13 +1,21 @@
 @import "../../styles/utils.scss";
+.review {
+  padding: 0 20px;
+  p {
+    border-bottom: 1px solid #e3e3e3;
+    margin-top: 10px;
+    font-weight: 100;
+    padding-bottom: 5px;
+  }
+  button,
+  .more {
+    cursor: pointer;
+  }
+}
 @include mobile {
   .review {
-    padding: 0 20px;
     p {
       font-size: 1.1rem;
-      border-bottom: 1px solid #e3e3e3;
-      margin-top: 10px;
-      font-weight: 100;
-      padding-bottom: 5px;
     }
     .form-container {
       height: 100px;
@@ -82,23 +90,14 @@
             cursor: pointer;
           }
         }
-        button,
-        .more {
-          cursor: pointer;
-        }
       }
     }
   }
 }
 @include tablet {
   .review {
-    padding: 0 20px;
     p {
       font-size: 1.1rem;
-      border-bottom: 1px solid #e3e3e3;
-      margin-top: 10px;
-      font-weight: 100;
-      padding-bottom: 5px;
     }
     .form-container {
       height: 100px;
@@ -173,23 +172,14 @@
             cursor: pointer;
           }
         }
-        button,
-        .more {
-          cursor: pointer;
-        }
       }
     }
   }
 }
 @include desktop {
   .review {
-    padding: 0 20px;
     p {
       font-size: 1.1rem;
-      border-bottom: 1px solid #e3e3e3;
-      margin-top: 10px;
-      font-weight: 100;
-      padding-bottom: 5px;
     }
     .form-container {
       height: 100px;
@@ -260,10 +250,6 @@
             justify-content: center;
             cursor: pointer;
           }
-        }
-        button,
-        .more {
-          cursor: pointer;
         }
       }
     }

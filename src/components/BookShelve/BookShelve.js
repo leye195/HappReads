@@ -10,11 +10,11 @@ import BookModal from "../BookModal";
 const cx = classnames.bind(style);
 let currentItem = null;
 let shelveHeader = null;
-const active = target => {
+const active = (target) => {
   target.classList.add("show");
   currentItem = target;
 };
-const inactive = currentItem => {
+const inactive = (currentItem) => {
   currentItem.classList.remove("show");
 };
 const convertType = { 읽음: "read", 읽기: "want_read", 읽는중: "reading" };
@@ -26,7 +26,7 @@ class BookShelve extends Component {
       openModal: false,
       lastPos: 90,
       item: {},
-      status: ""
+      status: "",
     };
   }
   componentDidMount() {
@@ -43,7 +43,7 @@ class BookShelve extends Component {
     window.removeEventListener("scroll", this.handleScroll);
     menu_ul.removeEventListener("click", this.handleClick);
   }
-  handleScroll = e => {
+  handleScroll = (e) => {
     const menu_ul = document.querySelector(".menu-ul");
     const posY = menu_ul.getBoundingClientRect().top;
     if (e) {
@@ -68,9 +68,9 @@ class BookShelve extends Component {
       console.log(error);
     }
   };
-  checkType = item => {
+  checkType = (item) => {
     const {
-      user: { user }
+      user: { user },
     } = this.props;
     const read = user.read;
     const want_read = user.want_read;
@@ -85,9 +85,9 @@ class BookShelve extends Component {
       if (read[i].book.isbn === item.isbn) return "읽음";
     }
   };
-  getBooks = val => {
+  getBooks = (val) => {
     const {
-      user: { user }
+      user: { user },
     } = this.props;
     const type = parseInt(val, 10);
     if (user) {
@@ -101,11 +101,11 @@ class BookShelve extends Component {
           .sort((a, b) => {
             return a.title > b.title ? 1 : -1;
           });
-        const tags = all.map(item => {
+        const tags = all.map((item) => {
           return (
             <tr key={item.book._id}>
               <td>
-                <Link to={`/book/${item.isbn}`}>
+                <Link to={`/book/${item._id}`}>
                   <img
                     src={item.book.thumbnail}
                     alt={item.book.thumbnail}
@@ -113,7 +113,7 @@ class BookShelve extends Component {
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.book.isbn}`}>{item.book.title}</Link>
+                <Link to={`/book/${item.book._id}`}>{item.book.title}</Link>
               </td>
               <td>
                 {item.book.authors.length > 1
@@ -127,7 +127,7 @@ class BookShelve extends Component {
               <td>{this.checkType(item.book)} </td>
               <td
                 className={cx("settings all")}
-                onClick={e =>
+                onClick={(e) =>
                   this.handleSettings(
                     e.target,
                     item.book,
@@ -145,16 +145,16 @@ class BookShelve extends Component {
       } else if (type === 2) {
         const uploaded = user.uploaded;
         console.log(uploaded);
-        const tags = uploaded.map(item => {
+        const tags = uploaded.map((item) => {
           return (
             <tr key={item._id}>
               <td>
-                <Link to={`/book/${item.isbn}`}>
+                <Link to={`/book/${item._id}`}>
                   <img src={item.thumbnail} alt={item.thumbnail}></img>
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.isbn}`}>{item.title}</Link>
+                <Link to={`/book/${item._id}`}>{item.title}</Link>
               </td>
               <td>
                 {item.authors.length > 1
@@ -166,7 +166,7 @@ class BookShelve extends Component {
               <td>업로드</td>
               <td
                 className={cx("settings uploaded")}
-                onClick={e =>
+                onClick={(e) =>
                   this.handleSettings(e.target, item, this.checkType(item))
                 }
               >
@@ -179,11 +179,11 @@ class BookShelve extends Component {
         return tags;
       } else if (type === 3) {
         const want_read = user.want_read;
-        const tags = want_read.map(item => {
+        const tags = want_read.map((item) => {
           return (
             <tr key={item.book._id}>
               <td>
-                <Link to={`/book/${item.isbn}`}>
+                <Link to={`/book/${item._id}`}>
                   <img
                     src={item.book.thumbnail}
                     alt={item.book.thumbnail}
@@ -191,7 +191,7 @@ class BookShelve extends Component {
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.book.isbn}`}>{item.book.title}</Link>
+                <Link to={`/book/${item.book._id}`}>{item.book.title}</Link>
               </td>
               <td>
                 {item.book.authors.length > 1
@@ -205,7 +205,7 @@ class BookShelve extends Component {
               <td>읽기</td>
               <td
                 className={cx("settings want")}
-                onClick={e =>
+                onClick={(e) =>
                   this.handleSettings(
                     e.target,
                     item.book,
@@ -222,11 +222,11 @@ class BookShelve extends Component {
         return tags;
       } else if (type === 4) {
         const reading = user.reading;
-        const tags = reading.map(item => {
+        const tags = reading.map((item) => {
           return (
             <tr key={item._id}>
               <td>
-                <Link to={`/book/${item.book.isbn}`}>
+                <Link to={`/book/${item.book._id}`}>
                   <img
                     src={item.book.thumbnail}
                     alt={item.book.thumbnail}
@@ -234,7 +234,7 @@ class BookShelve extends Component {
                 </Link>
               </td>
               <td>
-                <Link to={`/book/${item.book.isbn}`}>{item.book.title}</Link>
+                <Link to={`/book/${item.book._id}`}>{item.book.title}</Link>
               </td>
               <td>
                 {item.book.authors.length > 1
@@ -248,7 +248,7 @@ class BookShelve extends Component {
               <td>읽는중</td>
               <td
                 className={cx("settings reading")}
-                onClick={e =>
+                onClick={(e) =>
                   this.handleSettings(
                     e.target,
                     item.book,
@@ -265,11 +265,11 @@ class BookShelve extends Component {
         return tags;
       } else if (type === 5) {
         const read = user.read;
-        const tags = read.map(item => {
+        const tags = read.map((item) => {
           return (
             <tr key={item.book._id}>
               <td>
-                <Link to={`/book/${item.book.isbn}`}>
+                <Link to={`/book/${item.book._id}`}>
                   <img
                     src={item.book.thumbnail}
                     alt={item.book.thumbnail}
@@ -291,7 +291,7 @@ class BookShelve extends Component {
               <td>읽음</td>
               <td
                 className={cx("settings")}
-                onClick={e =>
+                onClick={(e) =>
                   this.handleSettings(
                     e.target,
                     item.book,
@@ -315,7 +315,7 @@ class BookShelve extends Component {
     try {
       const response = await deleteShelve(uid, bid, type);
       const {
-        value: { status }
+        value: { status },
       } = response;
       if (status === 200) {
         this.getUser(uid);
@@ -324,11 +324,11 @@ class BookShelve extends Component {
       console.log(error);
     }
   };
-  handleClick = e => {
+  handleClick = (e) => {
     const { target } = e;
     const val = target.getAttribute("data-value");
     this.setState({
-      type: val
+      type: val,
     });
     if (currentItem) {
       inactive(currentItem);
@@ -340,25 +340,25 @@ class BookShelve extends Component {
       this.setState({
         openModal: true,
         item,
-        status: type
+        status: type,
       });
     }
     if (target.innerText === "X") {
       const {
-        profile: { profile }
+        profile: { profile },
       } = this.props;
       this.deleteShelve(profile._id, item._id, convertType[type]);
     }
   };
-  handleCancel = e => {
+  handleCancel = (e) => {
     this.setState({
-      openModal: false
+      openModal: false,
     });
   };
   handleChange = async (book, value) => {
     const {
       postShelve,
-      profile: { profile }
+      profile: { profile },
     } = this.props;
     //서버에 수정 요청 전송 코드입력
     try {
@@ -371,12 +371,12 @@ class BookShelve extends Component {
         book.thumbnail
       );
       const {
-        value: { status }
+        value: { status },
       } = response;
       if (status === 200) {
         this.getUser(profile.id);
         this.setState({
-          openModal: false
+          openModal: false,
         });
       }
     } catch (error) {
@@ -386,7 +386,7 @@ class BookShelve extends Component {
   render() {
     const {
       user: { user },
-      profile: { profile }
+      profile: { profile },
     } = this.props;
     const { type, openModal, item, status } = this.state;
     const uid = window.location.pathname.substring(1).split("/")[1];
@@ -438,21 +438,21 @@ class BookShelve extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     profile: state.login.profile,
-    user: state.user.profile
+    user: state.user.profile,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getUser: uid => dispatch(userActions.getUser(uid)),
+    getUser: (uid) => dispatch(userActions.getUser(uid)),
     postShelve: (email, isbn, title, authors, type, thumbnail) =>
       dispatch(
         loginActions.postShelve(email, isbn, title, authors, type, thumbnail)
       ),
     deleteShelve: (uid, bid, type) =>
-      dispatch(loginActions.deleteShelve(uid, bid, type))
+      dispatch(loginActions.deleteShelve(uid, bid, type)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BookShelve);

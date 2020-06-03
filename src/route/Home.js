@@ -6,6 +6,12 @@ import { connect } from "react-redux";
 
 import * as actions from "../reducer/books";
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      type: "전체",
+    };
+  }
   componentDidMount() {
     window.scrollTo(0, 0);
     this.getBooks();
@@ -18,6 +24,19 @@ class Home extends Component {
       console.log(error);
     }
   };
+  onhandleClick = (e) => {
+    const {
+      target: { dataset },
+    } = e;
+    this.setState({ type: dataset.value });
+  };
+  filterBookList = (books) => {
+    const { type } = this.state;
+    if (type === "전체") return books;
+    else {
+      return books.filter((book) => book?.genres?.includes(type));
+    }
+  };
   render() {
     const { books, pending } = this.props;
     return (
@@ -27,23 +46,28 @@ class Home extends Component {
           {pending ? (
             <ChasingDots color="white" size={60} />
           ) : (
-            <HomeContent booklist={books} />
+            <HomeContent
+              booklist={books}
+              filterBookList={this.filterBookList}
+              handleClick={this.onhandleClick}
+              type={this.state.type}
+            />
           )}
         </main>
       </Fragment>
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     pending: state.books.pending,
     error: state.books.error,
-    books: state.books.books
+    books: state.books.books,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getBooks: () => dispatch(actions.getAllBooks())
+    getBooks: () => dispatch(actions.getAllBooks()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

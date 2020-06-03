@@ -12,8 +12,6 @@
       width: 75%;
       margin: 0 auto;
       padding: 0 10px;
-      border-left: 15px solid $sun-flower;
-      box-shadow: -6px 0px 3px 0px $white-grey;
       .card {
         @include card(10px);
         &:last-child {
@@ -24,11 +22,13 @@
         @include flex(row, none, flex-start);
         margin: 0 auto;
         margin-top: 20px;
+        border-left: 15px solid $sun-flower;
         .first-col {
           @include flex(column, center, none);
           img {
             width: 80px;
             height: 120px;
+            border-radius: 10px;
           }
         }
         .second-col {
@@ -150,8 +150,6 @@
       width: 60%;
       margin: 0 auto;
       padding: 0 10px;
-      border-left: 15px solid $sun-flower;
-      box-shadow: -6px 0px 3px 0px $white-grey;
       .card {
         @include card(10px);
         &:last-child {
@@ -162,11 +160,17 @@
         @include flex(row, none, flex-start);
         margin: 0 auto;
         margin-top: 20px;
+        &::before {
+          content: "";
+          width: 4px;
+          border-left: 15px solid $sun-flower;
+        }
         .first-col {
           @include flex(column, center, none);
           img {
             width: 80px;
             height: 100px;
+            border-radius: 10px;
           }
         }
         .second-col {
@@ -282,8 +286,6 @@
       width: 60%;
       margin: 0 auto;
       padding: 0 10px;
-      border-left: 15px solid $sun-flower;
-      box-shadow: -6px 0px 3px 0px $white-grey;
       .card {
         @include card(10px);
         &:last-child {
@@ -294,15 +296,22 @@
         @include flex(row, none, flex-start);
         margin: 0 auto;
         margin-top: 20px;
+
+        &::before {
+          content: "";
+          height: 100%;
+          width: 5px;
+          border-left: 15px solid $sun-flower;
+        }
         .first-col {
           @include flex(column, center, none);
           img {
-            width: 80px;
-            height: 100px;
+            width: 100px;
+            height: 150px;
           }
         }
         .second-col {
-          @include flex(column, none, center);
+          @include flex(column, none, none);
           margin-left: 20px;
           .date {
             font-size: 0.7rem;
@@ -326,7 +335,8 @@
             }
             p {
               word-break: break-all;
-              font-size: 0.7rem;
+              font-size: 1.1rem;
+              margin-left: 10px;
             }
           }
         }

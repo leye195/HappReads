@@ -125,12 +125,12 @@ const content = (path, info = [], handleType = null, type = null) => {
           <p style={{ textAlign: "center" }}>기록이 없습니다.</p>
         )}
         {info.length > 0 &&
-          info.map(review => {
+          info.map((review) => {
             return (
               <div key={review && review._id} className={cx(["card", "row"])}>
                 <div className={cx("first-col")}>
                   <Link
-                    to={`/book/${review && review.book && review.book.isbn}`}
+                    to={`/book/${review && review.book && review.book._id}`}
                   >
                     <img
                       src={review && review.book && review.book.thumbnail}
@@ -150,7 +150,7 @@ const content = (path, info = [], handleType = null, type = null) => {
                   </p>
                   <h4 className={cx("title")}>
                     <Link
-                      to={`/book/${review && review.book && review.book.isbn}`}
+                      to={`/book/${review && review.book && review.book._id}`}
                     >
                       {review && review.book && review.book.title}
                     </Link>
@@ -174,7 +174,7 @@ const content = (path, info = [], handleType = null, type = null) => {
 };
 class CommunityContainer extends Component {
   state = {
-    type: 0
+    type: 0,
   };
   componentDidMount() {
     this.getReviews();
@@ -205,14 +205,14 @@ class CommunityContainer extends Component {
       console.log(error);
     }
   };
-  handleType = e => {
+  handleType = (e) => {
     const { target } = e;
     const value = target.getAttribute("data-value");
     const role = target.getAttribute("data-role");
     if (role === "reader") this.getTopReaders(value);
     if (role === "reviewer") this.getTopReviewers(value);
     this.setState({
-      type: value
+      type: value,
     });
   };
   render() {
@@ -235,18 +235,18 @@ class CommunityContainer extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     reviews: state.review.reviews,
     topReaders: state.user.topReaders,
-    topReviewers: state.user.topReviewers
+    topReviewers: state.user.topReviewers,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     getReviews: () => dispatch(reviewActions.getReviews()),
     getTopReaders: (type = 0) => dispatch(userActions.getTopReaders(type)),
-    getTopReviewers: (type = 0) => dispatch(userActions.getTopReviewers(type))
+    getTopReviewers: (type = 0) => dispatch(userActions.getTopReviewers(type)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityContainer);

@@ -6,9 +6,10 @@
     ul {
       @include flex(row, center, none);
       text-align: center;
+      padding-top: 10px;
       li {
         flex: 1;
-        padding: 15px;
+        padding: 10px;
         cursor: pointer;
         font-size: 0.9rem;
         &:first-child {

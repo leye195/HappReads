@@ -1,40 +1,148 @@
 @import "../../styles/utils.scss";
-@include mobile {
-  .user-profile {
-    @include base-height;
-    margin-top: 90px;
-    .profile-wrapper {
-      @include flex(row, center, center);
-      border-bottom: 5px solid #e3e3e3;
-      margin-bottom: 10px;
-      margin-top: 10;
-      .info {
-        @include flex(column, center, center);
-        img {
-          width: 110px;
-          height: 110px;
-          border-radius: 50%;
-          animation: fadeIn 1.5s ease-out;
-          cursor: pointer;
-          &:hover {
-            opacity: 0.7;
-          }
+.user-profile {
+  @include base-height;
+  margin-top: 90px;
+  padding-top: 10vh;
+  .profile-wrapper {
+    @include flex(row, center, center);
+    border-bottom: 5px solid #e3e3e3;
+    margin-bottom: 10px;
+    margin-top: 10;
+    .info {
+      @include flex(column, center, center);
+      img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        animation: fadeIn 1.5s ease-out;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.7;
         }
-        h1 {
-          margin: 10px;
-        }
-        .intro {
-          margin: 10px;
+      }
+      h1 {
+        margin: 10px;
+      }
+      .intro {
+        margin: 10px;
+        font-size: 0.8rem;
+      }
+      .rate-review {
+        margin-top: 0px;
+        text-align: center;
+        p {
+          margin: 5px;
           font-size: 0.8rem;
         }
-        .rate-review {
-          margin-top: 0px;
-          text-align: center;
-          p {
-            margin: 5px;
-            font-size: 0.8rem;
-          }
-        }
+      }
+    }
+  }
+  .uploaded,
+  .book-shelve,
+  .currently-reading,
+  .want-read,
+  .read,
+  .recent-update {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    width: 80%;
+    margin: 0 auto;
+    @include flex(column, none, none);
+  }
+  .uploaded-head,
+  .book-shelve-head,
+  .recent-head,
+  .currently-head,
+  .want-read-head,
+  .read-head {
+    border-bottom: 1px solid #e3e3e3;
+    cursor: pointer;
+  }
+  .uploaded-body,
+  .recent-body,
+  .currently-body,
+  .want-read-body,
+  .read-body {
+    padding-bottom: 10px;
+    .recent-empty {
+      color: $dark-grey;
+      margin: 10px 5px;
+    }
+  }
+}
+.uploaded-list {
+  @include flex(row, none, none);
+  overflow-x: scroll;
+  .uploaded-img-wrapper {
+    position: relative;
+    margin: 5px;
+    .uploaded-img {
+      height: 100%;
+      width: 100%;
+    }
+    &::after {
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.2) 0,
+        rgba(0, 0, 0, 0) 5%,
+        rgba(0, 0, 0, 0) 95%,
+        rgba(0, 0, 0, 0.2) 100%
+      );
+      border: solid 1px rgba(0, 0, 0, 0.1);
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+    }
+    .to-detail {
+      z-index: 100;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      left: 0;
+      height: 100%;
+      text-align: center;
+      font-size: 0.7rem;
+      opacity: 0;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        background-color: #1f1f1f5e;
+        font-weight: 100;
+      }
+      a {
+        @include flex(row, center, center);
+        color: white;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+.modal-overay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.22);
+  animation: fadeIn 1.5s ease-out both;
+}
+.open-modal {
+  display: block;
+}
+.close-modal {
+  visibility: hidden;
+  display: none;
+}
+@include mobile {
+  .user-profile {
+    .profile-wrapper {
+      .info {
         .profile-edit {
           margin-bottom: 10px;
           p {
@@ -59,20 +167,6 @@
           border-bottom: 2px solid $sun-flower;
         }
       }
-    }
-    .uploaded,
-    .book-shelve,
-    .currently-reading,
-    .want-read,
-    .read,
-    .recent-update {
-      margin-top: 10px;
-      margin-left: 10px;
-      margin-right: 10px;
-      padding-top: 10px;
-      width: 80%;
-      margin: 0 auto;
-      @include flex(column, none, none);
     }
     .book-shelve-head {
       @include flex(row, center, space-between);
@@ -104,114 +198,16 @@
         }
       }
     }
-    .uploaded-head,
-    .book-shelve-head,
-    .recent-head,
-    .currently-head,
-    .want-read-head,
-    .read-head {
-      border-bottom: 1px solid #e3e3e3;
-      cursor: pointer;
+    .uploaded-img-wrapper {
+      height: 6rem;
+      width: 6rem;
     }
-    .uploaded-body,
-    .recent-body,
-    .currently-body,
-    .want-read-body,
-    .read-body {
-      padding-bottom: 10px;
-      .recent-empty {
-        color: $dark-grey;
-        margin: 10px 5px;
-      }
-    }
-    .uploaded-list {
-      @include flex(row, none, none);
-      overflow-x: scroll;
-      .uploaded-img-wrapper {
-        position: relative;
-        margin: 5px;
-        .uploaded-img {
-          height: 85px;
-        }
-        .to-detail {
-          position: absolute;
-          top: 0;
-          width: 100%;
-          left: 0;
-          height: 95%;
-          text-align: center;
-          font-size: 0.7rem;
-          //@include flex(row, center, center);
-          opacity: 0;
-          cursor: pointer;
-          &:hover {
-            opacity: 1;
-            background-color: #1f1f1f5e;
-            font-weight: 100;
-          }
-          a {
-            @include flex(row, center, center);
-            color: white;
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-    }
-  }
-  .modal-overay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.22);
-    animation: fadeIn 1.5s ease-out both;
-  }
-  .open-modal {
-    display: block;
-  }
-  .close-modal {
-    visibility: hidden;
-    display: none;
   }
 }
 @include tablet {
   .user-profile {
-    @include base-height;
-    margin-top: 90px;
     .profile-wrapper {
-      @include flex(row, center, center);
-      border-bottom: 5px solid #e3e3e3;
-      margin-bottom: 10px;
-      margin-top: 10;
       .info {
-        @include flex(column, center, center);
-        img {
-          width: 110px;
-          height: 110px;
-          border-radius: 50%;
-          animation: fadeIn 1.5s ease-out;
-          cursor: pointer;
-          &:hover {
-            opacity: 0.7;
-          }
-        }
-        h1 {
-          margin: 10px;
-        }
-        .intro {
-          margin: 10px;
-          font-size: 0.8rem;
-        }
-        .rate-review {
-          margin-top: 0px;
-          text-align: center;
-          p {
-            margin: 5px;
-            font-size: 0.8rem;
-          }
-        }
         .profile-edit {
           margin-bottom: 10px;
           p {
@@ -236,20 +232,6 @@
           border-bottom: 2px solid $sun-flower;
         }
       }
-    }
-    .uploaded,
-    .book-shelve,
-    .currently-reading,
-    .want-read,
-    .read,
-    .recent-update {
-      margin-top: 10px;
-      margin-left: 10px;
-      margin-right: 10px;
-      padding-top: 10px;
-      width: 80%;
-      margin: 0 auto;
-      @include flex(column, none, none);
     }
     .book-shelve-head {
       @include flex(row, center, space-between);
@@ -281,114 +263,16 @@
         }
       }
     }
-    .uploaded-head,
-    .book-shelve-head,
-    .recent-head,
-    .currently-head,
-    .want-read-head,
-    .read-head {
-      border-bottom: 1px solid #e3e3e3;
-      cursor: pointer;
+    .uploaded-img-wrapper {
+      height: 15vw;
+      width: 10vw;
     }
-    .uploaded-body,
-    .recent-body,
-    .currently-body,
-    .want-read-body,
-    .read-body {
-      padding-bottom: 10px;
-      .recent-empty {
-        color: $dark-grey;
-        margin: 10px 5px;
-      }
-    }
-    .uploaded-list {
-      @include flex(row, none, none);
-      overflow-x: scroll;
-      .uploaded-img-wrapper {
-        position: relative;
-        margin: 5px;
-        .uploaded-img {
-          height: 100px;
-        }
-        .to-detail {
-          position: absolute;
-          top: 0;
-          width: 100%;
-          left: 0;
-          height: 95%;
-          text-align: center;
-          font-size: 0.7rem;
-          //@include flex(row, center, center);
-          opacity: 0;
-          cursor: pointer;
-          &:hover {
-            opacity: 1;
-            background-color: #1f1f1f5e;
-            font-weight: 100;
-          }
-          a {
-            @include flex(row, center, center);
-            color: white;
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-    }
-  }
-  .modal-overay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.22);
-    animation: fadeIn 1.5s ease-out both;
-  }
-  .open-modal {
-    display: block;
-  }
-  .close-modal {
-    visibility: hidden;
-    display: none;
   }
 }
 @include desktop {
   .user-profile {
-    @include base-height;
-    margin-top: 90px;
     .profile-wrapper {
-      @include flex(row, center, center);
-      border-bottom: 5px solid #e3e3e3;
-      margin-bottom: 10px;
-      margin-top: 10;
       .info {
-        @include flex(column, center, center);
-        img {
-          width: 110px;
-          height: 110px;
-          border-radius: 50%;
-          animation: fadeIn 1.5s ease-out;
-          cursor: pointer;
-          &:hover {
-            opacity: 0.7;
-          }
-        }
-        h1 {
-          margin: 10px;
-        }
-        .intro {
-          margin: 10px;
-          font-size: 0.8rem;
-        }
-        .rate-review {
-          margin-top: 0px;
-          text-align: center;
-          p {
-            margin: 5px;
-            font-size: 0.8rem;
-          }
-        }
         .profile-edit {
           margin-bottom: 10px;
           p {
@@ -414,20 +298,7 @@
         }
       }
     }
-    .uploaded,
-    .book-shelve,
-    .currently-reading,
-    .want-read,
-    .read,
-    .recent-update {
-      margin-top: 10px;
-      margin-left: 10px;
-      margin-right: 10px;
-      padding-top: 10px;
-      width: 80%;
-      margin: 0 auto;
-      @include flex(column, none, none);
-    }
+
     .book-shelve-head {
       @include flex(row, center, space-between);
       span {
@@ -458,75 +329,9 @@
         }
       }
     }
-    .uploaded-head,
-    .book-shelve-head,
-    .recent-head,
-    .currently-head,
-    .want-read-head,
-    .read-head {
-      border-bottom: 1px solid #e3e3e3;
-      cursor: pointer;
+    .uploaded-img-wrapper {
+      height: 20vh;
+      width: 10vw;
     }
-    .uploaded-body,
-    .recent-body,
-    .currently-body,
-    .want-read-body,
-    .read-body {
-      padding-bottom: 10px;
-      .recent-empty {
-        color: $dark-grey;
-        margin: 10px 5px;
-      }
-    }
-    .uploaded-list {
-      @include flex(row, none, none);
-      overflow-x: scroll;
-      .uploaded-img-wrapper {
-        position: relative;
-        margin: 5px;
-        .uploaded-img {
-          height: 100px;
-        }
-        .to-detail {
-          position: absolute;
-          top: 0;
-          width: 100%;
-          left: 0;
-          height: 95%;
-          text-align: center;
-          font-size: 0.7rem;
-          //@include flex(row, center, center);
-          opacity: 0;
-          cursor: pointer;
-          &:hover {
-            opacity: 1;
-            background-color: #1f1f1f5e;
-            font-weight: 100;
-          }
-          a {
-            @include flex(row, center, center);
-            color: white;
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-    }
-  }
-  .modal-overay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.22);
-    animation: fadeIn 1.5s ease-out both;
-  }
-  .open-modal {
-    display: block;
-  }
-  .close-modal {
-    visibility: hidden;
-    display: none;
   }
 }

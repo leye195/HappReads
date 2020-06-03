@@ -133,12 +133,11 @@ class BookDetail extends Component {
   render() {
     const { book, votes, postVote, id, reviews } = this.props;
     const { selected, status } = this.state;
-    //console.log(book);
     return (
       <Fragment>
         {book ? (
           <Fragment>
-            <div className={cx("book-detail")}>
+            <section className={cx("book-detail")}>
               <div className={cx("book-info-wrapper")}>
                 <div className={cx("img-col")}>
                   <img src={book.thumbnail} alt="geisha" />
@@ -159,7 +158,9 @@ class BookDetail extends Component {
                       {reviews ? reviews.length : 0} 리뷰
                     </span>
                   </div>
-                  <span className={cx("discription")}>{book.contents}</span>
+                  <p className={cx("discription")}>
+                    {book.contents !== undefined ? book.contents : "내용 없음"}
+                  </p>
                   <div>
                     <div className={cx("rate-wrapper")}>
                       <span>책 평가하기</span>
@@ -194,7 +195,7 @@ class BookDetail extends Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
             <Review />
           </Fragment>
         ) : (
