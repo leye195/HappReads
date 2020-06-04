@@ -7,7 +7,7 @@ import * as actions from "../reducer/user";
 class Profile extends Component {
   componentDidMount() {
     const {
-      history: { location }
+      history: { location },
     } = this.props;
     if (location.pathname !== "/me") {
       const uid = location.pathname.substring(1).split("/")[1];
@@ -15,7 +15,7 @@ class Profile extends Component {
     }
   }
 
-  getProfile = async id => {
+  getProfile = async (id) => {
     const { getProfile } = this.props;
     try {
       await getProfile(id);
@@ -28,30 +28,30 @@ class Profile extends Component {
       isLoggedIn,
       user,
       profile,
-      history: { location }
+      history: { location },
     } = this.props;
     //console.log(this.props.history);
     return (
       <Fragment>
         <UserProfile
           isLoggedIn={isLoggedIn}
-          profile={location.pathname === "/me" ? profile : user}
+          profile={location.pathname === "/me" ? profile?.user : user}
           from={location.pathname}
         />
       </Fragment>
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.login.isLoggedIn,
     profile: state.login.profile,
-    user: state.user.profile
+    user: state.user.profile,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getProfile: id => dispatch(actions.getUser(id))
+    getProfile: (id) => dispatch(actions.getUser(id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

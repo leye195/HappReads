@@ -9,6 +9,7 @@ import Review from "../Review";
 import { connect } from "react-redux";
 import * as actions from "../../reducer/login";
 import * as bookActions from "../../reducer/books";
+import { Link } from "react-router-dom";
 
 const cx = classnames.bind(style);
 const formatAuthors = (authors) => {
@@ -133,12 +134,29 @@ class BookDetail extends Component {
   render() {
     const { book, votes, postVote, id, reviews } = this.props;
     const { selected, status } = this.state;
+    //console.log(book);
     return (
       <Fragment>
         {book ? (
           <Fragment>
             <section className={cx("book-detail")}>
-              <div className={cx("book-info-wrapper")}>
+              <section className={cx("book-rater-list")}>
+                <ul>
+                  {book &&
+                    book.votes &&
+                    book.votes.map((vote) => (
+                      <li>
+                        <Link to={`/profile/${vote.voter._id}`}>
+                          <img
+                            src={vote.voter.avatarUrl}
+                            alt={vote.voter.emails}
+                          />
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </section>
+              <section className={cx("book-info-wrapper")}>
                 <div className={cx("img-col")}>
                   <img src={book.thumbnail} alt="geisha" />
                 </div>
@@ -194,7 +212,7 @@ class BookDetail extends Component {
                     </div>
                   </div>
                 </div>
-              </div>
+              </section>
             </section>
             <Review />
           </Fragment>

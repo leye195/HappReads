@@ -1,29 +1,65 @@
 @import "../../styles/utils.scss";
-.title,
-.author,
-.discription {
-  margin-bottom: 15px;
-}
-.discription {
-  display: inline;
-  line-height: 20px;
-  white-space: pre-line;
-  max-height: 10rem;
-  min-height: 3rem;
-}
-.rate-wrapper {
-  margin-top: 10px;
-  span {
-    color: #b0b0b0;
-    display: block;
+.book-detail {
+  .book-rater-list {
+    position: fixed;
+    height: 8vh;
+    width: 100vw;
+    background-color: #282f38;
+    z-index: 100;
+    ul {
+      height: 90%;
+      width: 100%;
+      padding: 0;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      display: flex;
+      align-items: center;
+      & li {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid black;
+        margin: 5px;
+        background-color: white;
+        cursor: pointer;
+        border: 2px solid $sun-flower;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  .title,
+  .author,
+  .discription {
+    margin-bottom: 15px;
+  }
+  .discription {
+    display: inline;
+    line-height: 20px;
+    white-space: pre-line;
+    max-height: 10rem;
+    min-height: 3rem;
+  }
+  .rate-wrapper {
+    margin-top: 10px;
+    span {
+      color: #b0b0b0;
+      display: block;
+    }
   }
 }
 @include mobile {
   .book-detail {
-    margin-top: 70px;
+    margin-top: 80px;
+    .book-rater-list {
+      position: fixed;
+    }
     .book-info-wrapper {
       @include flex(column, center, center);
-      padding: 40px 30px;
+      padding: 90px 30px;
       .img-col {
         @include flex(column, center, center);
         margin-right: 30px;
@@ -89,9 +125,12 @@
 @include tablet {
   .book-detail {
     margin-top: 70px;
+    .book-rater-list {
+      margin-top: 4px;
+    }
     .book-info-wrapper {
       @include flex(column, center, center);
-      padding: 40px 30px;
+      padding: 80px 30px;
       .img-col {
         @include flex(column, center, center);
         margin-right: 30px;
@@ -156,12 +195,15 @@
 }
 @include desktop {
   .book-detail {
-    margin-top: 70px;
+    margin-top: 80px;
+    .book-rater-list {
+      margin-top: 8px;
+    }
     .book-info-wrapper {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      padding: 20px 10px;
+      padding: 80px 10px;
       .img-col {
         @include flex(column, center, center);
         margin-right: 30px;
@@ -203,7 +245,6 @@
         .title {
           font-size: 2rem;
         }
-
         .add {
           display: flex;
           justify-content: flex-start;

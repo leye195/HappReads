@@ -18,34 +18,34 @@ export const GET_TOP_REVIEWERS_PENDING = "GET_TOP_REVIEWERS_PENDING";
 export const GET_TOP_REVIEWERS_SUCCESS = "GET_TOP_REVIEWERS_SUCCESS";
 export const GET_TOP_REVIEWERS_FAILURE = "GET_TOP_REVIEWERS_FAILURE";
 
-const requestUser = id => {
+const requestUser = (id) => {
   return axios.get(`${URL}/profile/${id}`);
 };
-const requestTopReaders = type => {
+const requestTopReaders = (type) => {
   return axios.get(`${URL}/rank/reader/${type}`);
 };
-const requestTopReviewers = type => {
+const requestTopReviewers = (type) => {
   return axios.get(`${URL}/rank/reviewer/${type}`);
 };
 
-export const getUser = id => ({
+export const getUser = (id) => ({
   type: GET_USER,
-  payload: requestUser(id)
+  payload: requestUser(id),
 });
 export const getTopReaders = (type = 0) => ({
   type: GET_TOP_READERS,
-  payload: requestTopReaders(type)
+  payload: requestTopReaders(type),
 });
-export const getTopReviewers = type => ({
+export const getTopReviewers = (type) => ({
   type: GET_TOP_REVIEWERS,
-  payload: requestTopReviewers(type)
+  payload: requestTopReviewers(type),
 });
 const initialState = {
   pending: false,
   error: false,
   profile: {},
   topReaders: [],
-  topReviewers: []
+  topReviewers: [],
 };
 export default handleActions(
   {
@@ -53,73 +53,74 @@ export default handleActions(
       return {
         ...state,
         pending: true,
-        error: false
+        error: false,
       };
     },
     [GET_USER_SUCCESS]: (state, action) => {
+      console.log(action.payload.data.user);
       return {
         pending: false,
         error: false,
-        profile: action.payload.data
+        profile: action.payload.data.user,
       };
     },
     [GET_USER_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,
-        error: true
+        error: true,
       };
     },
     [GET_TOP_READERS_PENDING]: (state, action) => {
       return {
         ...state,
         pending: true,
-        error: false
+        error: false,
       };
     },
     [GET_TOP_READERS_SUCCESS]: (state, action) => {
       const {
-        data: { readers }
+        data: { readers },
       } = action.payload;
       return {
         ...state,
         topReaders: readers,
         pending: false,
-        error: false
+        error: false,
       };
     },
     [GET_TOP_READERS_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,
-        error: true
+        error: true,
       };
     },
     [GET_TOP_REVIEWERS_PENDING]: (state, action) => {
       return {
         ...state,
         pending: true,
-        error: false
+        error: false,
       };
     },
     [GET_TOP_REVIEWERS_SUCCESS]: (state, action) => {
       const {
-        data: { reviewers }
+        data: { reviewers },
       } = action.payload;
       return {
         ...state,
         topReviewers: reviewers,
         pending: false,
-        error: false
+        error: false,
       };
     },
     [GET_TOP_REVIEWERS_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,
-        error: true
+        error: true,
       };
-    }
+    },
   },
   initialState
 );

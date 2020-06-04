@@ -5,22 +5,20 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const cx = classnames.bind(style);
-const readURL = file => {
+const readURL = (file) => {
   const render = URL.createObjectURL(file);
   document.querySelector(".preview-img").src = render;
 };
 class UserEdit extends Component {
   constructor(props) {
     super(props);
-    const {
-      profile: { profile }
-    } = this.props;
+    const { profile } = this.props;
     this.state = {
       seletedImg: null,
       nickname: profile ? profile.name : "",
       website: profile ? profile.website : "",
       intro: profile ? profile.intro : "",
-      interest: profile ? profile.interest : ""
+      interest: profile ? profile.interest : "",
     };
   }
 
@@ -31,10 +29,10 @@ class UserEdit extends Component {
       nickname,
       website,
       interest,
-      intro
+      intro,
     } = this.state;
     const {
-      profile: { profile }
+      profile: { profile },
     } = this.props;
     const formData = new FormData();
     formData.append("avatar", seletedImg);
@@ -50,38 +48,38 @@ class UserEdit extends Component {
       console.log(error);
     }
   };
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.submitEdit();
     //form data post 요청 진행
   };
-  handleFile = e => {
+  handleFile = (e) => {
     const {
-      target: { files }
+      target: { files },
     } = e;
     this.setState({
-      seletedImg: files[0]
+      seletedImg: files[0],
     });
     readURL(files[0]);
   };
-  handleNickName = val => {
+  handleNickName = (val) => {
     this.setState({
-      nickname: val
+      nickname: val,
     });
   };
-  handleWebSite = val => {
+  handleWebSite = (val) => {
     this.setState({
-      website: val
+      website: val,
     });
   };
-  handleInterest = val => {
+  handleInterest = (val) => {
     this.setState({
-      interest: val
+      interest: val,
     });
   };
-  handleIntro = val => {
+  handleIntro = (val) => {
     this.setState({
-      intro: val
+      intro: val,
     });
   };
   render() {
@@ -99,7 +97,7 @@ class UserEdit extends Component {
         <div className={cx("form-container")}>
           <form onSubmit={this.handleSubmit}>
             <div className={cx("upload-btn-wrapper")}>
-              <img className={cx("preview-img")} />
+              <img className={cx("preview-img")} alt="사용자 이미지" />
               <div style={{ position: "relative" }}>
                 <button className={cx("btn")}>
                   {seletedImg === null ? "이미지 업로드" : seletedImg.name}
@@ -107,7 +105,7 @@ class UserEdit extends Component {
                 <input
                   type="file"
                   name="avatar"
-                  onChange={e => this.handleFile(e)}
+                  onChange={(e) => this.handleFile(e)}
                 />
               </div>
             </div>
@@ -115,27 +113,27 @@ class UserEdit extends Component {
               type="text"
               name="nickname"
               value={nickname}
-              onChange={e => this.handleNickName(e.target.value)}
+              onChange={(e) => this.handleNickName(e.target.value)}
             />
             <input
               type="email"
               name="website"
               placeholder="웹 사이트 ex) http://www.example.com"
               value={website}
-              onChange={e => this.handleWebSite(e.target.value)}
+              onChange={(e) => this.handleWebSite(e.target.value)}
             />
             <input
               type="text"
               name="interest"
               placeholder="취미"
               value={interest}
-              onChange={e => this.handleInterest(e.target.value)}
+              onChange={(e) => this.handleInterest(e.target.value)}
             />
             <textarea
               name="intro"
               placeholder="소개"
               value={intro}
-              onChange={e => this.handleIntro(e.target.value)}
+              onChange={(e) => this.handleIntro(e.target.value)}
             />
             <input type="submit" value="수정" />
           </form>

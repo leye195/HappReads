@@ -16,7 +16,6 @@ const LinkContainer = (
   profile
 ) => {
   if (isLoggedIn) {
-    console.log(profile);
     return (
       <Fragment>
         <li>

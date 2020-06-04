@@ -5,6 +5,21 @@
   height: calc(60vh - 11rem);
   width: 100%;
   z-index: 0;
+  background-image: url("https://i.ibb.co/dJLxwK6/tom-hermans-9-Boq-Xz-Ee-Qq-M-unsplash.jpg");
+  background-attachment: fixed;
+  object-fit: cover;
+  animation: fadeIn 1.5s ease-out;
+  .words {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    text-shadow: $text-shadow;
+    color: white;
+    h3 {
+      margin: 10px;
+      font-weight: 700;
+    }
+  }
   img {
     height: 100%;
   }
@@ -12,22 +27,9 @@
 @include mobile {
   .home-section {
     padding-top: 40px;
-    background-image: url("../../img/tom-hermans-9BoqXzEeQqM-unsplash.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    object-fit: cover;
-    background-attachment: fixed;
-    animation: fadeIn 1.5s ease-out;
     .words {
-      position: absolute;
-      top: 50%;
-      text-align: center;
-      text-shadow: $text-shadow;
-      color: white;
-      h3 {
-        margin: 10px;
-        font-weight: 700;
-      }
       h4 {
         font-size: 16px;
       }
@@ -37,21 +39,8 @@
 @include tablet {
   .home-section {
     padding-top: 45px;
-    background-image: url("../../img/tom-hermans-9BoqXzEeQqM-unsplash.jpg");
     background-size: contain;
-    object-fit: cover;
-    background-attachment: fixed;
-    animation: fadeIn 1.5s ease-out;
     .words {
-      position: absolute;
-      top: 50%;
-      text-align: center;
-      text-shadow: $text-shadow;
-      color: white;
-      h3 {
-        margin: 10px;
-        font-weight: 700;
-      }
       h4 {
         font-size: 18px;
       }
@@ -61,21 +50,8 @@
 @include desktop {
   .home-section {
     padding-top: 50px;
-    background-image: url("../../img/tom-hermans-9BoqXzEeQqM-unsplash.jpg");
     background-size: contain;
-    object-fit: cover;
-    background-attachment: fixed;
-    animation: fadeIn 1.5s ease-out;
     .words {
-      position: absolute;
-      top: 50%;
-      text-align: center;
-      text-shadow: $text-shadow;
-      color: white;
-      h3 {
-        margin: 10px;
-        font-weight: 700;
-      }
       h4 {
         font-size: 20px;
       }

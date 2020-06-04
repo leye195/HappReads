@@ -32,7 +32,7 @@ class Rater extends Component {
     const {
       book: { _id },
       profile: {
-        profile: { email },
+        user: { email },
       },
       postVote,
     } = this.props;

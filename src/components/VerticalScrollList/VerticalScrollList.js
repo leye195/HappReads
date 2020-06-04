@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import ScrollItem from "../ScrollItem";
 import { Link } from "react-router-dom";
+import { v4 } from "uuid";
 const cx = classnames.bind(style);
 class VerticalScrollList extends Component {
   render() {
@@ -21,7 +22,7 @@ class VerticalScrollList extends Component {
       <section className={cx("slider-container")}>
         <Slider {...settings}>
           {books?.slice(0, 8)?.map((book) => (
-            <ScrollItem>
+            <ScrollItem key={v4()}>
               <Link to={`/book/${book._id}`}>
                 <img src={book.thumbnail} alt={book.title} />
               </Link>

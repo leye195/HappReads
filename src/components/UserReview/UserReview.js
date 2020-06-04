@@ -19,7 +19,7 @@ class UserReview extends Component {
     this.postLike("like", id);
   };
   handleEdit = (currentTarget, review) => {
-    console.log(currentTarget.getAttribute("data-value"));
+    //console.log(currentTarget.getAttribute("data-value"));
     this.setState({
       isOpen: true,
       review,
@@ -34,7 +34,7 @@ class UserReview extends Component {
   handleDelete = (e) => {
     const { currentTarget } = e;
     const bid = currentTarget.getAttribute("data-value");
-    console.log(bid);
+    //console.log(bid);
   };
   postLike = async (type, id) => {
     const { me, postLike, profile } = this.props;
@@ -45,7 +45,7 @@ class UserReview extends Component {
     }
   };
   getReview = (review, handleLike, handleDelete, handleEdit, mid, uid) => {
-    console.log(mid, uid);
+    //console.log(mid, uid);
     return (
       <Fragment key={v4()}>
         <div className={cx("review-container")} id={review._id}>

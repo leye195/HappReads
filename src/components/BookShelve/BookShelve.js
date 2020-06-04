@@ -30,12 +30,16 @@ class BookShelve extends Component {
     };
   }
   componentDidMount() {
+    const { user } = this.props;
+    console.log(user);
     const menu_ul = document.querySelector(".menu-ul");
     shelveHeader = document.querySelector(".shelve-header");
     window.addEventListener("scroll", this.handleScroll);
     menu_ul.addEventListener("click", this.handleClick);
     active(document.querySelector(".menu-ul li:nth-child(1)"));
+    //if (Object.entries(user).length === 0) {
     this.getUser();
+    //}
     window.scrollTo(0, 0);
   }
   componentWillUnmount() {
@@ -69,12 +73,10 @@ class BookShelve extends Component {
     }
   };
   checkType = (item) => {
-    const {
-      user: { user },
-    } = this.props;
-    const read = user.read;
-    const want_read = user.want_read;
-    const reading = user.reading;
+    const { user } = this.props;
+    const read = user?.read;
+    const want_read = user?.want_read;
+    const reading = user?.reading;
     for (let i = 0; i < want_read.length; i++) {
       if (want_read[i].book.isbn === item.isbn) return "읽기";
     }
@@ -86,22 +88,20 @@ class BookShelve extends Component {
     }
   };
   getBooks = (val) => {
-    const {
-      user: { user },
-    } = this.props;
+    const { user } = this.props;
     const type = parseInt(val, 10);
     if (user) {
       if (type === 1) {
-        const read = user.read;
-        const want_read = user.want_read;
-        const reading = user.reading;
+        const read = user?.read;
+        const want_read = user?.want_read;
+        const reading = user?.reading;
         const all = want_read
-          .concat(reading)
-          .concat(read)
-          .sort((a, b) => {
+          ?.concat(reading)
+          ?.concat(read)
+          ?.sort((a, b) => {
             return a.title > b.title ? 1 : -1;
           });
-        const tags = all.map((item) => {
+        const tags = all?.map((item) => {
           return (
             <tr key={item.book._id}>
               <td>
@@ -350,31 +350,28 @@ class BookShelve extends Component {
       this.deleteShelve(profile._id, item._id, convertType[type]);
     }
   };
+  handleSubmit = (e) => {
+    const { target } = e;
+    console.log(target.value);
+  };
   handleCancel = (e) => {
     this.setState({
       openModal: false,
     });
   };
-  handleChange = async (book, value) => {
+  handleTypeChange = async (book, value) => {
     const {
       postShelve,
-      profile: { profile },
+      profile: { user },
     } = this.props;
     //서버에 수정 요청 전송 코드입력
     try {
-      const response = await postShelve(
-        profile.email,
-        book.isbn,
-        book.title,
-        book.authors,
-        value,
-        book.thumbnail
-      );
+      const response = await postShelve(user.email, book._id, value);
       const {
         value: { status },
       } = response;
       if (status === 200) {
-        this.getUser(profile.id);
+        this.getUser(user._id);
         this.setState({
           openModal: false,
         });
@@ -385,17 +382,17 @@ class BookShelve extends Component {
   };
   render() {
     const {
-      user: { user },
-      profile: { profile },
+      user,
+      profile: { user: profile },
     } = this.props;
     const { type, openModal, item, status } = this.state;
-    const uid = window.location.pathname.substring(1).split("/")[1];
+    //console.log(user, profile);
     return (
       <div className={cx("book-shelve")}>
         {openModal ? (
           <BookModal
             handleCancel={this.handleCancel}
-            handleChange={this.handleChange}
+            handleTypeChange={this.handleTypeChange}
             item={item}
             type={status}
           />
@@ -408,9 +405,15 @@ class BookShelve extends Component {
           </p>
           <ul className={cx("menu-ul")}>
             <li data-value={1}>전체</li>
-            <li data-value={3}>읽기 ({user ? user.want_read.length : 0})</li>
-            <li data-value={4}>읽는중 ({user ? user.reading.length : 0})</li>
-            <li data-value={5}>읽음 ({user ? user.read.length : 0})</li>
+            <li data-value={3}>
+              읽기 ({user ? user && user?.want_read?.length : 0})
+            </li>
+            <li data-value={4}>
+              읽는중 ({user ? user && user?.reading?.length : 0})
+            </li>
+            <li data-value={5}>
+              읽음 ({user ? user && user?.read?.length : 0})
+            </li>
             <li data-value={2}>업로드</li>
           </ul>
         </div>
@@ -424,7 +427,7 @@ class BookShelve extends Component {
                 <th>평균</th>
                 <th>생성 날짜</th>
                 <th>상태</th>
-                {profile && uid === profile._id ? (
+                {profile && user && user._id === profile._id ? (
                   <th>설정</th>
                 ) : (
                   <Fragment></Fragment>
@@ -447,10 +450,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUser: (uid) => dispatch(userActions.getUser(uid)),
-    postShelve: (email, isbn, title, authors, type, thumbnail) =>
-      dispatch(
-        loginActions.postShelve(email, isbn, title, authors, type, thumbnail)
-      ),
+    postShelve: (email, id, type) =>
+      dispatch(loginActions.postShelve(email, id, type)),
     deleteShelve: (uid, bid, type) =>
       dispatch(loginActions.deleteShelve(uid, bid, type)),
   };

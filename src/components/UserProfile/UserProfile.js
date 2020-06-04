@@ -29,25 +29,25 @@ const openEdit = (isOpen, handleClose, profile) => {
 const getList = (from, profile, type) => {
   if (type !== "uploaded") {
     return from === "/me" ? (
-      profile && profile.user && profile.user[type].length > 0 ? (
+      profile && profile[type]?.length > 0 ? (
         <div>
-          <BookList booklist={profile.user[type]} from="profile" type={type} />
+          <BookList booklist={profile[type]} from="profile" type={type} />
         </div>
       ) : (
         <p className={cx("recent-empty")}>최근 아무 활동도 없습니다.</p>
       )
-    ) : profile && profile.user && profile.user[type].length > 0 ? (
+    ) : profile && profile[type]?.length > 0 ? (
       <div>
-        <BookList booklist={profile.user[type]} from="profile" />
+        <BookList booklist={profile[type]} from="profile" />
       </div>
     ) : (
       <p className={cx("recent-empty")}>최근 아무 활동도 없습니다.</p>
     );
   } else {
     return from === "/me" ? (
-      profile && profile.user && profile.user.uploaded.length > 0 ? (
+      profile && profile?.uploaded?.length > 0 ? (
         <div className={cx("uploaded-list")}>
-          {profile.user.uploaded.map((book) => {
+          {profile?.uploaded?.map((book) => {
             return (
               <div className={cx("uploaded-img-wrapper")} key={book._id}>
                 <img
@@ -65,9 +65,9 @@ const getList = (from, profile, type) => {
       ) : (
         <p className={cx("recent-empty")}>최근 아무 활동도 없습니다.</p>
       )
-    ) : profile && profile.user && profile.user.uploaded.length > 0 ? (
+    ) : profile && profile?.uploaded?.length > 0 ? (
       <div className={cx("uploaded-list")}>
-        {profile.user.uploaded.map((book) => {
+        {profile?.uploaded?.map((book) => {
           return (
             <div className={cx("uploaded-img-wrapper")} key={book._id}>
               <img
@@ -76,7 +76,7 @@ const getList = (from, profile, type) => {
                 alt={book.thumbnail}
               />
               <div className={cx("to-detail")}>
-                <Link to={`/book/${book.isbn}`}>상세 페이지</Link>
+                <Link to={`/book/${book._id}`}>상세 페이지</Link>
               </div>
             </div>
           );
@@ -105,24 +105,17 @@ class UserProfile extends Component {
   render() {
     const { profile, from } = this.props;
     const { isOpen, idx } = this.state;
+    //console.log(profile);
     return (
       <Fragment>
         <div className={cx("user-profile")}>
           <div className={cx("profile-wrapper")}>
             <div className={cx("info")}>
               <img
-                src={
-                  profile && profile.user !== undefined
-                    ? profile.user.avatarUrl
-                    : ""
-                }
+                src={profile && profile !== undefined ? profile.avatarUrl : ""}
                 alt={im}
               />
-              <h1>
-                {profile && profile.user !== undefined
-                  ? profile.user.email
-                  : ""}
-              </h1>
+              <h1>{profile && profile !== undefined ? profile.email : ""}</h1>
               <div className={cx("profile-edit")}>
                 {from === "/me" ? (
                   <p to={"/edit"} onClick={this.handleOpen}>
@@ -134,20 +127,20 @@ class UserProfile extends Component {
               </div>
               <div className={cx("rate-review")}>
                 <p>
-                  {profile && profile.user !== undefined
-                    ? profile.user.votes.length
+                  {profile && profile !== undefined
+                    ? profile?.votes?.length
                     : 0}
                   평가
                 </p>
                 <p>
-                  {profile && profile.user !== undefined
-                    ? profile.user.reviews.length
+                  {profile && profile !== undefined
+                    ? profile?.reviews?.length
                     : 0}
                   리뷰
                 </p>
               </div>
               <p className={cx("intro")}>
-                {profile && profile.user !== undefined ? profile.user.intro : 0}
+                {profile && profile !== undefined ? profile?.intro : 0}
               </p>
             </div>
           </div>
@@ -172,8 +165,8 @@ class UserProfile extends Component {
                   {from === "/me" ? (
                     <Link
                       to={
-                        profile && profile.user !== undefined
-                          ? `shelve/${profile.user._id}`
+                        profile && profile !== undefined
+                          ? `shelve/${profile?._id}`
                           : `/`
                       }
                     >
@@ -193,11 +186,11 @@ class UserProfile extends Component {
               <div className={cx("want-read")}>
                 <div className={cx("want-read-head")}>
                   {from === "/me" ? (
-                    <Link to={`shelve/${profile?.user?._id}`}>
+                    <Link to={`shelve/${profile?._id}`}>
                       <h2>
                         읽을 책 (
-                        {profile && profile.user !== undefined
-                          ? profile.user.want_read.length
+                        {profile && profile !== undefined
+                          ? profile?.want_read?.length
                           : 0}
                         )
                       </h2>
@@ -205,8 +198,8 @@ class UserProfile extends Component {
                   ) : (
                     <h2>
                       읽을 책 (
-                      {profile && profile.user !== undefined
-                        ? profile.user.want_read.length
+                      {profile && profile !== undefined
+                        ? profile?.want_read?.length
                         : 0}
                       )
                     </h2>
@@ -220,11 +213,11 @@ class UserProfile extends Component {
               <div className={cx("currently-reading")}>
                 <div className={cx("currently-head")}>
                   {from === "/me" ? (
-                    <Link to={`shelve/${profile?.user?._id}`}>
+                    <Link to={`shelve/${profile?._id}`}>
                       <h2>
                         현재 읽고 있는 책 (
-                        {profile && profile.user !== undefined
-                          ? profile.user.reading.length
+                        {profile && profile !== undefined
+                          ? profile?.reading?.length
                           : 0}
                         )
                       </h2>
@@ -232,8 +225,8 @@ class UserProfile extends Component {
                   ) : (
                     <h2>
                       현재 읽고 있는 책 (
-                      {profile && profile.user !== undefined
-                        ? profile.user.reading.length
+                      {profile && profile !== undefined
+                        ? profile?.reading?.length
                         : 0}
                       )
                     </h2>
@@ -246,11 +239,11 @@ class UserProfile extends Component {
               <div className={cx("read")}>
                 <div className={cx("read-head")}>
                   {from === "/me" ? (
-                    <Link to={`shelve/${profile?.user?._id}`}>
+                    <Link to={`shelve/${profile?._id}`}>
                       <h2>
                         읽은 책 (
-                        {profile && profile.user !== undefined
-                          ? profile.user.read.length
+                        {profile && profile !== undefined
+                          ? profile?.read?.length
                           : 0}
                         )
                       </h2>
@@ -258,8 +251,8 @@ class UserProfile extends Component {
                   ) : (
                     <h2>
                       읽은 책 (
-                      {profile && profile.user !== undefined
-                        ? profile.user.read.length
+                      {profile && profile !== undefined
+                        ? profile?.read?.length
                         : 0}
                       )
                     </h2>
@@ -276,8 +269,8 @@ class UserProfile extends Component {
                   <h2>리뷰</h2>
                 </div>
                 <div className={cx("recent-body")}>
-                  {profile && profile.user !== undefined ? (
-                    <UserReview key={v4()} profile={profile.user} />
+                  {profile && profile !== undefined ? (
+                    <UserReview key={v4()} profile={profile} />
                   ) : (
                     "리뷰 없음"
                   )}

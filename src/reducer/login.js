@@ -49,9 +49,9 @@ const requestCheck = (atk) => {
   return api.post(`http://localhost:8080/profile`);
 };
 
-const requsetPostShelve = (uid, id, type) => {
+const requsetPostShelve = (email, id, type) => {
   return axios.post(`http://localhost:8080/shelve`, {
-    uid,
+    email,
     id,
     type,
   });
@@ -82,9 +82,9 @@ export const login = (id, pw) => ({
   type: LOGIN,
   payload: requestLogin(id, pw),
 });
-export const postShelve = (email, isbn, title, authors, type, thumbnail) => ({
+export const postShelve = (email, id, type) => ({
   type: POST_SHELVE,
-  payload: requsetPostShelve(email, isbn, title, authors, type, thumbnail),
+  payload: requsetPostShelve(email, id, type),
 });
 export const postLike = (type, id, uid, m_id) => ({
   type: LIKE_REVIEW,
@@ -113,7 +113,6 @@ export default handleActions(
       };
     },
     [LOGIN_SUCCESS]: (state, action) => {
-      console.log(action.payload.data);
       return {
         profile: action.payload.data,
         pending: false,
@@ -139,6 +138,7 @@ export default handleActions(
       };
     },
     [USER_CHECK_SUCCESS]: (state, action) => {
+      // const { data } = action.payload;
       return {
         pending: false,
         error: false,
@@ -186,12 +186,10 @@ export default handleActions(
       };
     },
     [POST_SHELVE_SUCCESS]: (state, action) => {
-      const { data } = action.payload;
       return {
         ...state,
         pending: false,
         error: false,
-        profile: data,
       };
     },
     [POST_SHELVE_FAILURE]: (state, action) => {

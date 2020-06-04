@@ -1,58 +1,70 @@
 @import "../../styles/utils.scss";
+.book-shelve {
+  padding: {
+    top: 80px;
+  }
+  min-height: 100vh;
+  .shelve-header {
+    padding: {
+      left: 10px;
+      bottom: 10px;
+    }
+    border-bottom: 1px solid #e3e3e3;
+    width: 100%;
+    background: white;
+    &.fix {
+      position: fixed;
+      width: 100%;
+      margin-top: 0;
+      padding-top: 10px;
+      background: white;
+    }
+  }
+  .menu-ul {
+    @include flex(row, center, center);
+    &.fix {
+      padding-top: 40px;
+    }
+    li {
+      padding: 10px;
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+    }
+    & .show {
+      font-weight: 800;
+    }
+  }
+  table {
+    @include flex(column, center, center);
+    margin: 30px auto;
+    width: 100%;
+    thead {
+      width: 85%;
+      border: 1px solid $sun-flower;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+    }
+  }
+}
 @include mobile {
   .book-shelve {
-    padding: {
-      top: 80px;
-    }
-    min-height: 100vh;
     .shelve-header {
-      padding: {
-        left: 10px;
-        bottom: 10px;
-      }
-      margin: {
-        top: 10px;
-      }
-      border-bottom: 1px solid #e3e3e3;
-      width: 100%;
-      background: white;
+      padding-top: 10px;
       &.fix {
-        position: fixed;
-        width: 100%;
-        margin-top: 0;
-        padding-top: 10px;
-        background: white;
-        top: 63px;
+        top: 80px;
       }
     }
     .menu-ul {
-      @include flex(row, center, center);
-      &.fix {
-        padding-top: 40px;
-      }
       li {
-        padding: 10px;
-        flex: 1;
-        text-align: center;
-        cursor: pointer;
         font-size: 0.7rem;
-      }
-      & .show {
-        font-weight: 800;
       }
     }
     table {
-      @include flex(column, center, center);
-      margin: 30px auto;
-      width: 100%;
       thead {
-        width: 85%;
-        border: 1px solid $sun-flower;
-        border-top-color: transparent;
-        border-left-color: transparent;
-        border-right-color: transparent;
         tr {
-          @include flex(row, center, flex-start);
+          @include flex(row, center, space-between);
           th {
             @include table-text-align(10px, center, 0.6rem);
             &:nth-child(1) {
@@ -80,7 +92,7 @@
       tbody {
         width: 85%;
         tr {
-          @include flex(row, flex-start, flex-start);
+          @include flex(row, flex-start, space-between);
           border-bottom: 1px solid $white-grey;
           td {
             @include table-text-align(10px, center, 0.5rem);
@@ -89,6 +101,7 @@
               width: 10%;
               img {
                 width: 100%;
+                height: 5rem;
               }
             }
             &:nth-child(2) {
@@ -114,7 +127,7 @@
               width: 20%;
             }
             &:nth-child(7) {
-              @include flex(row, center, center);
+              @include flex(column, center, center);
               cursor: pointer;
               padding: 5px;
               span {
@@ -135,187 +148,19 @@
 }
 @include tablet {
   .book-shelve {
-    padding: {
-      top: 80px;
-    }
-    min-height: 100vh;
     .shelve-header {
-      padding: {
-        left: 10px;
-        bottom: 10px;
-      }
-      margin: {
-        top: 10px;
-      }
-      border-bottom: 1px solid #e3e3e3;
-      width: 100%;
-      background: white;
+      padding-top: 15px;
       &.fix {
-        position: fixed;
-        width: 100%;
-        margin-top: 0;
-        padding-top: 10px;
-        background: white;
         top: 70px;
       }
     }
     .menu-ul {
-      @include flex(row, center, center);
-      &.fix {
-        padding-top: 40px;
-      }
       li {
-        padding: 10px;
-        flex: 1;
-        text-align: center;
-        cursor: pointer;
         font-size: 0.8rem;
-      }
-      & .show {
-        font-weight: 800;
       }
     }
     table {
-      @include flex(column, center, center);
-      margin: 30px auto;
-      width: 100%;
       thead {
-        width: 85%;
-        border: 1px solid $sun-flower;
-        border-top-color: transparent;
-        border-left-color: transparent;
-        border-right-color: transparent;
-        tr {
-          @include flex(row, none, flex-start);
-          th {
-            @include table-text-align(10px, center, 0.8rem);
-            &:nth-child(1) {
-              width: 15%;
-            }
-            &:nth-child(2) {
-              width: 20%;
-            }
-            &:nth-child(3) {
-              width: 10%;
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: pre;
-            }
-            &:nth-child(4) {
-              width: 5%;
-            }
-            &:nth-child(5) {
-              width: 15%;
-            }
-          }
-        }
-      }
-      tbody {
-        width: 85%;
-        tr {
-          @include flex(row, flex-start, flex-start);
-          border-bottom: 1px solid $white-grey;
-          td {
-            @include table-text-align(10px, center, 0.8rem);
-            &:nth-child(1) {
-              width: 15%;
-              img {
-                width: 70%;
-              }
-            }
-            &:nth-child(2) {
-              width: 20%;
-              white-space: pre;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              &:hover a {
-                color: $sun-flower;
-              }
-            }
-            &:nth-child(3) {
-              width: 10%;
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: pre;
-            }
-            &:nth-child(4) {
-              width: 5%;
-            }
-            &:nth-child(5) {
-              width: 15%;
-            }
-            &:nth-child(7) {
-              @include flex(row, center, center);
-              cursor: pointer;
-              padding: 5px;
-              span {
-                margin: 5px;
-              }
-              & span:nth-child(1) {
-                color: $sun-flower;
-              }
-              & span:nth-child(2) {
-                font-weight: 800;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-@include desktop {
-  .book-shelve {
-    padding: {
-      top: 80px;
-    }
-    min-height: 100vh;
-    .shelve-header {
-      padding: {
-        left: 10px;
-        bottom: 10px;
-      }
-      margin: {
-        top: 10px;
-      }
-      border-bottom: 1px solid #e3e3e3;
-      width: 100%;
-      background: white;
-      &.fix {
-        position: fixed;
-        width: 100%;
-        margin-top: 0;
-        padding-top: 10px;
-        background: white;
-        top: 70px;
-      }
-    }
-    .menu-ul {
-      @include flex(row, center, center);
-      &.fix {
-        padding-top: 40px;
-      }
-      li {
-        padding: 10px;
-        flex: 1;
-        text-align: center;
-        cursor: pointer;
-        font-size: 0.8rem;
-      }
-      & .show {
-        font-weight: 800;
-      }
-    }
-    table {
-      @include flex(column, center, center);
-      margin: 30px auto;
-      width: 100%;
-      thead {
-        width: 85%;
-        border: 1px solid $sun-flower;
-        border-top-color: transparent;
-        border-left-color: transparent;
-        border-right-color: transparent;
         tr {
           @include flex(row, none, space-between);
           th {
@@ -352,6 +197,102 @@
               width: 15%;
               img {
                 width: 70%;
+                height: 10rem;
+              }
+            }
+            &:nth-child(2) {
+              width: 20%;
+              white-space: pre;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              &:hover a {
+                color: $sun-flower;
+              }
+            }
+            &:nth-child(3) {
+              width: 10%;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: pre;
+            }
+            &:nth-child(4) {
+              width: 5%;
+            }
+            &:nth-child(5) {
+              width: 15%;
+            }
+            &:nth-child(7) {
+              @include flex(column, center, center);
+              cursor: pointer;
+              padding: 5px;
+              span {
+                margin: 5px;
+              }
+              & span:nth-child(1) {
+                color: $sun-flower;
+              }
+              & span:nth-child(2) {
+                font-weight: 800;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@include desktop {
+  .book-shelve {
+    .shelve-header {
+      padding-top: 25px;
+      &.fix {
+        top: 85px;
+      }
+    }
+    .menu-ul {
+      li {
+        font-size: 0.8rem;
+      }
+    }
+    table {
+      thead {
+        tr {
+          @include flex(row, none, space-between);
+          th {
+            @include table-text-align(10px, center, 0.8rem);
+            &:nth-child(1) {
+              width: 15%;
+            }
+            &:nth-child(2) {
+              width: 20%;
+            }
+            &:nth-child(3) {
+              width: 10%;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: pre;
+            }
+            &:nth-child(4) {
+              width: 5%;
+            }
+            &:nth-child(5) {
+              width: 15%;
+            }
+          }
+        }
+      }
+      tbody {
+        width: 85%;
+        tr {
+          @include flex(row, flex-start, space-between);
+          border-bottom: 1px solid $white-grey;
+          td {
+            @include table-text-align(10px, center, 0.8rem);
+            &:nth-child(1) {
+              width: 15%;
+              img {
+                width: 70%;
+                height: 10rem;
               }
             }
             &:nth-child(2) {

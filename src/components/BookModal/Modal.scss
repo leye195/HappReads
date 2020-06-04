@@ -16,9 +16,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40vw;
-    height: 70vh;
+    height: 75vh;
+    width: 45vw;
     background-color: white;
+    @include mobile {
+      width: 90vw;
+    }
+
     @include flex(column, center, center);
     .exit {
       position: absolute;
@@ -58,6 +62,49 @@
       }
       .cancel-btn {
         @include base-button($red, 100%);
+      }
+    }
+  }
+  .book-info-container {
+    @include flex(column, center, none);
+    position: relative;
+    .img-container {
+      position: relative;
+      width: 10rem;
+      height: 15rem;
+      &::after {
+        @include bookShape;
+      }
+      img {
+        position: relative;
+        width: 10rem;
+        height: 15rem;
+        margin: 0;
+      }
+    }
+    .book-info-form {
+      @include flex(column, center, none);
+      width: 15rem;
+      input {
+        width: 100%;
+        margin: 5px;
+        padding: 5px;
+        border: 1px solid $white-grey;
+        &[type="file"] {
+          background-color: $dark-grey;
+          color: white;
+        }
+        &[type="submit"] {
+          @include base-button($blue);
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
+      textarea {
+        @include textarea-style;
+      }
+      .ok-btn {
+        @include base-button($green, 100%);
       }
     }
   }
