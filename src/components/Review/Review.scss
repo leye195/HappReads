@@ -11,6 +11,23 @@
   .more {
     cursor: pointer;
   }
+  .review-footer {
+    @include flex(row, none, none);
+    .heart {
+      margin-right: 5px;
+      svg {
+        stroke: $white-grey;
+        stroke-width: 20px;
+        path {
+          fill: $white-grey;
+        }
+        & path:hover {
+          fill: $pink;
+        }
+        cursor: pointer;
+      }
+    }
+  }
 }
 @include mobile {
   .review {

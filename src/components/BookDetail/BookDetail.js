@@ -120,7 +120,7 @@ class BookDetail extends Component {
       postShelve,
       book,
       profile: {
-        profile: { email },
+        user: { email },
       },
     } = this.props;
     try {
@@ -134,7 +134,7 @@ class BookDetail extends Component {
   render() {
     const { book, votes, postVote, id, reviews } = this.props;
     const { selected, status } = this.state;
-    //console.log(book);
+    console.log(book);
     return (
       <Fragment>
         {book ? (
@@ -142,10 +142,13 @@ class BookDetail extends Component {
             <section className={cx("book-detail")}>
               <section className={cx("book-rater-list")}>
                 <ul>
+                  <li className={"star"}>
+                    <FaStar />
+                  </li>
                   {book &&
                     book.votes &&
                     book.votes.map((vote) => (
-                      <li>
+                      <li className={"book-rater"}>
                         <Link to={`/profile/${vote.voter._id}`}>
                           <img
                             src={vote.voter.avatarUrl}

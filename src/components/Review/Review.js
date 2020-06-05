@@ -10,7 +10,6 @@ import * as loginActions from "../../reducer/login";
 
 const cx = classnames.bind(style);
 const reviewTag = (item, idx, handleLike) => {
-  console.log(item);
   return (
     <Fragment key={idx}>
       <div>
@@ -28,15 +27,13 @@ const reviewTag = (item, idx, handleLike) => {
         </div>
         <span className={cx("date")}>
           {item.createdAt
-            ? moment(item.createdAt).format(`MMMM MM월 DD일 HH:MM:SS`)
+            ? moment(item.createdAt).format(`YYYY년 MM월 DD일 HH:MM:SS`)
             : ""}
         </span>
         <div style={{ marginTop: "10px" }}>
           <span className={cx("user-review")}>{item.content}</span>
         </div>
         <div className={cx("review-footer")}>
-          <span>{item.likes} likes</span>
-          <span style={{ marginLeft: "5px", marginRight: "5px" }}>·</span>
           <span
             className={cx("heart")}
             onClick={handleLike}
@@ -44,8 +41,9 @@ const reviewTag = (item, idx, handleLike) => {
           >
             <FaHeart />
           </span>
+          <span>{item.likes} likes</span>
           <span style={{ marginLeft: "5px", marginRight: "5px" }}>·</span>
-          <span className={cx("more")}>see more</span>
+          <span className={cx("more")}>더 보기</span>
         </div>
       </div>
     </Fragment>
@@ -91,14 +89,21 @@ class Review extends Component {
     }
   };
   handleLike = (e) => {
-    const { currentTarget } = e;
+    const { currentTarget, target } = e;
+    console.log(target);
     const id = currentTarget.getAttribute("data-value");
-    this.postLike("like", id);
+    this.postLike("like", id, target);
   };
-  postLike = async (type, id) => {
-    const { me, postLike, profile } = this.props;
+  postLike = async (type, id, target) => {
+    const { me, postLike } = this.props;
     try {
-      await postLike(type, id, profile._id, me.profile._id);
+      const {
+        value: { status },
+      } = await postLike(type, id, me?.user?._id);
+      //console.log(response);
+      if (status === 200) {
+        target.style.fill = "pink";
+      }
     } catch (error) {
       console.log(error);
     }
@@ -139,7 +144,7 @@ const mapStateToProps = (state) => {
     error: state.review.error,
     success: state.review.success,
     isLoggedIn: state.login.isLoggedIn,
-    profile: state.login.profile,
+    me: state.login.profile,
     reviews: state.review.reviews,
     book: state.books.book,
   };

@@ -4,10 +4,10 @@ import classnames from "classnames/bind";
 import VerticalScroll from "../VerticalScrollList";
 import BookList from "../BookList";
 const cx = classnames.bind(style);
-const HomeContent = ({ booklist, handleClick, type, filterBookList }) => {
+const HomeContent = ({ booklist, handleClick, sliderBooks, type, page }) => {
   return (
     <section className={cx("home-content")}>
-      <VerticalScroll books={booklist} />
+      <VerticalScroll books={sliderBooks} />
       <div className={cx("books-wrapper")}>
         <ul className={cx("book-category-ul")}>
           <li
@@ -81,7 +81,7 @@ const HomeContent = ({ booklist, handleClick, type, filterBookList }) => {
             과학
           </li>
         </ul>
-        <BookList booklist={filterBookList(booklist)} from={"home"} />
+        <BookList booklist={booklist} from={"home"} />
       </div>
     </section>
   );

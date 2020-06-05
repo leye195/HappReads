@@ -26,6 +26,23 @@
   }
   .ul {
     @include flex(row, center, none);
+    li {
+      margin: 10px;
+      cursor: pointer;
+      position: relative;
+      @include flex(column, none, none);
+      .menu {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 5px;
+        transform: translateY(40px) translateX(-100px);
+        width: 155px;
+        background: white;
+        box-shadow: 0px 2px 10px 2px #ababab;
+        z-index: 10;
+      }
+    }
   }
   .login {
     @include flex(row, none, none);
@@ -46,22 +63,10 @@
     .ul {
       margin: 0px;
       li {
-        margin: 10px;
-        cursor: pointer;
-        position: relative;
-        @include flex(column, none, none);
         span {
           font-size: 35px;
         }
         .menu {
-          display: none;
-          position: absolute;
-          left: 0;
-          top: 5px;
-          transform: translateY(40px) translateX(-100px);
-          width: 155px;
-          background: white;
-          box-shadow: 0px 2px 10px 2px #ababab;
           .callout {
             position: absolute;
             width: 0;
@@ -92,22 +97,10 @@
     .ul {
       margin: 5px;
       li {
-        margin: 10px;
-        cursor: pointer;
-        position: relative;
-        @include flex(column, none, none);
         span {
           font-size: 35px;
         }
         .menu {
-          display: none;
-          position: absolute;
-          left: 0;
-          top: 5px;
-          transform: translateY(40px) translateX(-100px);
-          width: 155px;
-          background: white;
-          box-shadow: 0px 2px 10px 2px #ababab;
           .callout {
             position: absolute;
             width: 0;
@@ -137,22 +130,10 @@
     .ul {
       margin: 10px;
       li {
-        margin: 10px;
-        cursor: pointer;
-        position: relative;
-        @include flex(column, none, none);
         span {
           font-size: 35px;
         }
         .menu {
-          display: none;
-          position: absolute;
-          left: 0;
-          top: 5px;
-          transform: translateY(40px) translateX(-100px);
-          width: 155px;
-          background: white;
-          box-shadow: 0px 2px 10px 2px #ababab;
           .callout {
             position: absolute;
             width: 0;

@@ -36,21 +36,20 @@ export const POST_RATE_PENDING = "POST_RATE_PENDING";
 export const POST_RATE_SUCCESS = "POST_RATE_SUCCESS";
 export const POST_RATE_FAILURE = "POST_RATE_FAILURE";
 
-const requestAllBooks = () => {
-  return axios.get(`http://localhost:8080/books`);
+const requestAllBooks = (type, page) => {
+  return axios.get(
+    `http://localhost:8080/books/${decodeURI(type)}?page=${page}`
+  );
 };
-
 const requestgetBooks = (query, type, page) => {
   if (parseInt(type) === 0)
     return axios.get(
       `http://localhost:8080/books/search?q=${decodeURI(query)}&type=${0}`
     );
 };
-
 const requestInfo = (id) => {
   return axios.get(`http://localhost:8080/book/${id}`);
 };
-
 const requestPostRate = (id, name, vote) => {
   return axios.post(`http://localhost:8080/book/${id}`, {
     vote,
@@ -58,11 +57,10 @@ const requestPostRate = (id, name, vote) => {
   });
 };
 
-export const getAllBooks = () => ({
+export const getAllBooks = (type, page) => ({
   type: GET_BOOKS,
-  payload: requestAllBooks(),
+  payload: requestAllBooks(type, page),
 });
-
 export const getBooks = (query = " ", type = 0, page = 1) => ({
   type: GET_SEARCH_BOOKS,
   payload: requestgetBooks(query, type, page),
@@ -71,7 +69,6 @@ export const getMore = (query = "", type = 0, page = 1) => ({
   type: GET_MORE_BOOKS,
   payload: requestgetBooks(query, type, page),
 });
-
 export const getDetail = (id) => ({
   type: GET_DETAIL,
   payload: requestInfo(id),
@@ -85,6 +82,7 @@ const initialState = {
   pending: false,
   error: false,
   books: [],
+  sliderBooks: [],
   total: 0,
   vote_pending: false,
   vote_error: false,
@@ -103,12 +101,16 @@ export default handleActions(
       };
     },
     [GET_BOOKS_SUCCESS]: (state, action) => {
-      //console.log(action.payload);
-      const { data } = action.payload;
+      const {
+        data: { books, page },
+      } = action.payload;
+      //console.log(state.sliderBooks.length, page, books);
       return {
         pending: false,
         error: false,
-        books: data.books,
+        books: parseInt(page, 10) === 1 ? books : [...state.books, ...books],
+        sliderBooks:
+          state.sliderBooks.length === 0 ? books : [...state.sliderBooks],
       };
     },
     [GET_BOOKS_FAILURE]: (state, action) => {
@@ -129,7 +131,7 @@ export default handleActions(
       const {
         data: { books },
       } = action.payload;
-      console.log(action);
+      console.log(action.payload);
       return {
         ...state,
         pending: false,
