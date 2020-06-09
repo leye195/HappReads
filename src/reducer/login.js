@@ -16,20 +16,20 @@ export const LOGOUT_PENDING = "LOGOUT_PENDING";
 export const LOGOUT_SUCCESS = "LOGOUR_SUCCESS";
 export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 
-const POST_SHELVE = "POST_SHELVE";
-const POST_SHELVE_PENDING = "POST_SHELVE_PENDING";
-const POST_SHELVE_SUCCESS = "POST_SHELVE_SUCCESS";
-const POST_SHELVE_FAILURE = "POST_SHELVE_FAILURE";
+export const POST_SHELVE = "POST_SHELVE";
+export const POST_SHELVE_PENDING = "POST_SHELVE_PENDING";
+export const POST_SHELVE_SUCCESS = "POST_SHELVE_SUCCESS";
+export const POST_SHELVE_FAILURE = "POST_SHELVE_FAILURE";
 
-const LIKE_REVIEW = "LIKE_REVIEW";
-const LIKE_REVIEW_PENDING = "LIKE_REVIEW_PENDING";
-const LIKE_REVIEW_SUCCESS = "LIKE_REVIEW_SUCCESS";
-const LIKE_REVIEW_FAILURE = "LIKE_REVIEW_FAILURE";
+export const DELETE_SHELVE = "DELETE_SHELVE";
+export const DELETE_SHELVE_PENDING = "DELETE_SHELVE_PENDING";
+export const DELETE_SHELVE_SUCCESS = "DELETE_SHELVE_SUCCESS";
+export const DELETE_SHELVE_FAILURE = "DELETE_SHELVE_FAILURE";
 
-const DELETE_SHELVE = "DELETE_SHELVE";
-const DELETE_SHELVE_PENDING = "DELETE_SHELVE_PENDING";
-const DELETE_SHELVE_SUCCESS = "DELETE_SHELVE_SUCCESS";
-const DELETE_SHELVE_FAILURE = "DELETE_SHELVE_FAILURE";
+export const DELETE_REVIEW = "DELETE_REVIEW";
+export const DELETE_REVIEW_PENDING = "DELETE_REVIEW_PENDING";
+export const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
+export const DELETE_REVIEW_FAILURE = "DELETE_REVIEW_FAILURE";
 
 const requestLogin = (id, pw) => {
   return axios.post(`http://localhost:8080/login`, {
@@ -56,20 +56,20 @@ const requsetPostShelve = (email, id, type) => {
     type,
   });
 };
-const requestLikeReview = (type, id, uid, m_id) => {
-  return axios.post(`http://localhost:8080/review/like`, {
-    type,
-    id,
-    uid,
-    m_id,
-  });
-};
 const requestDeleteShelve = (uid, id, type) => {
   console.log(uid, id, type);
   return axios.delete(`http://localhost:8080/shelve`, {
     data: { uid, id, type },
   });
 };
+const requestDeleteReview = (id, rid, uid) => {
+  return axios.delete(`http://localhost:8080/book/${id}/review/${rid}`, {
+    data: {
+      uid,
+    },
+  });
+};
+
 export const check = (atk) => ({
   type: USER_CHECK,
   payload: requestCheck(atk),
@@ -86,14 +86,15 @@ export const postShelve = (email, id, type) => ({
   type: POST_SHELVE,
   payload: requsetPostShelve(email, id, type),
 });
-export const postLike = (type, id, uid, m_id) => ({
-  type: LIKE_REVIEW,
-  payload: requestLikeReview(type, id, uid, m_id),
-});
 export const deleteShelve = (uid, bid, type) => ({
   type: DELETE_SHELVE,
   payload: requestDeleteShelve(uid, bid, type),
 });
+export const deleteReview = (id, rid, uid) => ({
+  type: DELETE_REVIEW,
+  payload: requestDeleteReview(id, rid, uid),
+});
+
 const initialState = {
   pending: true,
   error: false,
@@ -199,31 +200,6 @@ export default handleActions(
         error: true,
       };
     },
-    ///LIKE_REVIEW
-    [LIKE_REVIEW_PENDING]: (state, action) => {
-      return {
-        ...state,
-        pending: true,
-        error: false,
-      };
-    },
-    [LIKE_REVIEW_SUCCESS]: (state, action) => {
-      const { data } = action.payload;
-      return {
-        ...state,
-        pending: false,
-        error: false,
-        success: true,
-        profile: data,
-      };
-    },
-    [LIKE_REVIEW_FAILURE]: (state, action) => {
-      return {
-        ...state,
-        pending: false,
-        error: true,
-      };
-    },
     [DELETE_SHELVE_PENDING]: (state, action) => {
       return {
         ...state,
@@ -241,6 +217,30 @@ export default handleActions(
       };
     },
     [DELETE_SHELVE_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        pending: false,
+        error: true,
+      };
+    },
+    [DELETE_REVIEW_PENDING]: (state, action) => {
+      return {
+        ...state,
+        pending: true,
+        error: false,
+      };
+    },
+    [DELETE_REVIEW_SUCCESS]: (state, action) => {
+      const { data } = action.payload;
+      //console.log(user);
+      return {
+        ...state,
+        pending: false,
+        error: true,
+        profile: data,
+      };
+    },
+    [DELETE_REVIEW_FAILURE]: (state, action) => {
       return {
         ...state,
         pending: false,

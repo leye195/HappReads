@@ -31,6 +31,7 @@ class Profile extends Component {
       history: { location },
     } = this.props;
     //console.log(this.props.history);
+    console.log(profile);
     return (
       <Fragment>
         <UserProfile

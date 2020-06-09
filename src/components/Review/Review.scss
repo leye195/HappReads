@@ -71,11 +71,15 @@
       margin: 5px;
       & > div {
         padding-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #e3e3e3;
+        border-radius: 20px;
+        margin-bottom: 10px;
       }
       div {
         margin: 10;
         a {
-          display: flex;
+          display: inline-flex;
           align-items: center;
           margin-bottom: 10px;
         }
@@ -153,11 +157,15 @@
       margin: 5px;
       & > div {
         padding-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #e3e3e3;
+        border-radius: 20px;
+        margin-bottom: 10px;
       }
       div {
         margin: 10;
         a {
-          display: flex;
+          display: inline-flex;
           align-items: center;
           margin-bottom: 10px;
         }
@@ -232,11 +240,15 @@
       margin: 5px;
       & > div {
         padding-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #e3e3e3;
+        border-radius: 20px;
+        margin-bottom: 10px;
       }
       div {
         margin: 10;
         a {
-          display: flex;
+          display: inline-flex;
           align-items: center;
           margin-bottom: 10px;
         }

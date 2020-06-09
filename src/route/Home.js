@@ -20,6 +20,7 @@ class Home extends Component {
     window.addEventListener("scroll", this.handleScroll);
   }
   componentWillUnmount() {
+    timer = null;
     window.removeEventListener("scroll", this.handleScroll);
   }
   getBooks = async (type = "전체", page = 1) => {
@@ -40,7 +41,7 @@ class Home extends Component {
         document.body.scrollTop;
     if (scrollHeight - innerHeight - scrollTop < 10) {
       //console.log(scrollHeight - innerHeight - scrollTop);
-      if (books.length >= 15 * page) {
+      if (books && books.length >= 15 * page) {
         if (timer === null) {
           timer = setTimeout((e) => {
             timer = null;

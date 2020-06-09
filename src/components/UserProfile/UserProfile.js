@@ -105,7 +105,7 @@ class UserProfile extends Component {
   render() {
     const { profile, from } = this.props;
     const { isOpen, idx } = this.state;
-    //console.log(profile);
+    console.log("profile", profile);
     return (
       <Fragment>
         <div className={cx("user-profile")}>

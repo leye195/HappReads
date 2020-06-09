@@ -42,10 +42,9 @@ const requestAllBooks = (type, page) => {
   );
 };
 const requestgetBooks = (query, type, page) => {
-  if (parseInt(type) === 0)
-    return axios.get(
-      `http://localhost:8080/books/search?q=${decodeURI(query)}&type=${0}`
-    );
+  return axios.get(
+    `http://localhost:8080/search?q=${decodeURI(query)}&type=${0}`
+  );
 };
 const requestInfo = (id) => {
   return axios.get(`http://localhost:8080/book/${id}`);
@@ -104,13 +103,17 @@ export default handleActions(
       const {
         data: { books, page },
       } = action.payload;
-      //console.log(state.sliderBooks.length, page, books);
       return {
         pending: false,
         error: false,
-        books: parseInt(page, 10) === 1 ? books : [...state.books, ...books],
+        books:
+          state.books === undefined || parseInt(page, 10) === 1
+            ? books
+            : [...state.books, ...books],
         sliderBooks:
-          state.sliderBooks.length === 0 ? books : [...state.sliderBooks],
+          state.sliderBooks?.length === 0 || state.sliderBooks === undefined
+            ? books
+            : [...state.sliderBooks],
       };
     },
     [GET_BOOKS_FAILURE]: (state, action) => {

@@ -5,7 +5,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { FaHeart } from "react-icons/fa";
-import * as actions from "../../reducer/review";
+import * as reviewActions from "../../reducer/review";
 import * as loginActions from "../../reducer/login";
 
 const cx = classnames.bind(style);
@@ -31,7 +31,11 @@ const reviewTag = (item, idx, handleLike) => {
             : ""}
         </span>
         <div style={{ marginTop: "10px" }}>
-          <span className={cx("user-review")}>{item.content}</span>
+          <span className={cx("user-review")}>
+            {item.content.length > 20
+              ? `${item.content.substr(0, 20)}...`
+              : item.content}
+          </span>
         </div>
         <div className={cx("review-footer")}>
           <span
@@ -41,9 +45,13 @@ const reviewTag = (item, idx, handleLike) => {
           >
             <FaHeart />
           </span>
-          <span>{item.likes} likes</span>
-          <span style={{ marginLeft: "5px", marginRight: "5px" }}>·</span>
-          <span className={cx("more")}>더 보기</span>
+          <span>{item.likes.length} likes</span>
+          {item.content.length > 20 && (
+            <>
+              <span style={{ marginLeft: "5px", marginRight: "5px" }}>·</span>
+              <span className={cx("more")}>더 보기</span>
+            </>
+          )}
         </div>
       </div>
     </Fragment>
@@ -56,16 +64,29 @@ class Review extends Component {
       input: "",
     };
   }
+  checkUser = async () => {
+    const atk = localStorage.getItem("atk");
+    const { checkUser } = this.props;
+    if (atk) {
+      try {
+        await checkUser(atk);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   postReview = async (content) => {
+    console.log(this.props.me);
     const {
-      profile: {
-        profile: { email },
+      me: {
+        user: { email },
       },
       postReview,
       book,
     } = this.props;
     try {
       await postReview(book._id, email, content, book);
+      await this.checkUser();
     } catch (error) {
       console.log(error);
     }
@@ -88,9 +109,10 @@ class Review extends Component {
       alert("Please Login");
     }
   };
+  //like 관련 작업 수정 진행 필요
   handleLike = (e) => {
     const { currentTarget, target } = e;
-    console.log(target);
+    console.log(currentTarget);
     const id = currentTarget.getAttribute("data-value");
     this.postLike("like", id, target);
   };
@@ -152,8 +174,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     postReview: (isbn, name, content, book) =>
-      dispatch(actions.postReview(isbn, name, content, book)),
-    postLike: (type, id, uid) => dispatch(loginActions.postLike(type, id, uid)),
+      dispatch(reviewActions.postReview(isbn, name, content, book)),
+    postLike: (type, id, uid) =>
+      dispatch(reviewActions.postLike(type, id, uid)),
+    checkUser: (atk) => dispatch(loginActions.check(atk)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Review);

@@ -4,7 +4,8 @@ import classnames from "classnames/bind";
 import moment from "moment";
 import { v4 } from "uuid";
 import { connect } from "react-redux";
-import * as actions from "../../reducer/login";
+import * as reviewActions from "../../reducer/review";
+import * as loginActions from "../../reducer/login";
 import { FaHeart, FaTrash, FaEdit } from "react-icons/fa";
 import ReviewModal from "../ReviewModal";
 const cx = classnames.bind(style);
@@ -32,20 +33,31 @@ class UserReview extends Component {
     });
   };
   handleDelete = (e) => {
+    const { me } = this.props;
     const { currentTarget } = e;
-    const bid = currentTarget.getAttribute("data-value");
-    //console.log(bid);
+    const bid = currentTarget.getAttribute("data-bid"),
+      rid = currentTarget.getAttribute("data-value"),
+      uid = me.user._id;
+    //console.log(bid, rid, uid);
+    this.deleteReview(bid, rid, uid);
+  };
+  deleteReview = async (bid, rid, uid) => {
+    const { deleteReview } = this.props;
+    try {
+      await deleteReview(bid, rid, uid);
+    } catch (error) {
+      console.log(error);
+    }
   };
   postLike = async (type, id) => {
     const { me, postLike, profile } = this.props;
     try {
-      await postLike(type, id, profile._id, me.profile._id);
+      await postLike(type, id, profile._id, me.user._id);
     } catch (error) {
       console.log(error);
     }
   };
   getReview = (review, handleLike, handleDelete, handleEdit, mid, uid) => {
-    //console.log(mid, uid);
     return (
       <Fragment key={v4()}>
         <div className={cx("review-container")} id={review._id}>
@@ -74,8 +86,9 @@ class UserReview extends Component {
                   marginTop: "5px",
                 }}
               >
-                <span className={cx("review-like")}>{review.likes} likes</span>
-                <span> · </span>
+                <span className={cx("review-like")}>
+                  {review.likes.length} likes
+                </span>
                 <span
                   className={cx("likebtn")}
                   onClick={handleLike}
@@ -98,6 +111,7 @@ class UserReview extends Component {
               <span
                 className={cx("review-remove")}
                 data-value={review._id}
+                data-bid={review.book._id}
                 onClick={handleDelete}
               >
                 <FaTrash />
@@ -143,7 +157,10 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    postLike: (type, id, uid) => dispatch(actions.postLike(type, id, uid)),
+    postLike: (type, id, uid) =>
+      dispatch(reviewActions.postLike(type, id, uid)),
+    deleteReview: (bid, rid, uid) =>
+      dispatch(loginActions.deleteReview(bid, rid, uid)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UserReview);

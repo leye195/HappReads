@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import * as actions from "../../reducer/login";
 import * as bookActions from "../../reducer/books";
 import { Link } from "react-router-dom";
+import { v4 } from "uuid";
 
 const cx = classnames.bind(style);
 const formatAuthors = (authors) => {
@@ -28,7 +29,7 @@ const getAvg = (votes) => {
       for (let i = 0; i < votes.length; i++) {
         total += parseInt(votes[i].vote);
       }
-      console.log(total);
+      //console.log(total);
       return (total / votes.length).toFixed(2);
     } else {
       return 0;
@@ -128,13 +129,13 @@ class BookDetail extends Component {
     } catch (error) {}
   };
   handleRadio = (selected) => {
-    console.log(selected);
+    //log(selected);
     this.setState({ selected });
   };
   render() {
     const { book, votes, postVote, id, reviews } = this.props;
     const { selected, status } = this.state;
-    console.log(book);
+    //console.log(book);
     return (
       <Fragment>
         {book ? (
@@ -148,7 +149,7 @@ class BookDetail extends Component {
                   {book &&
                     book.votes &&
                     book.votes.map((vote) => (
-                      <li className={"book-rater"}>
+                      <li key={v4()} className={"book-rater"}>
                         <Link to={`/profile/${vote.voter._id}`}>
                           <img
                             src={vote.voter.avatarUrl}

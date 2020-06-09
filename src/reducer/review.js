@@ -16,21 +16,21 @@ export const POST_REVIEW_PENDING = "POST_REVIEW_PENDING";
 export const POST_REVIEW_SUCCESS = "POST_REVIEW_SUCCESS";
 export const POST_REVIEW_FAILURE = "POST_REVIEW_FAILURE";
 
-export const DELETE_REVIEW = "DELETE_REVIEW";
-export const DELETE_REVIEW_PENDING = "DELETE_REVIEW_PENDING";
-export const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
-export const DELETE_REVIEW_FAILURE = "DELETE_REVIEW_FAILURE";
-
 export const EDIT_REVIEW = "EDIT_REVIEW";
 export const EDIT_REVIEW_PENDING = "EDIT_REVIEW_PENDING";
 export const EDIT_REVIEW_SUCCESS = "EDIT_REVIEW_SUCCESS";
 export const EDIT_REVIEW_FAILURE = "EDIT_REVIEW_FAILURE";
 
+export const LIKE_REVIEW = "LIKE_REVIEW";
+export const LIKE_REVIEW_PENDING = "LIKE_REVIEW_PENDING";
+export const LIKE_REVIEW_SUCCESS = "LIKE_REVIEW_SUCCESS";
+export const LIKE_REVIEW_FAILURE = "LIKE_REVIEW_FAILURE";
+
 const requestGetReviews = () => {
   return axios.get(`http://localhost:8080/reviews`);
 };
 const requestGetReview = (id) => {
-  console.log(id);
+  //console.log(id);
   return axios.get(`http://localhost:8080/book/${id}/review`);
 };
 const requestPostReview = (id, name, content, book) => {
@@ -41,15 +41,18 @@ const requestPostReview = (id, name, content, book) => {
     book,
   });
 };
-const requestDeleteReview = (uid, isbn, rid, from) => {
-  return axios.post(`http://localhost:8080/book/${isbn}/review/${rid}`, {
-    uid,
-    from,
-  });
-};
+
 const requestEditReview = (rid, content) => {
   return axios.post(`http://localhost:8080/book/review/${rid}`, {
     content,
+  });
+};
+
+const requestLikeReview = (type, id, uid) => {
+  return axios.post(`http://localhost:8080/review/like`, {
+    type,
+    id,
+    uid,
   });
 };
 
@@ -65,14 +68,16 @@ export const postReview = (isbn, name, content, book) => ({
   type: POST_REVIEW,
   payload: requestPostReview(isbn, name, content, book),
 });
-export const deleteReview = (uid, isbn, rid, from) => ({
-  type: DELETE_REVIEW,
-  payload: requestDeleteReview(uid, isbn, rid, from),
-});
+
 export const editReview = (rid, content) => ({
   type: EDIT_REVIEW,
   payload: requestEditReview(rid, content),
 });
+export const postLike = (type, id, uid) => ({
+  type: LIKE_REVIEW,
+  payload: requestLikeReview(type, id, uid),
+});
+
 const initialState = {
   reviews: [],
   pending: false,
@@ -155,29 +160,6 @@ export default handleActions(
         success: false,
       };
     },
-    [DELETE_REVIEW_PENDING]: (state, action) => {
-      return {
-        reviews: action.payload.data.reviews,
-        pending: true,
-        error: false,
-        success: false,
-      };
-    },
-    [DELETE_REVIEW_SUCCESS]: (state, action) => {
-      return {
-        pending: true,
-        error: false,
-        success: false,
-      };
-    },
-    [DELETE_REVIEW_FAILURE]: (state, action) => {
-      return {
-        ...state,
-        pending: false,
-        error: true,
-        success: false,
-      };
-    },
     [EDIT_REVIEW_PENDING]: (state, action) => {
       return {
         ...state,
@@ -201,6 +183,36 @@ export default handleActions(
         pending: false,
         error: true,
         success: false,
+      };
+    },
+    ///LIKE_REVIEW
+    [LIKE_REVIEW_PENDING]: (state, action) => {
+      return {
+        ...state,
+        pending: true,
+        error: false,
+      };
+    },
+    [LIKE_REVIEW_SUCCESS]: (state, action) => {
+      const {
+        data: { review },
+      } = action.payload;
+      //console.log(data.profile);
+      console.log(review);
+      const filteredReviews = state.reviews.filter((r) => r._id !== review._id);
+      return {
+        ...state,
+        pending: false,
+        error: false,
+        success: true,
+        reviews: [...filteredReviews, review],
+      };
+    },
+    [LIKE_REVIEW_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        pending: false,
+        error: true,
       };
     },
   },
