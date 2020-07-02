@@ -1,65 +1,76 @@
-import React, { Component, Fragment } from "react";
+import React, { useState, useCallback } from "react";
 import style from "./UserReview.scss";
 import classnames from "classnames/bind";
 import moment from "moment";
 import { v4 } from "uuid";
-import { connect } from "react-redux";
-import * as reviewActions from "../../reducer/review";
-import * as loginActions from "../../reducer/login";
+import { useDispatch, useSelector } from "react-redux";
+import { postLike } from "../../reducer/review";
+import { deleteReview } from "../../reducer/login";
 import { FaHeart, FaTrash, FaEdit } from "react-icons/fa";
 import ReviewModal from "../ReviewModal";
 const cx = classnames.bind(style);
-class UserReview extends Component {
-  state = {
-    review: null,
-    isOpen: false,
-  };
-  handleLike = (e) => {
-    const { currentTarget } = e;
-    const id = currentTarget.getAttribute("data-value");
-    this.postLike("like", id);
-  };
-  handleEdit = (currentTarget, review) => {
-    //console.log(currentTarget.getAttribute("data-value"));
-    this.setState({
-      isOpen: true,
-      review,
-    });
-  };
-  handleClose = () => {
-    this.setState({
-      isOpen: false,
-      review: null,
-    });
-  };
-  handleDelete = (e) => {
-    const { me } = this.props;
+const UserReview = ({ profile }) => {
+  const [review, setReview] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { profile: me, pending: userloading } = useSelector(
+    (state) => state.login
+  );
+  const handleDelete = (e) => {
     const { currentTarget } = e;
     const bid = currentTarget.getAttribute("data-bid"),
       rid = currentTarget.getAttribute("data-value"),
       uid = me.user._id;
-    //console.log(bid, rid, uid);
-    this.deleteReview(bid, rid, uid);
+    handleDeleteReview(bid, rid, uid);
   };
-  deleteReview = async (bid, rid, uid) => {
-    const { deleteReview } = this.props;
+  const handleDeleteReview = async (bid, rid, uid) => {
     try {
-      await deleteReview(bid, rid, uid);
+      dispatch(deleteReview(bid, rid, uid));
     } catch (error) {
       console.log(error);
     }
   };
-  postLike = async (type, id) => {
-    const { me, postLike, profile } = this.props;
-    try {
-      await postLike(type, id, profile._id, me.user._id);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  getReview = (review, handleLike, handleDelete, handleEdit, mid, uid) => {
+  const handlePostLike = useCallback(
+    (type, id) => {
+      try {
+        dispatch(postLike(type, id, profile._id, me.user._id));
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [dispatch, me, profile]
+  );
+  const handleLike = useCallback(
+    (e) => {
+      const { currentTarget } = e;
+      const id = currentTarget.getAttribute("data-value");
+      handlePostLike("like", id);
+    },
+    [handlePostLike]
+  );
+  const handleEdit = useCallback(
+    (review) => (e) => {
+      const { currentTarget } = e;
+      //console.log(currentTarget.getAttribute("data-value"));
+      setIsOpen(true);
+      setReview(review);
+    },
+    []
+  );
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+    setReview(null);
+  }, []);
+  const getReview = (
+    review,
+    handleLike,
+    handleDelete,
+    handleEdit,
+    mid,
+    uid
+  ) => {
     return (
-      <Fragment key={v4()}>
+      <>
         <div className={cx("review-container")} id={review._id}>
           <div>
             <img
@@ -104,7 +115,7 @@ class UserReview extends Component {
               <span
                 className={cx("review-edit")}
                 data-value={review._id}
-                onClick={(e) => handleEdit(e.currentTarget, review)}
+                onClick={handleEdit(review)}
               >
                 <FaEdit />
               </span>
@@ -117,50 +128,28 @@ class UserReview extends Component {
                 <FaTrash />
               </span>
             </>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
-      </Fragment>
+      </>
     );
   };
-  render() {
-    const { profile, me, userloading } = this.props;
-    const { isOpen, review } = this.state;
-    return (
-      <div className={cx("user-review")}>
-        {userloading === false &&
-          profile &&
-          profile.reviews &&
-          profile.reviews.map((review) => {
-            return this.getReview(
-              review,
-              this.handleLike,
-              this.handleDelete,
-              this.handleEdit,
-              me.user._id,
-              profile._id
-            );
-          })}
-        {isOpen && (
-          <ReviewModal review={review} handleClose={this.handleClose} />
-        )}
-      </div>
-    );
-  }
-}
-const mapStateToProps = (state) => {
-  return {
-    me: state.login.profile,
-    userloading: state.login.pending,
-  };
+  return (
+    <div className={cx("user-review")}>
+      {userloading === false &&
+        profile &&
+        profile.reviews &&
+        profile.reviews.map((review) => {
+          return getReview(
+            review,
+            handleLike,
+            handleDelete,
+            handleEdit,
+            me.user._id,
+            profile._id
+          );
+        })}
+      {isOpen && <ReviewModal review={review} handleClose={handleClose} />}
+    </div>
+  );
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    postLike: (type, id, uid) =>
-      dispatch(reviewActions.postLike(type, id, uid)),
-    deleteReview: (bid, rid, uid) =>
-      dispatch(loginActions.deleteReview(bid, rid, uid)),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(UserReview);
+export default UserReview;

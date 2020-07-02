@@ -4,7 +4,14 @@ import classnames from "classnames/bind";
 import VerticalScroll from "../VerticalScrollList";
 import BookList from "../BookList";
 const cx = classnames.bind(style);
-const HomeContent = ({ booklist, handleClick, sliderBooks, type, page }) => {
+const HomeContent = ({
+  booklist,
+  handleClick,
+  handleMore,
+  sliderBooks,
+  type,
+  done,
+}) => {
   return (
     <section className={cx("home-content")}>
       <VerticalScroll books={sliderBooks} />
@@ -81,7 +88,13 @@ const HomeContent = ({ booklist, handleClick, sliderBooks, type, page }) => {
             과학
           </li>
         </ul>
-        <BookList booklist={booklist} from={"home"} />
+        <BookList
+          booklist={booklist}
+          handleMore={handleMore}
+          from={"home"}
+          type={type}
+          done={done}
+        />
       </div>
     </section>
   );

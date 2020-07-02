@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import style from "./Book.scss";
 import classnames from "classnames/bind";
 import { Link } from "react-router-dom";
@@ -7,13 +7,9 @@ import { connect } from "react-redux";
 import * as actions from "../../reducer/login";
 const cx = classnames.bind(style);
 const Book = (props) => {
-  const {
-    from,
-    type,
-    profile: { profile },
-    postShelve,
-  } = props;
+  const { from, type, postShelve } = props;
   const [isOpen, setOpen] = useState(false);
+
   const formatAuthors = (authors) => {
     let format = "";
     authors.forEach((ele) => {
@@ -53,15 +49,16 @@ const Book = (props) => {
   } else if (from === "profile") {
     const {
       book: { book },
+      profile: { user },
     } = props;
-    const isMe = window.location.pathname === "/me";
+    const isMe = window.location.href.endsWith("/me");
     const handleChange = async (e) => {
       const {
         target: { value },
       } = e;
       //서버에 수정 요청 전송 코드입력
       try {
-        await postShelve(profile.email, book.id, value);
+        postShelve(user.email, book._id, value);
       } catch (error) {
         console.log(error);
       }
@@ -78,14 +75,16 @@ const Book = (props) => {
       );
     };
     const handleDelete = (type) => () => {
-      const { deleteShelve, book, profile } = props;
-      console.log("Delete");
-      deleteShelve(profile.profile._id, book._id, type);
+      const {
+        deleteShelve,
+        book,
+        profile: { user },
+      } = props;
+      deleteShelve(user._id, book._id, type);
     };
     const handleEdit = (isOpen, setOpen) => {
       setOpen(!isOpen);
     };
-    //console.log(book);
     return (
       <div className={cx("shelve")} style={{ margin: "10px" }}>
         <Link to={`/book/${book?._id}`}>
@@ -103,7 +102,7 @@ const Book = (props) => {
               >
                 <FaEdit />
               </span>
-              {isOpen ? editTags(type) : <Fragment />}
+              {isOpen ? editTags(type) : null}
             </div>
             <div>
               <span className={cx("delete")} onClick={handleDelete(type)}>
@@ -111,9 +110,7 @@ const Book = (props) => {
               </span>
             </div>
           </div>
-        ) : (
-          <Fragment />
-        )}
+        ) : null}
       </div>
     );
   }
@@ -121,6 +118,7 @@ const Book = (props) => {
 const mapStateToProps = (state) => {
   return {
     profile: state.login.profile,
+    success: state.login.success,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import classnames from "classnames/bind";
 import style from "./Modal.scss";
 const cx = classnames.bind(style);
 const convertType = { 읽음: "read", 읽기: "want_read", 읽는중: "reading" };
 const Modal = ({ handleCancel, handleTypeChange, handleEdit, item, type }) => {
-  console.log(type);
   const [to, setTo] = useState(convertType[type]);
-  const handleSelect = (e) => {
+  const handleSelect = useCallback((e) => {
     const { target } = e;
     setTo(target.value);
-  };
+  }, []);
   return (
     <div className="modal-container">
       <div className="modal-overlay"></div>

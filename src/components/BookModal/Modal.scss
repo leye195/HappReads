@@ -9,6 +9,7 @@
     background-color: rgba(0, 0, 0, 0.16);
     display: block;
   }
+
   .modal {
     position: fixed;
     display: block;
@@ -31,6 +32,7 @@
       margin: 10px;
       cursor: pointer;
     }
+
     img {
       max-width: 250px;
       max-height: 350px;
@@ -39,27 +41,32 @@
       margin-bottom: 15px;
       border: 1px solid #e3e3e3;
     }
+
     .status-wrapper {
       @include flex(column, center, center);
       width: 60%;
     }
+
     .read-status {
       @include flex(row, center, center);
       .current-status {
         margin-left: 10px;
       }
     }
+
     .select {
       height: 20px;
       width: 100%;
       margin: 10px;
     }
+
     .button-container {
       width: 100%;
       @include flex(row, center, center);
       .ok-btn {
         @include base-button($green, 100%);
       }
+
       .cancel-btn {
         @include base-button($red, 100%);
       }
@@ -75,6 +82,7 @@
       &::after {
         @include bookShape;
       }
+
       img {
         position: relative;
         width: 10rem;
@@ -94,15 +102,18 @@
           background-color: $dark-grey;
           color: white;
         }
+
         &[type="submit"] {
           @include base-button($blue);
           margin-left: 0;
           margin-right: 0;
         }
       }
+
       textarea {
         @include textarea-style;
       }
+
       .ok-btn {
         @include base-button($green, 100%);
       }

@@ -1,0 +1,21 @@
+@import "../../styles/utils.scss";
+
+.notice-container {
+  @include flex(row, center, center);
+  position: absolute;
+  width: 50vw;
+  height: 50px;
+  color: white;
+  border-radius: 20px;
+  transform: translate3d(50%, 50%, 0);
+  animation: fade 2s alternate;
+  opacity: 0;
+
+  &.error {
+    background-color: $red;
+  }
+
+  &.success {
+    background-color: $green;
+  }
+}

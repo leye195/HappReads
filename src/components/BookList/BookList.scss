@@ -1,4 +1,16 @@
 @import "../../styles/utils.scss";
+
+.more-book-btn {
+  justify-self: center;
+  @include flex(row, center, center);
+  background-color: #ff9594;
+  border-radius: 20px;
+  cursor: pointer;
+  p {
+    font-weight: 600;
+    color: white;
+  }
+}
 @include mobile {
   .book-list {
     @include flex(column, center, center);
@@ -8,16 +20,20 @@
       justify-self: center;
     }
   }
+
   .ser-container {
     min-height: 75vh;
   }
+
   .ser-ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include flex(column, center, center);
     width: 50vw;
     margin: 0 auto;
+  }
+
+  .more-book-btn {
+    height: 60px;
+    width: 200px;
   }
 }
 @include tablet {
@@ -29,16 +45,20 @@
       justify-self: center;
     }
   }
+
   .ser-container {
     min-height: 75vh;
   }
+
   .ser-ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include flex(column, center, center);
     width: 50vw;
     margin: 0 auto;
+  }
+
+  .more-book-btn {
+    width: 120px;
+    height: 190px;
   }
 }
 @include desktop {
@@ -47,15 +67,19 @@
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     grid-gap: 20px;
   }
+
   .ser-container {
     min-height: 75vh;
   }
+
   .ser-ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include flex(column, center, center);
     width: 50vw;
     margin: 0 auto;
+  }
+
+  .more-book-btn {
+    width: 120px;
+    height: 190px;
   }
 }

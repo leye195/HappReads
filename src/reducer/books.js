@@ -6,6 +6,11 @@ export const GET_BOOKS_PENGIND = "GET_BOOKS_PENDING";
 export const GET_BOOKS_SUCCESS = "GET_BOOKS_SUCCESS";
 export const GET_BOOKS_FAILURE = "GET_BOOKS_FAILURE";
 
+export const GET_SLIDER_BOOKS = "GET_SLIDER_BOOKS";
+export const GET_SLIDER_BOOKS_PENGIND = "GET_SLIDER_BOOKS_PENDING";
+export const GET_SLIDER_BOOKS_SUCCESS = "GET_SLIDER_BOOKS_SUCCESS";
+export const GET_SLIDER_BOOKS_FAILURE = "GET_SLIDER_BOOKS_FAILURE";
+
 export const GET_SEARCH_BOOKS = "GET_SEARCH_BOOKS"; //검색 요청
 export const GET_SEARCH_BOOKS_PENGIND = "GET_SEARCH_BOOKS_PENDING";
 export const GET_SEARCH_BOOKS_SUCCESS = "GET_SEARCH_BOOKS_SUCCESS";
@@ -41,6 +46,10 @@ const requestAllBooks = (type, page) => {
     `http://localhost:8080/books/${decodeURI(type)}?page=${page}`
   );
 };
+const requestSliderBooks = () => {
+  return axios.get(`http://localhost:8080/sliders`);
+};
+
 const requestgetBooks = (query, type, page) => {
   return axios.get(
     `http://localhost:8080/search?q=${decodeURI(query)}&type=${0}`
@@ -60,6 +69,11 @@ export const getAllBooks = (type, page) => ({
   type: GET_BOOKS,
   payload: requestAllBooks(type, page),
 });
+export const getSliderBooks = () => ({
+  type: GET_SLIDER_BOOKS,
+  payload: requestSliderBooks(),
+});
+
 export const getBooks = (query = " ", type = 0, page = 1) => ({
   type: GET_SEARCH_BOOKS,
   payload: requestgetBooks(query, type, page),
@@ -78,10 +92,15 @@ export const postRate = (id, name, vote) => ({
 });
 
 const initialState = {
-  pending: false,
-  error: false,
+  allBookPending: false,
+  allBookPerror: false,
+  allBookDone: false,
   books: [],
+  morePending: false,
+  moreError: "",
   sliderBooks: [],
+  sliderPending: false,
+  sliderError: "",
   total: 0,
   vote_pending: false,
   vote_error: false,
@@ -92,6 +111,29 @@ const initialState = {
 
 export default handleActions(
   {
+    [GET_SLIDER_BOOKS_PENGIND]: (state, action) => {
+      return {
+        ...state,
+        sliderPending: true,
+      };
+    },
+    [GET_SLIDER_BOOKS_SUCCESS]: (state, action) => {
+      const {
+        data: { books },
+      } = action.payload;
+      return {
+        ...state,
+        sliderBooks: books,
+        sliderPending: true,
+      };
+    },
+    [GET_SLIDER_BOOKS_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        sliderPending: false,
+      };
+    },
+
     [GET_BOOKS_PENGIND]: (state, action) => {
       return {
         ...state,
@@ -103,17 +145,16 @@ export default handleActions(
       const {
         data: { books, page },
       } = action.payload;
+      console.log(books);
       return {
-        pending: false,
-        error: false,
+        ...state,
+        allBookPending: false,
+        allBookError: false,
+        allBookDone: books.length < 15 ? true : false,
         books:
           state.books === undefined || parseInt(page, 10) === 1
             ? books
             : [...state.books, ...books],
-        sliderBooks:
-          state.sliderBooks?.length === 0 || state.sliderBooks === undefined
-            ? books
-            : [...state.sliderBooks],
       };
     },
     [GET_BOOKS_FAILURE]: (state, action) => {
@@ -134,7 +175,6 @@ export default handleActions(
       const {
         data: { books },
       } = action.payload;
-      console.log(action.payload);
       return {
         ...state,
         pending: false,
@@ -145,8 +185,8 @@ export default handleActions(
     [GET_MORE_BOOKS_PENGIND]: (state, action) => {
       return {
         ...state,
-        pending: true,
-        error: false,
+        morePending: true,
+        moreError: false,
       };
     },
     [GET_MORE_BOOKS_SUCCESS]: (state, action) => {
@@ -155,16 +195,16 @@ export default handleActions(
       } = action.payload;
       return {
         ...state,
-        pending: false,
-        error: false,
+        morePending: false,
+        moreError: false,
         books: [...state.books, ...documents],
       };
     },
     [GET_MORE_BOOKS_FAILURE]: (state, action) => {
       return {
         ...state,
-        pending: false,
-        error: true,
+        morePending: false,
+        moreError: true,
       };
     },
     [POST_RATE_PENDING]: (state, action) => {
@@ -208,6 +248,7 @@ export default handleActions(
         data: { book },
       } = action.payload;
       return {
+        ...state,
         pending: true,
         error: false,
         book,

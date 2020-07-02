@@ -16,31 +16,29 @@ export const userSignup = (email, password) => ({
   payload: requestSignUp(email, password),
 });
 const initialState = {
-  error: false,
-  pending: false,
-  success: false,
+  signup_pending: false,
+  signup_success: false,
+  signup_error: false,
 };
 export default handleActions(
   {
     [SIGNUP_PENDING]: (state, action) => {
       return {
-        pending: true,
-        error: false,
-        success: false,
+        signup_pending: true,
+        signup_success: false,
+        signup_error: false,
       };
     },
     [SIGNUP_SUCCESS]: (state, action) => {
       return {
-        pending: false,
-        error: false,
-        success: true,
+        signup_pending: false,
+        signup_success: true,
       };
     },
     [SIGNUP_FAILURE]: (state, action) => {
       return {
-        pending: false,
-        error: true,
-        success: false,
+        signup_pending: false,
+        signup_error: true,
       };
     },
   },

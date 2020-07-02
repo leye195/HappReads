@@ -1,73 +1,74 @@
-import React, { Component, Fragment } from "react";
+import React, { useState, useCallback } from "react";
 import style from "./SignUpForm.scss";
 import classnames from "classnames/bind";
 import SocialLogin from "../SocialLogin/SocialLogin";
 const cx = classnames.bind(style);
-class SignUpForm extends Component {
-  state = {
-    email: "",
+const SignUpForm = ({ handleSignUp }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState({
     p1: "",
-    p2: ""
-  };
-
-  handleSubmit = e => {
+    p2: "",
+  });
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, p1, p2 } = this.state;
-    const { handleSignUp } = this.props;
+    const { p1, p2 } = password;
     if (p1 === p2) {
       handleSignUp(email, p1);
     }
   };
-
-  handleEmail = q => {
-    this.setState({
-      email: q
-    });
-  };
-  handlePassword1 = q => {
-    this.setState({
-      p1: q
-    });
-  };
-  handlePassword2 = q => {
-    this.setState({
-      p2: q
-    });
-  };
-  render() {
-    const { email, p1, p2 } = this.state;
-    return (
-      <Fragment>
-        <div className={cx("signup-form", "form-container")}>
-          <SocialLogin type="signup" />
-          <form onSubmit={this.handleSubmit}>
-            <input
-              type="email"
-              value={email}
-              onChange={e => this.handleEmail(e.target.value)}
-              placeholder="Email"
-              required
-            />
-            <input
-              type="password"
-              value={p1}
-              onChange={e => this.handlePassword1(e.target.value)}
-              placeholder="Password"
-              required
-            />
-            <input
-              type="password"
-              value={p2}
-              onChange={e => this.handlePassword2(e.target.value)}
-              placeholder="Password Verify"
-              required
-            />
-            <input type="submit" value="SignUp" />
-          </form>
-        </div>
-      </Fragment>
-    );
-  }
-}
+  const handleEmail = useCallback((e) => {
+    const { target } = e;
+    setEmail(target.value);
+  }, []);
+  const handlePassword1 = useCallback(
+    (e) => {
+      const { target } = e;
+      setPassword({
+        ...password,
+        p1: target.value,
+      });
+    },
+    [password]
+  );
+  const handlePassword2 = useCallback(
+    (e) => {
+      const { target } = e;
+      setPassword({
+        ...password,
+        p2: target.value,
+      });
+    },
+    [password]
+  );
+  return (
+    <section className={cx("signup-form", "form-container")}>
+      <SocialLogin type="signup" />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          value={email}
+          onChange={handleEmail}
+          placeholder="이메일"
+          required
+        />
+        <input
+          type="password"
+          value={password.p1}
+          onChange={handlePassword1}
+          placeholder="비밀번호"
+          required
+        />
+        <input
+          type="password"
+          value={password.p2}
+          onChange={handlePassword2}
+          placeholder="비밀번호 재입력"
+          required
+        />
+        <input type="submit" value="SignUp" />
+      </form>
+    </section>
+  );
+};
 
 export default SignUpForm;

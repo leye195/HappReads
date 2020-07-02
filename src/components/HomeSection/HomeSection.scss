@@ -9,6 +9,7 @@
   background-attachment: fixed;
   object-fit: cover;
   animation: fadeIn 1.5s ease-out;
+
   .words {
     position: absolute;
     top: 50%;
@@ -20,13 +21,14 @@
       font-weight: 700;
     }
   }
+
   img {
     height: 100%;
   }
 }
+
 @include mobile {
   .home-section {
-    padding-top: 40px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     .words {
@@ -36,9 +38,9 @@
     }
   }
 }
+
 @include tablet {
   .home-section {
-    padding-top: 45px;
     background-size: contain;
     .words {
       h4 {
@@ -47,9 +49,9 @@
     }
   }
 }
+
 @include desktop {
   .home-section {
-    padding-top: 50px;
     background-size: contain;
     .words {
       h4 {

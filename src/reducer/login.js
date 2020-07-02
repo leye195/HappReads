@@ -101,6 +101,15 @@ const initialState = {
   success: false,
   profile: {},
   isLoggedIn: false,
+  loginPending: false,
+  loginError: false,
+  loginSuccess: false,
+  logoutPending: false,
+  logoutSuccess: false,
+  logoutError: false,
+  postShelvePending: false,
+  postShelveSuccess: false,
+  postShelveError: false,
 };
 
 export default handleActions(
@@ -109,23 +118,27 @@ export default handleActions(
     [LOGIN_PENDING]: (state, action) => {
       return {
         ...state,
-        pending: true,
-        error: false,
+        loginPending: true,
+        loginError: false,
+        loginSuccess: false,
       };
     },
     [LOGIN_SUCCESS]: (state, action) => {
       return {
         profile: action.payload.data,
-        pending: false,
-        error: false,
+        loginPending: false,
+        loginError: false,
+        loginSuccess: true,
         isLoggedIn: true,
       };
     },
     [LOGIN_FAILURE]: (state, action) => {
+      console.log();
       return {
         ...state,
-        pending: false,
-        error: true,
+        loginPending: false,
+        loginError: true,
+        loginSuccess: false,
         isLoggedIn: false,
       };
     },
@@ -158,15 +171,18 @@ export default handleActions(
     [LOGOUT_PENDING]: (state, action) => {
       return {
         ...state,
-        pending: true,
-        error: false,
-        isLoggedIn: false,
+        logoutPending: true,
+        logoutError: false,
+        logoutSuccess: false,
       };
     },
     [LOGOUT_SUCCESS]: (state, action) => {
+      //console.log(action.payload);
       return {
-        pending: false,
-        error: false,
+        ...state,
+        logoutPending: false,
+        logoutError: false,
+        logoutSuccess: true,
         isLoggedIn: false,
         profile: {},
       };
@@ -174,30 +190,34 @@ export default handleActions(
     [LOGOUT_FAILURE]: (state, action) => {
       return {
         ...state,
-        pending: false,
-        error: true,
+        logoutPending: false,
+        logoutError: true,
+        logoutSuccess: false,
       };
     },
     //POST_SHELVE
     [POST_SHELVE_PENDING]: (state, action) => {
       return {
         ...state,
-        pending: true,
-        error: false,
+        postShelvePending: true,
+        postShelveSuccess: false,
+        postShelveError: false,
       };
     },
     [POST_SHELVE_SUCCESS]: (state, action) => {
+      const { data } = action.payload;
       return {
         ...state,
-        pending: false,
-        error: false,
+        postShelvePending: false,
+        postShelveSuccess: true,
+        profile: data,
       };
     },
     [POST_SHELVE_FAILURE]: (state, action) => {
       return {
         ...state,
-        pending: false,
-        error: true,
+        postShelvePending: false,
+        postShelveError: true,
       };
     },
     [DELETE_SHELVE_PENDING]: (state, action) => {
@@ -232,7 +252,6 @@ export default handleActions(
     },
     [DELETE_REVIEW_SUCCESS]: (state, action) => {
       const { data } = action.payload;
-      //console.log(user);
       return {
         ...state,
         pending: false,

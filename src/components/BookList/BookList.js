@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import style from "./BookList.scss";
 import classnames from "classnames/bind";
 import Book from "../Book/Book";
@@ -7,48 +7,73 @@ import { ChasingDots } from "better-react-spinkit";
 import { v4 } from "uuid";
 import { connect } from "react-redux";
 const cx = classnames.bind(style);
-class BookList extends Component {
-  render() {
-    const { from, booklist, type } = this.props;
-    if (from === "home") {
-      return (
-        <div className={cx("book-list")}>
-          {booklist ? (
-            booklist.map((book) => {
-              return (
-                <Link to={`/book/${book._id}`} key={v4()}>
-                  <Book book={book} from={from} />
-                </Link>
-              );
-            })
+const BookList = ({ from, booklist, type, handleMore, done }) => {
+  if (from === "home") {
+    return (
+      <div className={cx("book-list")}>
+        {booklist ? (
+          type === "전체" && booklist.length > 0 ? (
+            <>
+              {booklist.map((book) => {
+                return (
+                  <Link to={`/book/${book._id}`} key={v4()}>
+                    <Book book={book} from={from} />
+                  </Link>
+                );
+              })}
+              {done === false && (
+                <div className={cx("more-book-btn")} onClick={handleMore}>
+                  <p>더 보기 +</p>
+                </div>
+              )}
+            </>
           ) : (
-            <ChasingDots color="white" size={60} />
-          )}
-        </div>
-      );
-    } else if (from === "search") {
-      return (
-        <div className={cx("ser-container")}>
-          <ul className={cx("ser-ul")}>
-            {booklist.map((book) => {
-              return <Book book={book} from={from} key={v4()} />;
-            })}
-          </ul>
-        </div>
-      );
-    } else if (from === "profile") {
-      //console.log(booklist);
-      return (
-        <div>
-          <ul>
-            {booklist.map((book) => {
-              return <Book book={book} from={from} key={v4()} type={type} />;
-            })}
-          </ul>
-        </div>
-      );
-    }
+            <>
+              {booklist
+                .filter((book) => book?.genres?.includes(type))
+                .map((book) => {
+                  return (
+                    <Link to={`/book/${book._id}`} key={v4()}>
+                      <Book book={book} from={from} />
+                    </Link>
+                  );
+                })}
+              {booklist.filter((book) => book?.genres?.includes(type)).length >
+                0 &&
+                done === false && (
+                  <div className={cx("more-book-btn")} onClick={handleMore}>
+                    <p>더 보기 +</p>
+                  </div>
+                )}
+            </>
+          )
+        ) : (
+          <ChasingDots color="white" size={60} />
+        )}
+      </div>
+    );
+  } else if (from === "search") {
+    return (
+      <div className={cx("ser-container")}>
+        <ul className={cx("ser-ul")}>
+          {booklist.map((book) => {
+            return <Book book={book} from={from} key={v4()} />;
+          })}
+        </ul>
+      </div>
+    );
+  } else if (from === "profile") {
+    //console.log(booklist);
+    return (
+      <div>
+        <ul>
+          {booklist.map((book) => {
+            return <Book book={book} from={from} key={v4()} type={type} />;
+          })}
+        </ul>
+      </div>
+    );
   }
-}
+};
 
 export default connect(null, null)(BookList);

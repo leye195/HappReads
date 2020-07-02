@@ -1,7 +1,6 @@
 @import "../../styles/utils.scss";
 .book-detail {
   .book-rater-list {
-    position: fixed;
     height: 8vh;
     width: 100vw;
     background-color: #282f38;
@@ -55,9 +54,10 @@
 }
 @include mobile {
   .book-detail {
-    margin-top: 80px;
     .book-rater-list {
-      position: fixed;
+      .fixed {
+        position: fixed;
+      }
     }
     .book-info-wrapper {
       @include flex(column, center, center);
@@ -103,9 +103,7 @@
           font-size: 1.2rem;
         }
         .add {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
+          @include flex(column, none, flex-start);
           .select {
             width: 120px;
           }
@@ -126,9 +124,10 @@
 }
 @include tablet {
   .book-detail {
-    margin-top: 70px;
     .book-rater-list {
-      margin-top: 4px;
+      .fixed {
+        position: fixed;
+      }
     }
     .book-info-wrapper {
       @include flex(column, center, center);
@@ -174,9 +173,7 @@
           font-size: 1.2rem;
         }
         .add {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
+          @include flex(column, none, flex-start);
           .select {
             width: 120px;
           }
@@ -197,9 +194,10 @@
 }
 @include desktop {
   .book-detail {
-    margin-top: 80px;
     .book-rater-list {
-      margin-top: 8px;
+      .fixed {
+        position: fixed;
+      }
     }
     .book-info-wrapper {
       display: flex;
@@ -248,9 +246,7 @@
           font-size: 2rem;
         }
         .add {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
+          @include flex(column, none, flex-start);
           .select {
             width: 120px;
           }

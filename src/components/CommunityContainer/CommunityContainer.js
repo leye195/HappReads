@@ -1,17 +1,16 @@
-import React, { Component, Fragment } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import classnames from "classnames/bind";
 import style from "./CommunityContainer.scss";
-import img1 from "../../img/1.jpg";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import * as reviewActions from "../../reducer/review";
-import * as userActions from "../../reducer/user";
+import { useDispatch, useSelector } from "react-redux";
+import { getReviews } from "../../reducer/review";
+import { getTopReaders, getTopReviewers } from "../../reducer/user";
 import moment from "moment";
 const cx = classnames.bind(style);
 const content = (path, info = [], handleType = null, type = null) => {
   if (path === "top-readers") {
     return (
-      <Fragment>
+      <>
         <div className={cx("range-container")}>
           <span data-value={0} data-role="reader" onClick={handleType}>
             전체
@@ -64,12 +63,12 @@ const content = (path, info = [], handleType = null, type = null) => {
               })}
           </tbody>
         </table>
-      </Fragment>
+      </>
     );
   }
   if (path === "top-reviewers") {
     return (
-      <Fragment>
+      <>
         <div className={cx("range-container")}>
           <span data-value={0} data-role="reviewer" onClick={handleType}>
             전체
@@ -115,12 +114,12 @@ const content = (path, info = [], handleType = null, type = null) => {
               })}
           </tbody>
         </table>
-      </Fragment>
+      </>
     );
   }
   if (path === "reviews") {
     return (
-      <Fragment>
+      <>
         {info.length === 0 && (
           <p style={{ textAlign: "center" }}>기록이 없습니다.</p>
         )}
@@ -168,85 +167,68 @@ const content = (path, info = [], handleType = null, type = null) => {
               </div>
             );
           })}
-      </Fragment>
+      </>
     );
   }
 };
-class CommunityContainer extends Component {
-  state = {
-    type: 0,
-  };
-  componentDidMount() {
-    this.getReviews();
-    this.getTopReaders();
-    this.getTopReviewers();
-  }
-  getReviews = async () => {
-    const { getReviews } = this.props;
+const CommunityContainer = ({ path }) => {
+  const [type, setType] = useState(0);
+  const { reviews } = useSelector((state) => state.review);
+  const { topReaders, topReviewers } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const loadReviews = useCallback(async () => {
     try {
-      await getReviews();
+      dispatch(getReviews());
     } catch (error) {
       console.log(error);
     }
-  };
-  getTopReaders = async (type = 0) => {
-    const { getTopReaders } = this.props;
-    try {
-      await getTopReaders(type);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  getTopReviewers = async (type = 0) => {
-    const { getTopReviewers } = this.props;
-    try {
-      await getTopReviewers(type);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  handleType = (e) => {
+  }, [dispatch]);
+  const loadTopReaders = useCallback(
+    async (type = 0) => {
+      try {
+        dispatch(getTopReaders(type));
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [dispatch]
+  );
+  const loadTopReviewers = useCallback(
+    async (type = 0) => {
+      try {
+        dispatch(getTopReviewers(type));
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [dispatch]
+  );
+  const handleType = (e) => {
     const { target } = e;
-    const value = target.getAttribute("data-value");
-    const role = target.getAttribute("data-role");
-    if (role === "reader") this.getTopReaders(value);
-    if (role === "reviewer") this.getTopReviewers(value);
-    this.setState({
-      type: value,
-    });
+    const value = target.getAttribute("data-value"),
+      role = target.getAttribute("data-role");
+    if (role === "reader") loadTopReaders(value);
+    else if (role === "reviewer") loadTopReviewers(type);
+    setType(value);
   };
-  render() {
-    const { path, reviews, topReaders, topReviewers } = this.props;
-    const { type } = this.state;
-    return (
-      <div className={cx("community-container")}>
-        {path === "reviews" && (
-          <div className={cx("reviews")}>{content("reviews", reviews)}</div>
-        )}
-        {path === "top-readers" && (
-          <div>{content("top-readers", topReaders, this.handleType, type)}</div>
-        )}
-        {path === "top-reviewers" && (
-          <div>
-            {content("top-reviewers", topReviewers, this.handleType, type)}
-          </div>
-        )}
-      </div>
-    );
-  }
-}
-const mapStateToProps = (state) => {
-  return {
-    reviews: state.review.reviews,
-    topReaders: state.user.topReaders,
-    topReviewers: state.user.topReviewers,
-  };
+  useEffect(() => {
+    loadReviews();
+    loadTopReaders(type);
+    loadTopReviewers(type);
+  }, [loadTopReviewers, loadTopReaders, loadReviews, type]);
+  return (
+    <div className={cx("community-container")}>
+      {path === "reviews" && (
+        <div className={cx("reviews")}>{content("reviews", reviews)}</div>
+      )}
+      {path === "top-readers" && (
+        <div>{content("top-readers", topReaders, handleType, type)}</div>
+      )}
+      {path === "top-reviewers" && (
+        <div>{content("top-reviewers", topReviewers, handleType, type)}</div>
+      )}
+    </div>
+  );
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getReviews: () => dispatch(reviewActions.getReviews()),
-    getTopReaders: (type = 0) => dispatch(userActions.getTopReaders(type)),
-    getTopReviewers: (type = 0) => dispatch(userActions.getTopReviewers(type)),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(CommunityContainer);
+export default CommunityContainer;

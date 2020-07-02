@@ -81,17 +81,23 @@ export const postLike = (type, id, uid) => ({
 const initialState = {
   reviews: [],
   pending: false,
-  error: false,
   success: false,
+  error: false,
+  loadReviewsPending: false,
+  loadReviewsError: false,
+  loadReviewsSuccess: false,
+  postReviewPending: false,
+  postReviewSuccess: false,
+  postReviewError: false,
 };
 export default handleActions(
   {
     [GET_REVIEWS_PENDING]: (state, action) => {
       return {
         ...state,
-        pending: true,
-        error: false,
-        success: false,
+        loadReviewsPending: true,
+        loadReviewsError: false,
+        loadReviewsSuccess: false,
       };
     },
     [GET_REVIEWS_SUCCESS]: (state, action) => {
@@ -99,42 +105,40 @@ export default handleActions(
         data: { reviews },
       } = action.payload;
       return {
+        ...state,
         reviews: reviews,
-        pending: false,
-        error: false,
-        success: true,
+        loadReviewsPending: false,
+        loadReviewsSuccess: true,
       };
     },
     [GET_REVIEWS_FAILURE]: (state, action) => {
       return {
         ...state,
-        pending: false,
-        error: true,
-        success: false,
+        loadReviewsPending: false,
+        loadReviewsError: true,
       };
     },
     [POST_REVIEW_PENDING]: (state, action) => {
       return {
         ...state,
-        error: false,
-        pending: true,
-        success: false,
+        postReviewPending: true,
+        postReviewSuccess: false,
+        postReviewError: false,
       };
     },
     [POST_REVIEW_SUCCESS]: (state, action) => {
       return {
+        ...state,
         reviews: action.payload.data.reviews,
-        error: false,
-        pending: false,
-        success: true,
+        postReviewPending: false,
+        postReviewSuccess: true,
       };
     },
     [POST_REVIEW_FAILURE]: (state, action) => {
       return {
         ...state,
-        error: true,
-        pending: false,
-        success: false,
+        postReviewPending: false,
+        postReviewError: true,
       };
     },
     [GET_REVIEW_PENDING]: (state, action) => {

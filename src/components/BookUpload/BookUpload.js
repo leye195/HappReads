@@ -1,25 +1,12 @@
-import React, { Component } from "react";
+import React, { useState, useCallback } from "react";
 import classnames from "classnames/bind";
 import style from "./BookUpload.scss";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
-import * as actions from "../../reducer/upload";
+import { postUpload } from "../../reducer/upload";
 const cx = classnames.bind(style);
-const authorTag = (authors, handleDeleteTag) => {
-  return authors.map((author) => {
-    const uid = v4();
-    return (
-      <div className={cx("author-tag")} key={uid}>
-        <span className={cx("author-name")}>{author}</span>
-        <span className={cx("author-x")} onClick={handleDeleteTag}>
-          x
-        </span>
-      </div>
-    );
-  });
-};
-class BookUpload extends Component {
-  state = {
+const BookUpload = () => {
+  const [content, setContent] = useState({
     selected: null,
     title: "",
     authors: [],
@@ -27,173 +14,180 @@ class BookUpload extends Component {
     isbn: "",
     contents: "",
     genres: "",
-  };
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { selected, title, authors, isbn, contents, genres } = this.state;
-    const {
-      profile: {
-        user: { _id },
-      },
-    } = this.props;
-    const formData = new FormData();
-    formData.append("thumbnail", selected);
-    formData.append("title", title);
-    formData.append("authors", authors);
-    formData.append("isbn", isbn);
-    formData.append("contents", contents);
-    formData.append("uid", _id);
-    formData.append("genres", genres);
-    //console.log(title, authors, isbn, contents);
-    this.submitData(formData);
-  };
-  handleAuthorChange = (input) => {
+  });
+  const dispatch = useDispatch();
+  const { profile } = useSelector((state) => state.login);
+  const { pending, error, success } = useSelector((state) => state.upload);
+  const handleAuthorChange = (input) => {
     this.setState({
       author: input,
     });
   };
-  handleKeyPress = (key) => {
-    const { author, authors } = this.state;
-    if (author !== "") {
-      if (key === 13) {
-        this.setState({
-          authors: [...authors, author],
-          author: "",
-        });
+  const handleKeyPress = useCallback(
+    (e) => {
+      const { author, authors } = content;
+      const { keyCode } = e;
+      if (author !== "") {
+        if (keyCode === 13) {
+          setContent({
+            ...content,
+            authors: [...authors, author],
+            author: "",
+          });
+        }
       }
-    }
-  };
-  handleDeleteTag = (e) => {
-    const { authors } = this.state;
+    },
+    [content]
+  );
+  const handleDeleteTag = (e) => {
+    const { authors } = content;
     const target = e.target.previousSibling.innerHTML;
     let newAuthors = authors.filter((author) => {
       return author !== target;
     });
     //console.log(newAuthors);
-    this.setState({
+    setContent({
+      ...content,
       authors: newAuthors,
     });
   };
-  handleFile = (e) => {
+  const handleFile = (e) => {
     const {
       target: { files },
     } = e;
-    this.setState({
+    setContent({
+      ...content,
       selected: files[0],
     });
     const imgURL = URL.createObjectURL(files[0]);
     document.querySelector(".preview-img").src = imgURL;
   };
-  handleTitle = (title) => {
-    this.setState({
-      title,
-    });
-  };
-  handleContents = (contents) => {
-    this.setState({
-      contents,
-    });
-  };
-  handleIsbn = (isbn) => {
-    this.setState({
-      isbn,
-    });
-  };
-  handleGenres = (genres) => {
-    this.setState({
-      genres,
-    });
-  };
-  submitData = async (data) => {
-    const { postUpload } = this.props;
-    try {
-      await postUpload(data);
+  const handleTitle = useCallback(
+    (e) => {
+      const { target } = e;
+      setContent({
+        ...content,
+        title: target.value,
+      });
+    },
+    [content]
+  );
+  const handleContents = useCallback(
+    (e) => {
+      const { target } = e;
+      setContent({
+        ...content,
+        contents: target.value,
+      });
+    },
+    [content]
+  );
+  const handleIsbn = useCallback(
+    (e) => {
+      const { target } = e;
+      setContent({
+        ...content,
+        isbn: target.value,
+      });
+    },
+    [content]
+  );
+  const handleGenres = useCallback((e) => {
+    const { target } = e;
+    setContent(target.value);
+  }, []);
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const {
+        user: { _id },
+      } = profile;
+      const { selected, contents, title, authors, genres, isbn } = content;
+      const formData = new FormData();
+      formData.append("thumbnail", selected);
+      formData.append("title", title);
+      formData.append("authors", authors);
+      formData.append("isbn", isbn);
+      formData.append("contents", contents);
+      formData.append("uid", _id);
+      formData.append("genres", genres);
+      //console.log(title, authors, isbn, contents);
+      dispatch(postUpload(formData));
       window.location.href = "/";
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  render() {
-    const {
-      title,
-      isbn,
-      contents,
-      author,
-      authors,
-      genres,
-      selected,
-    } = this.state;
-    return (
-      <div className={cx("book-upload")}>
-        <div className={cx("form-container")}>
-          <form onSubmit={this.handleSubmit}>
-            <div className={cx("upload-btn-wrapper")}>
-              <img className={cx("preview-img")} alt="" />
-              <div
-                className={cx("btn-container")}
-                style={{ position: "relative" }}
-              >
-                <button className={cx("btn")}>이미지 선택</button>
-                <input type="file" onChange={this.handleFile} required />
-              </div>
-            </div>
-
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => this.handleTitle(e.target.value)}
-              placeholder="책 이름"
-              required
-            />
-            <div className={cx("authors")}>
-              {authorTag(authors, this.handleDeleteTag)}
-              <input
-                className={cx("author-input")}
-                type="text"
-                placeholder="저자 +"
-                value={author}
-                onChange={(e) => this.handleAuthorChange(e.target.value)}
-                onKeyDown={(e) => this.handleKeyPress(e.keyCode)}
-              />
-            </div>
-            <input
-              type="text"
-              value={genres}
-              placeholder="책 장르 ( ,구분진행)"
-              onChange={(e) => this.handleGenres(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              value={isbn}
-              onChange={(e) => this.handleIsbn(e.target.value)}
-              placeholder="ISBN"
-              required
-            />
-            <textarea
-              placeholder="요약"
-              value={contents}
-              onChange={(e) => this.handleContents(e.target.value)}
-              required
-            />
-            <input type="submit" value="제출" />
-          </form>
+    },
+    [content, profile, dispatch]
+  );
+  const authorTag = (authors, handleDeleteTag) => {
+    return authors.map((author) => {
+      const uid = v4();
+      return (
+        <div className={cx("author-tag")} key={uid}>
+          <span className={cx("author-name")}>{author}</span>
+          <span className={cx("author-x")} onClick={handleDeleteTag}>
+            x
+          </span>
         </div>
+      );
+    });
+  };
+  const { selected, title, authors, author, isbn, contents, genres } = content;
+  return (
+    <div className={cx("book-upload")}>
+      <div className={cx("form-container")}>
+        <form onSubmit={handleSubmit}>
+          <div className={cx("upload-btn-wrapper")}>
+            <img className={cx("preview-img")} alt="" />
+            <div
+              className={cx("btn-container")}
+              style={{ position: "relative" }}
+            >
+              <button className={cx("btn")}>이미지 선택</button>
+              <input type="file" onChange={handleFile} required />
+            </div>
+          </div>
+
+          <input
+            type="text"
+            value={title}
+            onChange={handleTitle}
+            placeholder="책 이름"
+            required
+          />
+          <div className={cx("authors")}>
+            {authorTag(authors, handleDeleteTag)}
+            <input
+              className={cx("author-input")}
+              type="text"
+              placeholder="저자 +"
+              value={author}
+              onChange={handleAuthorChange}
+              onKeyDown={handleKeyPress}
+            />
+          </div>
+          <input
+            type="text"
+            value={genres}
+            placeholder="책 장르 ( ,구분진행)"
+            onChange={handleGenres}
+            required
+          />
+          <input
+            type="text"
+            value={isbn}
+            onChange={handleIsbn}
+            placeholder="ISBN"
+            required
+          />
+          <textarea
+            placeholder="요약"
+            value={contents}
+            onChange={handleContents}
+            required
+          />
+          <input type="submit" value="제출" />
+        </form>
       </div>
-    );
-  }
-}
-const mapStateToProps = (state) => {
-  return {
-    pending: state.upload.pending,
-    error: state.upload.error,
-    success: state.upload.success,
-    profile: state.login.profile,
-  };
+    </div>
+  );
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    postUpload: (data) => dispatch(actions.postUpload(data)),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(BookUpload);
+export default BookUpload;

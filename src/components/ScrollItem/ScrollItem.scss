@@ -6,9 +6,11 @@
   width: 10rem !important;
   align-items: center;
   justify-content: center;
+
   a {
     position: relative;
   }
+
   a::after {
     background: linear-gradient(
       to right,
@@ -26,6 +28,7 @@
     width: 100%;
   }
 }
+
 @include mobile {
   .scroll-item {
     img {
@@ -34,6 +37,7 @@
     }
   }
 }
+
 @include tablet {
   .scroll-item {
     img {
@@ -42,6 +46,7 @@
     }
   }
 }
+
 @include desktop {
   .scroll-item {
     img {
