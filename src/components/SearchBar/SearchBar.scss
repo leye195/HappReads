@@ -1,7 +1,7 @@
 @import "../../styles/utils.scss";
 @include mobile {
   .search-bar {
-    width: 40%;
+    width: 50%;
     @include flex(row, center, center);
     .form-container {
       @include flex(row, center, none);
@@ -16,6 +16,7 @@
         border: none;
         border-radius: 10px;
       }
+
       label {
         @include flex(row, none, center);
         input[type="radio"] {
@@ -26,6 +27,7 @@
     }
   }
 }
+
 @include tablet {
   .search-bar {
     width: 60%;
@@ -43,6 +45,7 @@
         border: none;
         border-radius: 10px;
       }
+
       label {
         @include flex(row, none, center);
         input[type="radio"] {
@@ -53,9 +56,10 @@
     }
   }
 }
+
 @include desktop {
   .search-bar {
-    width: 70%;
+    width: 62%;
     @include flex(row, center, center);
     .form-container {
       @include flex(row, center, none);
@@ -70,6 +74,7 @@
         border: none;
         border-radius: 10px;
       }
+
       label {
         @include flex(row, none, center);
         input[type="radio"] {

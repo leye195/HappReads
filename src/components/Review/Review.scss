@@ -1,7 +1,7 @@
 @import "../../styles/utils.scss";
 .review {
   padding: 0 20px;
-  p {
+  .review-title {
     border-bottom: 1px solid #e3e3e3;
     margin-top: 10px;
     font-weight: 100;
@@ -14,10 +14,12 @@
       @include flex(row, center, center);
       width: 100%;
       textarea {
+        all: unset;
         resize: none;
         flex-grow: 1;
         padding: 5px;
         font-size: 1.2rem;
+        border: 1px solid $white-grey;
       }
     }
   }
@@ -32,7 +34,7 @@
       margin-bottom: 10px;
     }
 
-    div {
+    article {
       margin: 10;
       a {
         display: inline-flex;
@@ -60,7 +62,14 @@
       }
 
       .user-review {
+        line-height: 1.5;
         white-space: pre-wrap;
+      }
+
+      .more {
+        font-size: 1rem;
+        margin: 10px 0px;
+        font-weight: 300;
       }
     }
 

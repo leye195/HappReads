@@ -11,9 +11,21 @@
     color: white;
   }
 }
+
+.ser-container {
+  min-height: 75vh;
+  .ser-ul {
+    @include flex(column, center, center);
+    width: 90vw;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+}
+
 @include mobile {
   .book-list {
-    @include flex(column, center, center);
+    @include flex(row, center, center);
+    flex-wrap: wrap;
     a {
       margin: 10px;
       padding: 10px;
@@ -22,13 +34,9 @@
   }
 
   .ser-container {
-    min-height: 75vh;
-  }
-
-  .ser-ul {
-    @include flex(column, center, center);
-    width: 50vw;
-    margin: 0 auto;
+    .ser-ul {
+      width: 85vw;
+    }
   }
 
   .more-book-btn {
@@ -36,6 +44,7 @@
     width: 200px;
   }
 }
+
 @include tablet {
   .book-list {
     display: grid;
@@ -47,13 +56,9 @@
   }
 
   .ser-container {
-    min-height: 75vh;
-  }
-
-  .ser-ul {
-    @include flex(column, center, center);
-    width: 50vw;
-    margin: 0 auto;
+    .ser-ul {
+      width: 90vw;
+    }
   }
 
   .more-book-btn {
@@ -61,6 +66,7 @@
     height: 190px;
   }
 }
+
 @include desktop {
   .book-list {
     display: grid;
@@ -69,13 +75,9 @@
   }
 
   .ser-container {
-    min-height: 75vh;
-  }
-
-  .ser-ul {
-    @include flex(column, center, center);
-    width: 50vw;
-    margin: 0 auto;
+    .ser-ul {
+      width: 85vw;
+    }
   }
 
   .more-book-btn {

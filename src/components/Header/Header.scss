@@ -1,17 +1,19 @@
 @import "../../styles/utils.scss";
-.nav {
-  display: flex;
-  align-items: center;
-}
 
 .header {
   @include flex(row, center, space-between);
   top: 0;
   width: 100%;
-  background-color: rgb(236, 234, 222);
-  border-bottom: 2px solid $white-grey;
+  height: 100%;
   z-index: 1;
   transition: all 0.3s ease-out;
+  .nav {
+    @include flex(row, center, space-around);
+    background-color: $header-bg-color;
+    border-bottom: 2px solid $white-grey;
+    width: 100%;
+  }
+
   .title {
     cursor: pointer;
     a {
@@ -69,36 +71,69 @@
 
 @include mobile {
   .header {
-    height: 11vh;
-
+    @include flex(column, center, none);
     .title {
       font-size: 20px;
       margin: 6px;
     }
 
-    .community {
-      cursor: pointer;
-      font-size: 0.65rem;
+    .nav.mobile {
+      position: relative;
+      @include flex(row, none, space-around);
+      width: 100%;
+      height: 55px;
+      .mobile-menu-bar {
+        height: 50%;
+        width: 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        cursor: pointer;
+        z-index: 1;
+        li {
+          height: 5px;
+          width: 100%;
+          margin: 0 auto;
+          background: white;
+        }
+      }
     }
 
-    .ul {
-      margin: 0px;
+    .mobile-menu-container {
+      width: 100%;
+      padding: 5px;
+      background-color: $header-bg-color;
+      .mobile-menu-item {
+        padding: 5px 10px;
+        font-weight: bold;
+        &:not(:last-child) {
+          border-bottom: 1px solid gainsboro;
+          margin-bottom: 5px;
+        }
+      }
     }
   }
 }
 
 @include tablet {
   .header {
-    height: 10vh;
-
     .title {
       font-size: 22px;
       margin: 10px;
     }
 
+    .menu-container {
+      @include flex(row, center, center);
+    }
+
     .community {
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      border: 1px solid white;
+      border-radius: 20px;
+      padding: 7px;
+      background-color: white;
     }
 
     .ul {
@@ -109,15 +144,22 @@
 
 @include desktop {
   .header {
-    height: 12vh;
-
     .title {
       font-size: 25px;
       margin: 10px;
     }
 
+    .menu-container {
+      @include flex(row, center, center);
+    }
+
     .community {
       cursor: pointer;
+      font-weight: 800;
+      border: 1px solid white;
+      border-radius: 20px;
+      padding: 7px;
+      background-color: white;
     }
 
     .ul {

@@ -21,6 +21,7 @@
   .review-book,
   .review-text {
     margin-bottom: 10px;
+    white-space: pre-wrap;
   }
   .review-date {
     color: $dark-grey;

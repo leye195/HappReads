@@ -1,7 +1,7 @@
 import { handleActions } from "redux-actions";
 import axios from "axios";
 
-export const GET_BOOKS = "GET_BOOKS";
+export const GET_BOOKS = "GET_BOOKS"; //책 리스트
 export const GET_BOOKS_PENGIND = "GET_BOOKS_PENDING";
 export const GET_BOOKS_SUCCESS = "GET_BOOKS_SUCCESS";
 export const GET_BOOKS_FAILURE = "GET_BOOKS_FAILURE";
@@ -10,6 +10,16 @@ export const GET_SLIDER_BOOKS = "GET_SLIDER_BOOKS";
 export const GET_SLIDER_BOOKS_PENGIND = "GET_SLIDER_BOOKS_PENDING";
 export const GET_SLIDER_BOOKS_SUCCESS = "GET_SLIDER_BOOKS_SUCCESS";
 export const GET_SLIDER_BOOKS_FAILURE = "GET_SLIDER_BOOKS_FAILURE";
+
+export const GET_POPULAR_BOOKS = "GET_POPULAR_BOOKS"; //최근 공유 목록
+export const GET_POPULAR_BOOKS_PENGIND = "GET_POPULAR_BOOKS_PENDING";
+export const GET_POPULAR_BOOKS_SUCCESS = "GET_POPULAR_BOOKS_SUCCESS";
+export const GET_POPULAR_BOOKS_FAILURE = "GET_POPULAR_BOOKS_FAILURE";
+
+export const GET_RECENT_BOOKS = "GET_RECENT_BOOKS"; //최근 공유 목록
+export const GET_RECENT_BOOKS_PENGIND = "GET_RECENT_BOOKS_PENDING";
+export const GET_RECENT_BOOKS_SUCCESS = "GET_RECENT_BOOKS_SUCCESS";
+export const GET_RECENT_BOOKS_FAILURE = "GET_RECENT_BOOKS_FAILURE";
 
 export const GET_SEARCH_BOOKS = "GET_SEARCH_BOOKS"; //검색 요청
 export const GET_SEARCH_BOOKS_PENGIND = "GET_SEARCH_BOOKS_PENDING";
@@ -21,38 +31,37 @@ export const GET_MORE_BOOKS_PENGIND = "GET_MORE_BOOKS_PENDING";
 export const GET_MORE_BOOKS_SUCCESS = "GET_MORE_BOOKS_SUCCESS";
 export const GET_MORE_BOOKS_FAILURE = "GET_MORE_BOOKS_FAILURE";
 
-export const POST_BOOK = "POST_BOOK";
+export const POST_BOOK = "POST_BOOK"; //책 업로드
 export const POST_BOOK_PENDING = "POST_BOOK_PENDING";
 export const POST_BOOK_SUCCESS = "POST_BOOK_SUCCESS";
 export const POST_BOOK_FAILURE = "POST_BOOK_FAILURE";
 
-export const GET_VOTE_REVIEW = "GET_VOTE_REVIEW";
+export const GET_VOTE_REVIEW = "GET_VOTE_REVIEW"; //리뷰 작성
 export const GET_VOTE_REVIEW_PENDING = "GET_VOTE_REVIEW_PENDING";
 export const GET_VOTE_REVIEW_SUCCESS = "GET_VOTE_REVIEW_SUCCESS";
 export const GET_VOTE_REVIEW_FAILURE = "GET_VOTE_REVIEW_FAILURE";
 
-export const GET_DETAIL = "GET_DETAIL";
+export const GET_DETAIL = "GET_DETAIL"; //상세목록
 export const GET_DETAIL_PENDING = "GET_DETAIL_PENDING";
 export const GET_DETAIL_SUCCESS = "GET_DETAIL_SUCCESS";
 export const GET_DETAIL_FAILURE = "GET_DETAIL_FAILURE";
 
-export const POST_RATE = "POST_RATE";
+export const POST_RATE = "POST_RATE"; //평점
 export const POST_RATE_PENDING = "POST_RATE_PENDING";
 export const POST_RATE_SUCCESS = "POST_RATE_SUCCESS";
 export const POST_RATE_FAILURE = "POST_RATE_FAILURE";
 
 const requestAllBooks = (type, page) => {
   return axios.get(
-    `http://localhost:8080/books/${decodeURI(type)}?page=${page}`
+    `http://localhost:8080/books/type/${decodeURI(type)}?page=${page}`
   );
 };
 const requestSliderBooks = () => {
-  return axios.get(`http://localhost:8080/sliders`);
+  return axios.get(`http://localhost:8080/book/sliders`);
 };
-
 const requestgetBooks = (query, type, page) => {
   return axios.get(
-    `http://localhost:8080/search?q=${decodeURI(query)}&type=${0}`
+    `http://localhost:8080/book/search?q=${decodeURI(query)}&type=${0}`
   );
 };
 const requestInfo = (id) => {
@@ -64,6 +73,12 @@ const requestPostRate = (id, name, vote) => {
     name,
   });
 };
+const requestRecentBooks = () => {
+  return axios.get(`http://localhost:8080/books/recent`);
+};
+const requestPopularBooks = () => {
+  return axios.get(`http://localhost:8080/books/popular`);
+};
 
 export const getAllBooks = (type, page) => ({
   type: GET_BOOKS,
@@ -72,6 +87,14 @@ export const getAllBooks = (type, page) => ({
 export const getSliderBooks = () => ({
   type: GET_SLIDER_BOOKS,
   payload: requestSliderBooks(),
+});
+export const getRecentBooks = () => ({
+  type: GET_RECENT_BOOKS,
+  payload: requestRecentBooks(),
+});
+export const getPopularBooks = () => ({
+  type: GET_POPULAR_BOOKS,
+  payload: requestPopularBooks(),
 });
 
 export const getBooks = (query = " ", type = 0, page = 1) => ({
@@ -100,13 +123,25 @@ const initialState = {
   moreError: "",
   sliderBooks: [],
   sliderPending: false,
-  sliderError: "",
+  sliderError: false,
+  sliderSuccess: false,
   total: 0,
   vote_pending: false,
   vote_error: false,
   vote_success: false,
   term: "",
   book: {},
+  bookPending: false,
+  bookSuccess: false,
+  bookFailure: false,
+  recentBooks: [],
+  recentPending: false,
+  recentError: false,
+  recentSuccess: false,
+  popularBooks: [],
+  popularPending: false,
+  popularError: false,
+  popularSuccess: false,
 };
 
 export default handleActions(
@@ -115,6 +150,8 @@ export default handleActions(
       return {
         ...state,
         sliderPending: true,
+        sliderError: false,
+        sliderSuccess: false,
       };
     },
     [GET_SLIDER_BOOKS_SUCCESS]: (state, action) => {
@@ -124,13 +161,15 @@ export default handleActions(
       return {
         ...state,
         sliderBooks: books,
-        sliderPending: true,
+        sliderPending: false,
+        sliderSuccess: true,
       };
     },
     [GET_SLIDER_BOOKS_FAILURE]: (state, action) => {
       return {
         ...state,
         sliderPending: false,
+        sliderError: true,
       };
     },
 
@@ -145,7 +184,6 @@ export default handleActions(
       const {
         data: { books, page },
       } = action.payload;
-      console.log(books);
       return {
         ...state,
         allBookPending: false,
@@ -239,8 +277,8 @@ export default handleActions(
     [GET_DETAIL_PENDING]: (state, action) => {
       return {
         ...state,
-        pending: true,
-        error: false,
+        bookPending: true,
+        bookError: false,
       };
     },
     [GET_DETAIL_SUCCESS]: (state, action) => {
@@ -249,8 +287,8 @@ export default handleActions(
       } = action.payload;
       return {
         ...state,
-        pending: true,
-        error: false,
+        bookPending: false,
+        bookSuccess: true,
         book,
         votes: book.votes,
       };
@@ -258,8 +296,57 @@ export default handleActions(
     [GET_DETAIL_FAILURE]: (state, action) => {
       return {
         ...state,
-        pending: false,
-        error: true,
+        bookPending: false,
+        bookError: true,
+      };
+    },
+    [GET_RECENT_BOOKS_PENGIND]: (state, action) => {
+      return {
+        ...state,
+        recentPending: true,
+        recentError: false,
+        recentSuccess: false,
+      };
+    },
+    [GET_RECENT_BOOKS_SUCCESS]: (state, action) => {
+      const { data } = action.payload;
+      //console.log(",", data);
+      return {
+        ...state,
+        recentBooks: data,
+        recentPending: false,
+        recentSuccess: true,
+      };
+    },
+    [GET_RECENT_BOOKS_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        recentPending: true,
+        recentError: true,
+      };
+    },
+    [GET_POPULAR_BOOKS_PENGIND]: (state, action) => {
+      return {
+        ...state,
+        popularPending: true,
+        popularError: false,
+        popularSuccess: false,
+      };
+    },
+    [GET_POPULAR_BOOKS_SUCCESS]: (state, action) => {
+      const { data } = action.payload;
+      return {
+        ...state,
+        popularBooks: data,
+        popularPending: false,
+        popularSuccess: true,
+      };
+    },
+    [GET_POPULAR_BOOKS_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        popularPending: true,
+        popularError: true,
       };
     },
   },

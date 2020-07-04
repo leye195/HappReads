@@ -48,20 +48,12 @@ const Search = ({ location }) => {
       .split("&")[0];
     setQuery(q);
     dispatch(getBooks(q, 0, page));
-    //window.addEventListener("scroll", handleScroll);
-    return () => {
-      //window.removeEventListener("scroll", handleScroll); //스크롤 이벤트 제거
-    };
   }, [dispatch, location, handleScroll, page]);
   return (
-    <>
-      <section className={cx("search-result-container")}>
-        <h1>
-          <span>검색: {query}</span>
-        </h1>
-        <BookList booklist={books} from="search" />
-      </section>
-    </>
+    <section className={cx("search-result-container")}>
+      <h1 className="search-keyword">검색 키워드: {query}</h1>
+      <BookList booklist={books} from="search" />
+    </section>
   );
 };
 export default Search;

@@ -66,8 +66,8 @@ const UserReview = ({ profile }) => {
     handleLike,
     handleDelete,
     handleEdit,
-    mid,
-    uid
+    mid, //
+    uid //user.id
   ) => {
     return (
       <>

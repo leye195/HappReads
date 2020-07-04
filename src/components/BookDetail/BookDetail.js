@@ -135,13 +135,16 @@ const BookDetail = ({
               </ul>
             </section>
             <section className={cx("book-info-wrapper")}>
-              <div className={cx("img-col")}>
+              <section className={cx("img-col")}>
                 <img src={book.thumbnail} alt="geisha" />
-              </div>
-              <div className={cx("book-content")}>
+              </section>
+              <section className={cx("book-content")}>
                 <h2 className={cx("title")}>{book.title}</h2>
-                <p className={cx("author")}>{formatAuthors(book.authors)}</p>
-                <div className={cx("bookmeta")}>
+                <p className={cx("author")}>
+                  <strong>저자 </strong>
+                  {formatAuthors(book.authors)}
+                </p>
+                <section className={cx("bookmeta")}>
                   <span className={cx("score")}>
                     <FaStar />
                     {getAvg(votes)}
@@ -153,10 +156,13 @@ const BookDetail = ({
                   <span className={cx("review-cnt")}>
                     {reviews ? reviews.length : 0} 리뷰
                   </span>
-                </div>
-                <p className={cx("discription")}>
-                  {book.contents !== undefined ? book.contents : "내용 없음"}
-                </p>
+                </section>
+                <section className={cx("discription")}>
+                  <h5>책 소개</h5>
+                  <p>
+                    {book.contents !== undefined ? book.contents : "내용 없음"}
+                  </p>
+                </section>
                 <div>
                   <div className={cx("rate-wrapper")}>
                     <span>책 평가하기</span>
@@ -184,7 +190,7 @@ const BookDetail = ({
                     </button>
                   </div>
                 </div>
-              </div>
+              </section>
             </section>
           </section>
           <Review />

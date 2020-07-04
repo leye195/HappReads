@@ -1,10 +1,12 @@
+@import "../../styles/utils.scss";
 .search-result-container {
-  margin-top: 73px;
-  h3 {
-    margin-left: "10px";
-    padding-top: 10px;
-    span {
-      font-weight: 800;
-    }
+  margin: 10px;
+  font-weight: bold;
+  .search-keyword {
+    text-align: center;
+    padding: 8px;
+    background: $header-bg-color;
+    color: #505050;
+    border-radius: 20px;
   }
 }

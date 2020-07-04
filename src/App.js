@@ -13,6 +13,7 @@ import Header from "./components/Header";
 import NoMatch from "./route/NoMatch";
 import BookShelve from "./components/BookShelve/BookShelve";
 import Community from "./route/Community";
+import FloatingButton from "./components/FloatingButton/FloatingButton";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/shelve/:id" component={BookShelve}></Route>
         <Route component={NoMatch} />
       </Switch>
+      <FloatingButton />
       <Footer />
     </Router>
   );

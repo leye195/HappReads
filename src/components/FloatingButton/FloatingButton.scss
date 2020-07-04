@@ -1,0 +1,24 @@
+@import "../../styles/utils.scss";
+.floating-button {
+  all: unset;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+  background-color: $mint;
+  color: white;
+  border-radius: 10px;
+  transform: translate(-20px, -100px);
+  width: 30px;
+  height: 50px;
+  box-shadow: 1px 1px 1px #8c8c8c63;
+  cursor: pointer;
+  &.hide {
+    opacity: 0;
+    animation: fadeOut 0.3s ease-out;
+  }
+  &.show {
+    opacity: 1;
+    animation: fadeIn 0.3s ease-out;
+  }
+}

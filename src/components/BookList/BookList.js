@@ -10,7 +10,7 @@ const cx = classnames.bind(style);
 const BookList = ({ from, booklist, type, handleMore, done }) => {
   if (from === "home") {
     return (
-      <div className={cx("book-list")}>
+      <section className={cx("book-list")}>
         {booklist ? (
           type === "전체" && booklist.length > 0 ? (
             <>
@@ -50,28 +50,27 @@ const BookList = ({ from, booklist, type, handleMore, done }) => {
         ) : (
           <ChasingDots color="white" size={60} />
         )}
-      </div>
+      </section>
     );
   } else if (from === "search") {
     return (
-      <div className={cx("ser-container")}>
+      <section className={cx("ser-container")}>
         <ul className={cx("ser-ul")}>
           {booklist.map((book) => {
             return <Book book={book} from={from} key={v4()} />;
           })}
         </ul>
-      </div>
+      </section>
     );
   } else if (from === "profile") {
-    //console.log(booklist);
     return (
-      <div>
+      <section>
         <ul>
           {booklist.map((book) => {
             return <Book book={book} from={from} key={v4()} type={type} />;
           })}
         </ul>
-      </div>
+      </section>
     );
   }
 };

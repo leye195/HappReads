@@ -2,14 +2,14 @@
 .home-section {
   @include flex(column, center, center);
   position: relative;
-  height: calc(60vh - 11rem);
+  height: 35vh;
   width: 100%;
   z-index: 0;
-  background-image: url("https://i.ibb.co/dJLxwK6/tom-hermans-9-Boq-Xz-Ee-Qq-M-unsplash.jpg");
-  background-attachment: fixed;
+  background-image: url("../../img/tom-hermans-9BoqXzEeQqM-unsplash.jpg"); //url("https://i.ibb.co/dJLxwK6/tom-hermans-9-Boq-Xz-Ee-Qq-M-unsplash.jpg");
   object-fit: cover;
   animation: fadeIn 1.5s ease-out;
-
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   .words {
     position: absolute;
     top: 50%;
@@ -29,8 +29,6 @@
 
 @include mobile {
   .home-section {
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
     .words {
       h4 {
         font-size: 16px;
@@ -41,7 +39,6 @@
 
 @include tablet {
   .home-section {
-    background-size: contain;
     .words {
       h4 {
         font-size: 18px;
@@ -52,7 +49,6 @@
 
 @include desktop {
   .home-section {
-    background-size: contain;
     .words {
       h4 {
         font-size: 20px;

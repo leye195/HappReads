@@ -31,9 +31,13 @@
 
 @include mobile {
   .scroll-item {
-    img {
-      width: 15vw;
-      height: 180px;
+    height: 100%;
+    a {
+      height: 80%;
+      img {
+        width: 40vw;
+        height: 100%;
+      }
     }
   }
 }

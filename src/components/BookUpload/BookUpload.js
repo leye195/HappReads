@@ -18,11 +18,16 @@ const BookUpload = () => {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.login);
   const { pending, error, success } = useSelector((state) => state.upload);
-  const handleAuthorChange = (input) => {
-    this.setState({
-      author: input,
-    });
-  };
+  const handleAuthorChange = useCallback(
+    (e) => {
+      const { target } = e;
+      setContent({
+        ...content,
+        author: target.value,
+      });
+    },
+    [content]
+  );
   const handleKeyPress = useCallback(
     (e) => {
       const { author, authors } = content;
@@ -82,43 +87,41 @@ const BookUpload = () => {
     },
     [content]
   );
-  const handleIsbn = useCallback(
+  const handleGenres = useCallback(
     (e) => {
       const { target } = e;
       setContent({
         ...content,
-        isbn: target.value,
+        genres: target.value,
       });
     },
     [content]
   );
-  const handleGenres = useCallback((e) => {
-    const { target } = e;
-    setContent(target.value);
-  }, []);
   const handleSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
       const {
         user: { _id },
       } = profile;
-      const { selected, contents, title, authors, genres, isbn } = content;
+      const { selected, contents, title, authors, genres } = content;
       const formData = new FormData();
       formData.append("thumbnail", selected);
       formData.append("title", title);
       formData.append("authors", authors);
-      formData.append("isbn", isbn);
       formData.append("contents", contents);
       formData.append("uid", _id);
       formData.append("genres", genres);
-      //console.log(title, authors, isbn, contents);
-      dispatch(postUpload(formData));
-      window.location.href = "/";
+      const {
+        value: { status },
+      } = await dispatch(postUpload(formData));
+      if (status === 200) {
+        window.location.href = "/";
+      }
     },
     [content, profile, dispatch]
   );
   const authorTag = (authors, handleDeleteTag) => {
-    return authors.map((author) => {
+    return authors?.map((author) => {
       const uid = v4();
       return (
         <div className={cx("author-tag")} key={uid}>
@@ -130,10 +133,10 @@ const BookUpload = () => {
       );
     });
   };
-  const { selected, title, authors, author, isbn, contents, genres } = content;
+  const { title, authors, author, contents, genres } = content;
   return (
-    <div className={cx("book-upload")}>
-      <div className={cx("form-container")}>
+    <section className={cx("book-upload")}>
+      <section className={cx("form-container")}>
         <form onSubmit={handleSubmit}>
           <div className={cx("upload-btn-wrapper")}>
             <img className={cx("preview-img")} alt="" />
@@ -171,13 +174,6 @@ const BookUpload = () => {
             onChange={handleGenres}
             required
           />
-          <input
-            type="text"
-            value={isbn}
-            onChange={handleIsbn}
-            placeholder="ISBN"
-            required
-          />
           <textarea
             placeholder="요약"
             value={contents}
@@ -186,8 +182,8 @@ const BookUpload = () => {
           />
           <input type="submit" value="제출" />
         </form>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
 export default BookUpload;

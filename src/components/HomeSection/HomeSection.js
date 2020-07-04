@@ -8,7 +8,7 @@ const HomeSection = () => {
     <section className={cx("home-section")}>
       <section className={cx("words")}>
         <h3>With Happyness</h3>
-        <h4>책을 공유 하고 자신의 인생 책을 찾아보세요</h4>
+        <h4>자신의 인생 책을 찾아보세요</h4>
       </section>
     </section>
   );

@@ -1,0 +1,34 @@
+@import "../../styles/utils.scss";
+
+.vertical {
+  @include flex(column, none, center);
+  width: 80vw;
+  margin: 20px auto;
+  margin-bottom: 50px;
+  .title {
+    font-weight: bold;
+    .book-icon {
+      margin-left: 5px;
+      color: $sun-flower;
+    }
+  }
+  .list {
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-top: 10px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
+    a {
+      margin-right: 10px;
+      .book {
+        img {
+          width: 100px;
+        }
+      }
+    }
+  }
+}

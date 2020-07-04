@@ -13,8 +13,13 @@
       display: flex;
       align-items: center;
       & .star {
+        @include flex(row, center, center);
         color: $sun-flower;
         margin-left: 1rem;
+        width: 40px;
+        height: 40px;
+        border: 2px solid;
+        border-radius: 50%;
       }
       & .book-rater {
         width: 40px;
@@ -37,12 +42,17 @@
   .discription {
     margin-bottom: 15px;
   }
+  .author {
+    strong {
+      font-weight: bold;
+    }
+  }
   .discription {
     display: inline;
     line-height: 20px;
     white-space: pre-line;
-    max-height: 10rem;
     min-height: 3rem;
+    font-weight: bold;
   }
   .rate-wrapper {
     margin-top: 10px;
@@ -61,18 +71,16 @@
     }
     .book-info-wrapper {
       @include flex(column, center, center);
-      padding: 90px 30px;
+      padding: 30px;
       .img-col {
         @include flex(column, center, center);
-        margin-right: 30px;
-        width: 30%;
         img {
-          width: 320px;
+          width: 75vw;
           height: 400px;
-          margin-left: 10px;
           cursor: pointer;
           animation: fadeIn 1s ease-out;
-          @include boxShadox(4px, 0px, 1px, 1px, black);
+          border: 3px solid #e3e3e3;
+          border-radius: 10px;
         }
       }
       .book-content {
@@ -100,7 +108,7 @@
           }
         }
         .title {
-          font-size: 1.2rem;
+          font-size: 1.1rem;
         }
         .add {
           @include flex(column, none, flex-start);
@@ -131,9 +139,9 @@
     }
     .book-info-wrapper {
       @include flex(column, center, center);
-      padding: 80px 30px;
+      padding: 30px 30px;
       .img-col {
-        @include flex(column, center, center);
+        @include flex(column, center, none);
         margin-right: 30px;
         width: 30%;
         img {
@@ -142,7 +150,8 @@
           margin-left: 10px;
           cursor: pointer;
           animation: fadeIn 1s ease-out;
-          @include boxShadox(4px, 0px, 1px, 1px, black);
+          border: 3px solid #e3e3e3;
+          border-radius: 10px;
         }
       }
       .book-content {
@@ -200,12 +209,10 @@
       }
     }
     .book-info-wrapper {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      padding: 80px 10px;
+      @include flex(row, none, center);
+      padding: 30px 10px;
       .img-col {
-        @include flex(column, center, center);
+        @include flex(column, center, none);
         margin-right: 30px;
         width: 30%;
         img {
@@ -214,6 +221,8 @@
           margin-left: 10px;
           cursor: pointer;
           animation: fadeIn 1s ease-out;
+          border: 3px solid #e3e3e3;
+          border-radius: 10px;
         }
       }
       .book-content {
@@ -243,7 +252,7 @@
           }
         }
         .title {
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
         .add {
           @include flex(column, none, flex-start);

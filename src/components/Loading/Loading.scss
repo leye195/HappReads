@@ -1,0 +1,14 @@
+@import "../../styles/utils.scss";
+.loading {
+  @include flex(row, center, center);
+  height: 81vh !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  height: 100vh !important;
+  width: 100%;
+  height: 100vh;
+  background: #eceade;
+}
