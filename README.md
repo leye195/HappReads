@@ -1,7 +1,5 @@
 # HappY Readers (Good Readers) Front
 
-- Link : https://leye195.github.io/HappReads-front
-
 ### Front 사용 기술:
 
 - React
