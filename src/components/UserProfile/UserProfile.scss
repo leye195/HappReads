@@ -37,6 +37,9 @@
       }
     }
   }
+  .catalog-list {
+    margin-top: 20px;
+  }
   .uploaded,
   .book-shelve,
   .currently-reading,
@@ -57,8 +60,17 @@
   .currently-head,
   .want-read-head,
   .read-head {
+    display: inline;
     border-bottom: 1px solid #e3e3e3;
-    cursor: pointer;
+    &.uploaded-head {
+      cursor: pointer;
+      a:hover {
+        color: $sun-flower;
+      }
+      h2 {
+        display: inline;
+      }
+    }
   }
   .uploaded-body,
   .recent-body,

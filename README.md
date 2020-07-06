@@ -9,12 +9,12 @@
 
 ### Screen
 
-- Home
-- Login
-- SignUp
-- Profile
-- NoMatch
-- Detail
-- Search
-- Upload
-- Edit
+- Home [x]
+- Login [x]
+- SignUp [x]
+- Profile [x]
+- NoMatch [x]
+- Detail [x]
+- Search [x]
+- Upload [x]
+- Edit [x]

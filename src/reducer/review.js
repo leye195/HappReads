@@ -26,8 +26,8 @@ export const LIKE_REVIEW_PENDING = "LIKE_REVIEW_PENDING";
 export const LIKE_REVIEW_SUCCESS = "LIKE_REVIEW_SUCCESS";
 export const LIKE_REVIEW_FAILURE = "LIKE_REVIEW_FAILURE";
 
-const requestGetReviews = () => {
-  return axios.get(`http://localhost:8080/reviews`);
+const requestGetReviews = (limit = 1, page = 1) => {
+  return axios.get(`http://localhost:8080/reviews?limit=${limit}&page=${page}`);
 };
 const requestGetReview = (id) => {
   //console.log(id);
@@ -56,9 +56,9 @@ const requestLikeReview = (type, id, uid) => {
   });
 };
 
-export const getReviews = () => ({
+export const getReviews = (data) => ({
   type: GET_REVIEWS,
-  payload: requestGetReviews(),
+  payload: requestGetReviews(data.limit, data.page),
 });
 export const getReview = (isbn) => ({
   type: GET_REVIEW,
@@ -86,6 +86,7 @@ const initialState = {
   loadReviewsPending: false,
   loadReviewsError: false,
   loadReviewsSuccess: false,
+  loadReviewsDone: false,
   postReviewPending: false,
   postReviewSuccess: false,
   postReviewError: false,
@@ -98,17 +99,20 @@ export default handleActions(
         loadReviewsPending: true,
         loadReviewsError: false,
         loadReviewsSuccess: false,
+        loadReviewsDone: false,
       };
     },
     [GET_REVIEWS_SUCCESS]: (state, action) => {
       const {
         data: { reviews },
       } = action.payload;
+
       return {
         ...state,
-        reviews: reviews,
+        reviews: [...state.reviews, ...reviews],
         loadReviewsPending: false,
         loadReviewsSuccess: true,
+        loadReviewsDone: reviews.length % 5 !== 0 ? true : false,
       };
     },
     [GET_REVIEWS_FAILURE]: (state, action) => {
@@ -116,6 +120,7 @@ export default handleActions(
         ...state,
         loadReviewsPending: false,
         loadReviewsError: true,
+        loadReviewsDone: false,
       };
     },
     [POST_REVIEW_PENDING]: (state, action) => {

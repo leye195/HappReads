@@ -33,6 +33,7 @@
     margin-bottom: 5px;
   }
 }
+
 .ser-bg {
   display: flex;
   flex-direction: row;
@@ -61,12 +62,20 @@
     .ser-title {
       line-height: 25px;
     }
+
     .ser-author {
+      display: block;
       font-size: 12px;
       line-height: 20px;
-      margin-top: 5px;
-      display: block;
+      margin: 5px 0;
     }
+
+    .ser-contents {
+      font-weight: lighter;
+      line-height: 1.4;
+      white-space: break-spaces;
+    }
+
     .ser-score {
       margin-top: 10px;
       span {
@@ -144,6 +153,10 @@
       }
     }
   }
+
+  .ser-contents {
+    font-size: 0.8rem;
+  }
 }
 
 @include tablet {
@@ -166,6 +179,10 @@
     .authors {
       margin-left: 10px;
     }
+  }
+
+  .ser-contents {
+    font-size: 0.9rem;
   }
 }
 
@@ -190,5 +207,9 @@
     .authors {
       margin-left: 10px;
     }
+  }
+
+  .ser-contents {
+    font-size: 1rem;
   }
 }

@@ -1,6 +1,7 @@
 @import "../../styles/utils.scss";
 .community-container {
   min-height: 75vh;
+  padding-bottom: 40px;
   .range-container {
     margin: 10px;
     span {
@@ -12,7 +13,7 @@
     margin: 0 auto;
     padding: 0 5px;
     .card {
-      @include card(10px);
+      @include card(15px);
       width: 80vw;
       &:last-child {
         margin-bottom: 20px;
@@ -43,12 +44,13 @@
           }
           .content-text {
             white-space: pre-wrap;
-            line-height: 1.2;
+            line-height: 1.4;
             word-break: break-all;
             margin-bottom: 5px;
           }
           .more {
             cursor: pointer;
+            padding-top: 10px;
           }
         }
       }
@@ -57,13 +59,26 @@
         font-size: 0.7rem;
       }
     }
+    .load-more-btn {
+      all: unset;
+      @include flex(row, center, center);
+      width: 55%;
+      background-color: #ff9594;
+      border-radius: 20px;
+      padding: 10px;
+      margin: 0 auto;
+      margin-top: 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
 }
 
 @include mobile {
   .community-container {
     .reviews {
-      width: 90vw;
+      width: 95vw;
       .row {
         border-left: 15px solid $sun-flower;
         .first-col {
@@ -93,7 +108,7 @@
 
             .content-text,
             .more {
-              font-size: 0.6rem;
+              font-size: 0.8rem;
             }
           }
         }
@@ -139,7 +154,7 @@
 
             .content-text,
             .more {
-              font-size: 0.7rem;
+              font-size: 0.9rem;
             }
           }
         }

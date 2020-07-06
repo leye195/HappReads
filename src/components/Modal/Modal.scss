@@ -8,6 +8,7 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.16);
     display: block;
+    z-index: 100;
   }
 
   .modal {
@@ -17,18 +18,21 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 75vh;
-    width: 45vw;
+    height: 60vh;
+    width: 40vw;
+    z-index: 100;
     background-color: white;
     @include mobile {
       width: 90vw;
+      height: auto !important;
+      padding: 30px 0;
     }
 
     @include flex(column, center, center);
     .exit {
       position: absolute;
-      right: 0;
-      top: 0;
+      right: 10px;
+      top: 10px;
       margin: 10px;
       cursor: pointer;
     }
@@ -65,20 +69,26 @@
       @include flex(row, center, center);
       .ok-btn {
         @include base-button($green, 100%);
+        height: 20px;
       }
 
       .cancel-btn {
         @include base-button($red, 100%);
+        height: 20px;
       }
     }
   }
+
   .book-info-container {
-    @include flex(column, center, none);
+    @include flex(column, center, center);
+    width: 100%;
+    height: 100%;
     position: relative;
     .img-container {
       position: relative;
       width: 10rem;
       height: 15rem;
+      margin-bottom: 15px;
       &::after {
         @include bookShape;
       }
@@ -90,14 +100,17 @@
         margin: 0;
       }
     }
+
     .book-info-form {
       @include flex(column, center, none);
-      width: 15rem;
+      width: 80%;
       input {
+        all: unset;
         width: 100%;
         margin: 5px;
         padding: 5px;
         border: 1px solid $white-grey;
+        border-radius: 10px;
         &[type="file"] {
           background-color: $dark-grey;
           color: white;

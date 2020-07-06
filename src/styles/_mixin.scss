@@ -31,12 +31,14 @@
   margin: 10px;
   text-align: center;
 }
+
 @mixin flex($directon, $align, $justify) {
   display: flex;
   flex-direction: $directon;
   align-items: $align;
   justify-content: $justify;
 }
+
 @mixin Lbutton-style {
   all: unset;
   height: 30px;
@@ -49,10 +51,12 @@
   margin: 10px;
   cursor: pointer;
 }
+
 @mixin base-height {
   width: 100%;
   min-height: calc(100vh - 10rem);
 }
+
 @mixin textarea-style {
   resize: none;
   height: 100px;
@@ -61,23 +65,28 @@
   padding: 7px;
   border: 1px solid #e3e3e3;
 }
+
 @mixin table-text-align($padding, $align, $font) {
   padding: $padding;
   text-align: $align;
   font-size: $font;
 }
+
 @mixin card($padding) {
   box-shadow: 1px 1px 6px 0px #3a3a3a;
   border-radius: 10px;
   padding: $padding;
 }
+
 @mixin hoverLink() {
   color: $sun-flower;
   cursor: pointer;
 }
+
 @mixin boxShadox($a, $b, $c, $d, $color) {
   box-shadow: $a $b $c $d $color;
 }
+
 @mixin bookShape {
   background: linear-gradient(
     to right,

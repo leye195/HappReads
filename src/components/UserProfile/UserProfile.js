@@ -179,15 +179,13 @@ const UserProfile = ({ profile, from }) => {
             <section className={cx("want-read")}>
               <div className={cx("want-read-head")}>
                 {from === "/me" ? (
-                  <Link to={`shelve/${profile?._id}`}>
-                    <h2>
-                      읽을 책 (
-                      {profile && profile !== undefined
-                        ? profile?.want_read?.length
-                        : 0}
-                      )
-                    </h2>
-                  </Link>
+                  <h2>
+                    읽을 책 (
+                    {profile && profile !== undefined
+                      ? profile?.want_read?.length
+                      : 0}
+                    )
+                  </h2>
                 ) : (
                   <h2>
                     읽을 책 (
@@ -206,15 +204,13 @@ const UserProfile = ({ profile, from }) => {
             <section className={cx("currently-reading")}>
               <div className={cx("currently-head")}>
                 {from === "/me" ? (
-                  <Link to={`shelve/${profile?._id}`}>
-                    <h2>
-                      현재 읽고 있는 책 (
-                      {profile && profile !== undefined
-                        ? profile?.reading?.length
-                        : 0}
-                      )
-                    </h2>
-                  </Link>
+                  <h2>
+                    현재 읽고 있는 책 (
+                    {profile && profile !== undefined
+                      ? profile?.reading?.length
+                      : 0}
+                    )
+                  </h2>
                 ) : (
                   <h2>
                     현재 읽고 있는 책 (
@@ -232,15 +228,13 @@ const UserProfile = ({ profile, from }) => {
             <section className={cx("read")}>
               <div className={cx("read-head")}>
                 {from === "/me" ? (
-                  <Link to={`shelve/${profile?._id}`}>
-                    <h2>
-                      읽은 책 (
-                      {profile && profile !== undefined
-                        ? profile?.read?.length
-                        : 0}
-                      )
-                    </h2>
-                  </Link>
+                  <h2>
+                    읽은 책 (
+                    {profile && profile !== undefined
+                      ? profile?.read?.length
+                      : 0}
+                    )
+                  </h2>
                 ) : (
                   <h2>
                     읽은 책 (
