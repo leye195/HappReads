@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { v4 } from "uuid";
 import BookList from "../BookList";
@@ -12,6 +12,7 @@ const cx = classnames.bind(style);
 const UserProfile = ({ profile, from }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [idx, setIdx] = useState(0);
+  const [isMe, setIsMe] = useState(from === "/me");
   const handleOpen = useCallback(() => {
     setIsOpen(true);
   }, []);
@@ -24,6 +25,10 @@ const UserProfile = ({ profile, from }) => {
     },
     []
   );
+  useEffect(() => {
+    setIsMe(from === "/me");
+    return () => {};
+  }, [from]);
   const getList = (from, profile, type) => {
     if (type !== "uploaded") {
       return from === "/me" ? (
@@ -47,7 +52,7 @@ const UserProfile = ({ profile, from }) => {
           <div className={cx("uploaded-list")}>
             {profile?.uploaded?.map((book) => {
               return (
-                <div className={cx("uploaded-img-wrapper")} key={book._id}>
+                <div className={cx("uploaded-img-wrapper")} key={v4()}>
                   <img
                     className={cx("uploaded-img")}
                     src={book.thumbnail}
@@ -67,7 +72,7 @@ const UserProfile = ({ profile, from }) => {
         <div className={cx("uploaded-list")}>
           {profile?.uploaded?.map((book) => {
             return (
-              <div className={cx("uploaded-img-wrapper")} key={book._id}>
+              <div className={cx("uploaded-img-wrapper")} key={v4()}>
                 <img
                   className={cx("uploaded-img")}
                   src={book.thumbnail}
@@ -259,7 +264,7 @@ const UserProfile = ({ profile, from }) => {
               </div>
               <div className={cx("recent-body")}>
                 {profile && profile !== undefined ? (
-                  <UserReview key={v4()} profile={profile} />
+                  <UserReview key={v4()} profile={profile} isMe={isMe} />
                 ) : (
                   "리뷰 없음"
                 )}

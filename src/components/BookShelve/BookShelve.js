@@ -4,12 +4,12 @@ import classnames from "classnames/bind";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../reducer/user";
-import { postShelve, deleteShelve } from "../../reducer/login";
+import { deleteShelve, check } from "../../reducer/login";
 import { Link } from "react-router-dom";
-import BookModal from "../Modal";
+import { getAvg, getAtk } from "../../utills";
+import { editBook } from "../../reducer/books";
+import Modal from "../Modal";
 const cx = classnames.bind(style);
-let currentItem = null;
-const convertType = { 읽음: "read", 읽기: "want_read", 읽는중: "reading" };
 const BookShelve = () => {
   const [shelve, setShelve] = useState({
     type: 1,
@@ -19,35 +19,25 @@ const BookShelve = () => {
     status: "",
   });
   const dispatch = useDispatch();
-  const { profile } = useSelector((state) => state.login);
+  const { profile, isLoggedIn } = useSelector((state) => state.login);
   const { profile: user } = useSelector((state) => state.user);
   const loadUser = useCallback(async () => {
+    const atk = getAtk();
+    if (atk) {
+      dispatch(check(atk));
+    }
     const tmp = window.location.hash.split("/");
     const uid = tmp[tmp.length - 1]; //pathname.substring(1).split("/")[1];
-    try {
-      dispatch(getUser(uid));
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(getUser(uid));
   }, [dispatch]);
-  const handleClick = useCallback(
-    (e) => {
-      const { target } = e;
-      const val = target.getAttribute("data-value");
-      setShelve({
-        ...shelve,
-        type: val,
-      });
-    },
-    [shelve]
-  );
   useEffect(() => {
     loadUser();
     window.scrollTo(0, 0);
     return () => {};
-  }, [loadUser, handleClick]);
+  }, [loadUser]);
 
   const getBooks = () => {
+    const { user } = profile;
     if (user) {
       const tags = user?.uploaded?.map((item) => {
         return (
@@ -65,11 +55,11 @@ const BookShelve = () => {
                 ? `${item.authors[0]} *`
                 : item.authors[0]}
             </td>
-            <td>{0.0}</td>
+            <td>{item.votes ? getAvg(item.votes) : 0.0}</td>
             <td>{moment(item.createdAt).format("YY년MM월DD일 HH:MM:SS")}</td>
             <td className={cx("settings uploaded")}>
               <p onClick={handleOpen(item)}>수정</p>
-              <p>X</p>
+              <p onClick={onDeleteShelve}>X</p>
             </td>
           </tr>
         );
@@ -86,7 +76,7 @@ const BookShelve = () => {
           value: { status },
         } = response;
         if (status === 200) {
-          loadUser(uid);
+          loadUser();
         }
       } catch (error) {
         console.log(error);
@@ -105,10 +95,6 @@ const BookShelve = () => {
     },
     [shelve]
   );
-  const handleSubmit = (e) => {
-    const { target } = e;
-    console.log(target.value);
-  };
   const handleCancel = useCallback(
     (e) => {
       setShelve({
@@ -118,32 +104,36 @@ const BookShelve = () => {
     },
     [shelve]
   );
-  const handleTypeChange = async (book, value) => {
-    try {
-      const response = await dispatch(
-        postShelve(profile?.user.email, book._id, value)
-      );
-      const {
-        value: { status },
-      } = response;
-      if (status === 200) {
-        loadUser(user._id);
-        setShelve({
-          ...shelve,
-          openModal: false,
-        });
+  const handleSubmit = useCallback(
+    (book) => async (e) => {
+      e.preventDefault();
+      if (isLoggedIn) {
+        try {
+          const response = await dispatch(
+            editBook({
+              ...book,
+            })
+          );
+          const {
+            value: { status },
+          } = response;
+          if (status === 200) {
+            loadUser();
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    },
+    [dispatch, loadUser, isLoggedIn]
+  );
   const { openModal, item } = shelve;
   return (
     <section className={cx("book-shelve")}>
       {openModal ? (
-        <BookModal
+        <Modal
           handleCancel={handleCancel}
-          handleChange={handleTypeChange}
+          handleSubmit={handleSubmit}
           item={item}
         />
       ) : null}

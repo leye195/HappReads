@@ -1,8 +1,7 @@
 @import "../../styles/utils.scss";
 .user-profile {
   @include base-height;
-  margin-top: 90px;
-  padding-top: 10vh;
+  padding-top: 60px;
   .profile-wrapper {
     @include flex(row, center, center);
     border-bottom: 5px solid #e3e3e3;
@@ -11,8 +10,6 @@
     .info {
       @include flex(column, center, center);
       img {
-        width: 110px;
-        height: 110px;
         border-radius: 50%;
         animation: fadeIn 1.5s ease-out;
         cursor: pointer;
@@ -46,12 +43,10 @@
   .want-read,
   .read,
   .recent-update {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-top: 10px;
-    width: 80%;
     margin: 0 auto;
+    margin-top: 10px;
+    padding-top: 10px;
+    //width: 95%;
     @include flex(column, none, none);
   }
   .uploaded-head,
@@ -155,6 +150,10 @@
   .user-profile {
     .profile-wrapper {
       .info {
+        img {
+          width: 10vw;
+          height: 10vw;
+        }
         .profile-edit {
           margin-bottom: 10px;
           p {
@@ -179,6 +178,14 @@
           border-bottom: 2px solid $sun-flower;
         }
       }
+    }
+    .uploaded,
+    .book-shelve,
+    .currently-reading,
+    .want-read,
+    .read,
+    .recent-update {
+      width: 95%;
     }
     .book-shelve-head {
       @include flex(row, center, space-between);
@@ -220,6 +227,10 @@
   .user-profile {
     .profile-wrapper {
       .info {
+        img {
+          width: 10vw;
+          height: 10vw;
+        }
         .profile-edit {
           margin-bottom: 10px;
           p {
@@ -244,6 +255,14 @@
           border-bottom: 2px solid $sun-flower;
         }
       }
+    }
+    .uploaded,
+    .book-shelve,
+    .currently-reading,
+    .want-read,
+    .read,
+    .recent-update {
+      width: 85%;
     }
     .book-shelve-head {
       @include flex(row, center, space-between);
@@ -285,6 +304,10 @@
   .user-profile {
     .profile-wrapper {
       .info {
+        img {
+          width: 6.5vw;
+          height: 6.5vw;
+        }
         .profile-edit {
           margin-bottom: 10px;
           p {
@@ -310,7 +333,14 @@
         }
       }
     }
-
+    .uploaded,
+    .book-shelve,
+    .currently-reading,
+    .want-read,
+    .read,
+    .recent-update {
+      width: 70%;
+    }
     .book-shelve-head {
       @include flex(row, center, space-between);
       span {

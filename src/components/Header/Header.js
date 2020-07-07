@@ -1,11 +1,20 @@
 import React, { useEffect, useState, useCallback } from "react";
 import style from "./Header.scss";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classnames from "classnames/bind";
 import SearchBar from "../SearchBar";
 import { useSelector, useDispatch } from "react-redux";
 import { check, logout } from "../../reducer/login";
 import { getBooks } from "../../reducer/books";
+import { getAtk } from "../../utills";
+import {
+  FaBookReader,
+  FaSignOutAlt,
+  FaUpload,
+  FaUserAlt,
+  FaSignInAlt,
+  FaUserPlus,
+} from "react-icons/fa";
 
 const cx = classnames.bind(style);
 const Header = () => {
@@ -14,11 +23,9 @@ const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   const dispatch = useDispatch();
-  const { isLoggedIn, profile, logoutSuccess } = useSelector(
-    (state) => state.login
-  );
+  const { isLoggedIn, profile } = useSelector((state) => state.login);
   const checkUser = useCallback(async () => {
-    const atk = localStorage.getItem("atk");
+    const atk = getAtk();
     if (atk) {
       try {
         dispatch(check(atk));
@@ -79,7 +86,10 @@ const Header = () => {
         {isMobile === false && (
           <div className={cx("menu-container")}>
             <div className={cx("community")}>
-              <Link to={"/community/reviews"}>책 리뷰</Link>
+              <Link to={"/community/reviews"}>
+                <FaBookReader />
+                <p>책 리뷰</p>
+              </Link>
             </div>
             <ul className={cx("ul")}>
               {isLoggedIn ? (
@@ -90,11 +100,6 @@ const Header = () => {
                         src={profile.user ? profile.user.avatarUrl : ""}
                         alt={"me"}
                         onClick={clickMenu}
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          borderRadius: "50%",
-                        }}
                       />
                     </span>
                     <div className={cx("menu", `${showMenu ? "show" : ""}`)}>
@@ -130,28 +135,40 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <li className={cx("mobile-menu-item")}>
-                <Link to="/me">프로필</Link>
+                <Link to="/me">
+                  <FaUserAlt /> 프로필
+                </Link>
               </li>
               <li className={cx("mobile-menu-item")}>
-                <Link to="/upload">책 업로드</Link>
+                <Link to="/upload">
+                  <FaUpload /> 책 업로드
+                </Link>
               </li>
               <li className={cx("mobile-menu-item")}>
-                <Link to={"/community/reviews"}>책 리뷰</Link>
+                <Link to={"/community/reviews"}>
+                  <FaBookReader /> 책 리뷰
+                </Link>
               </li>
               <li className={cx("mobile-menu-item")} onClick={handleLogout}>
-                로그아웃
+                <FaSignOutAlt /> 로그아웃
               </li>
             </>
           ) : (
             <>
               <li className={cx("mobile-menu-item")}>
-                <Link to={"/login"}>로그인</Link>
+                <Link to={"/login"}>
+                  <FaSignInAlt /> 로그인
+                </Link>
               </li>
               <li className={cx("mobile-menu-item")}>
-                <Link to={"/signup"}>가입</Link>
+                <Link to={"/signup"}>
+                  <FaUserPlus /> 가입
+                </Link>
               </li>
               <li className={cx("mobile-menu-item")}>
-                <Link to={"/community/reviews"}>책 리뷰</Link>
+                <Link to={"/community/reviews"}>
+                  <FaBookReader /> 책 리뷰
+                </Link>
               </li>
             </>
           )}

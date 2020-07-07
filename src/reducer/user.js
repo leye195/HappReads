@@ -57,7 +57,7 @@ export default handleActions(
       };
     },
     [GET_USER_SUCCESS]: (state, action) => {
-      console.log(action.payload.data.user);
+      //console.log(action.payload.data.user);
       return {
         pending: false,
         error: false,

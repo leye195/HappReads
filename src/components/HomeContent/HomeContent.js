@@ -6,6 +6,7 @@ import BookList from "../BookList";
 import VerticalScroll from "../VerticalScroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { v4 } from "uuid";
 
 const cx = classnames.bind(style);
 const HomeContent = ({
@@ -66,6 +67,7 @@ const HomeContent = ({
               {hide
                 ? category.slice(0, 7).map((item) => (
                     <li
+                      key={v4()}
                       className={cx(
                         `book-category-li`,
                         `${type === item ? `selected` : ""}`

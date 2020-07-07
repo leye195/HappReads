@@ -36,6 +36,11 @@ export const POST_BOOK_PENDING = "POST_BOOK_PENDING";
 export const POST_BOOK_SUCCESS = "POST_BOOK_SUCCESS";
 export const POST_BOOK_FAILURE = "POST_BOOK_FAILURE";
 
+export const EDIT_BOOK = "EDIT_BOOK"; //책 수정
+export const EDIT_BOOK_PENDING = "EDIT_BOOK_PENDING";
+export const EDIT_BOOK_SUCCESS = "EDIT_BOOK_SUCCESS";
+export const EDIT_BOOK_FAILURE = "EDIT_BOOK_FAILURE";
+
 export const GET_VOTE_REVIEW = "GET_VOTE_REVIEW"; //리뷰 작성
 export const GET_VOTE_REVIEW_PENDING = "GET_VOTE_REVIEW_PENDING";
 export const GET_VOTE_REVIEW_SUCCESS = "GET_VOTE_REVIEW_SUCCESS";
@@ -79,6 +84,14 @@ const requestRecentBooks = () => {
 const requestPopularBooks = () => {
   return axios.get(`http://localhost:8080/books/popular`);
 };
+const requestEditBook = (data) => {
+  const { _id, title, contents, genres } = data;
+  return axios.put(`http://localhost:8080/book/${_id}`, {
+    title,
+    contents,
+    genres,
+  });
+};
 
 export const getAllBooks = (type, page) => ({
   type: GET_BOOKS,
@@ -96,7 +109,10 @@ export const getPopularBooks = () => ({
   type: GET_POPULAR_BOOKS,
   payload: requestPopularBooks(),
 });
-
+export const editBook = (data) => ({
+  type: EDIT_BOOK,
+  payload: requestEditBook(data),
+});
 export const getBooks = (query = " ", type = 0, page = 1) => ({
   type: GET_SEARCH_BOOKS,
   payload: requestgetBooks(query, type, page),
@@ -142,6 +158,9 @@ const initialState = {
   popularPending: false,
   popularError: false,
   popularSuccess: false,
+  editBookPending: false,
+  editBookSuccess: false,
+  editBookFailure: false,
 };
 
 export default handleActions(
@@ -257,7 +276,7 @@ export default handleActions(
       const {
         data: { book },
       } = action.payload;
-      console.log(book);
+      //console.log(book);
       return {
         ...state,
         vote_pending: false,
@@ -347,6 +366,28 @@ export default handleActions(
         ...state,
         popularPending: true,
         popularError: true,
+      };
+    },
+    [EDIT_BOOK_PENDING]: (state, action) => {
+      return {
+        ...state,
+        editBookPending: true,
+        editBookSuccess: false,
+        editBookFailure: false,
+      };
+    },
+    [EDIT_BOOK_SUCCESS]: (state, action) => {
+      return {
+        ...state,
+        editBookPending: false,
+        editBookSuccess: true,
+      };
+    },
+    [EDIT_BOOK_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        editBookPending: false,
+        editBookFailure: true,
       };
     },
   },

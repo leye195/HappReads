@@ -10,8 +10,9 @@ const convertType = {
   want_read: "읽을 책",
   reading: "읽는중",
 };
-const Modal = ({ handleCancel, item, type }) => {
+const Modal = ({ handleSubmit, handleCancel, item, type }) => {
   const [to, setTo] = useState(convertType[type]);
+  const [book, setBook] = useState({ ...item });
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.login);
   const handleSelect = useCallback((e) => {
@@ -21,7 +22,6 @@ const Modal = ({ handleCancel, item, type }) => {
   const handleChange = useCallback(
     async (e) => {
       const { user } = profile;
-      //console.log(user, item, to);
       //서버에 수정 요청 전송 코드입력
       try {
         dispatch(postShelve(user.email, item._id, to));
@@ -30,6 +30,36 @@ const Modal = ({ handleCancel, item, type }) => {
       }
     },
     [item, to, profile, dispatch]
+  );
+  const changeTitle = useCallback(
+    (e) => {
+      const { target } = e;
+      setBook({
+        ...book,
+        title: target.value,
+      });
+    },
+    [book]
+  );
+  const changeGenres = useCallback(
+    (e) => {
+      const { target } = e;
+      setBook({
+        ...book,
+        genres: target.value,
+      });
+    },
+    [book]
+  );
+  const changeContents = useCallback(
+    (e) => {
+      const { target } = e;
+      setBook({
+        ...book,
+        contents: target.value,
+      });
+    },
+    [book]
   );
   return (
     <div className="modal-container">
@@ -70,12 +100,27 @@ const Modal = ({ handleCancel, item, type }) => {
         ) : (
           <div className={cx("book-info-container")}>
             <div className={cx("img-container")}>
-              <img src={item.thumbnail} alt={item.title} />
+              <img src={book.thumbnail} alt={book.title} />
             </div>
-            <form className={cx("book-info-form")}>
-              <input value={item.title} placeholder="제목" />
-              <input vlaue={item.genres} placeholder="장르" />
-              <textarea value={item.contents} placeholder="요약" />
+            <form
+              className={cx("book-info-form")}
+              onSubmit={handleSubmit(book)}
+            >
+              <input
+                value={book.title}
+                placeholder="제목"
+                onChange={changeTitle}
+              />
+              <input
+                value={book.genres}
+                placeholder="장르"
+                onChange={changeGenres}
+              />
+              <textarea
+                value={book.contents}
+                placeholder="요약"
+                onChange={changeContents}
+              />
               <button className={"ok-btn"}>수정</button>
             </form>
           </div>

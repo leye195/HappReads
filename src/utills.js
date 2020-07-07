@@ -1,3 +1,8 @@
+export const getAtk = () => {
+  const atk = localStorage.getItem("atk");
+  return atk;
+};
+
 export const getAvartUrl = (img) => {
   return img === undefined
     ? "https://wetuberbucket.s3.ap-northeast-2.amazonaws.com/avatars/58c11a401956bab841de5f227c337c43"

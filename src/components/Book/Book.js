@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import style from "./Book.scss";
 import classnames from "classnames/bind";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import * as actions from "../../reducer/login";
 import Modal from "../Modal";
 const cx = classnames.bind(style);
 const Book = (props) => {
-  const { from, type, postShelve } = props;
+  const { from, type } = props;
   const [isOpen, setOpen] = useState(false);
   const formatAuthors = (authors) => {
     let format = "";
@@ -27,7 +27,6 @@ const Book = (props) => {
     );
   } else if (from === "search") {
     const { book } = props;
-    //console.log(book);
     return (
       <li className={cx("ser-bg")}>
         <div className={cx("ser-book")}>

@@ -55,7 +55,6 @@ const requestLikeReview = (type, id, uid) => {
     uid,
   });
 };
-
 export const getReviews = (data) => ({
   type: GET_REVIEWS,
   payload: requestGetReviews(data.limit, data.page),
@@ -104,12 +103,12 @@ export default handleActions(
     },
     [GET_REVIEWS_SUCCESS]: (state, action) => {
       const {
-        data: { reviews },
+        data: { reviews, page },
       } = action.payload;
-
       return {
         ...state,
-        reviews: [...state.reviews, ...reviews],
+        reviews:
+          parseInt(page) !== 1 ? [...state.reviews, ...reviews] : [...reviews],
         loadReviewsPending: false,
         loadReviewsSuccess: true,
         loadReviewsDone: reviews.length % 5 !== 0 ? true : false,
@@ -207,14 +206,20 @@ export default handleActions(
         data: { review },
       } = action.payload;
       //console.log(data.profile);
-      console.log(review);
-      const filteredReviews = state.reviews.filter((r) => r._id !== review._id);
+      let idx = -1;
+      state.reviews.forEach((item, i) => {
+        if (item._id === review._id) {
+          idx = i;
+        }
+      });
+      state.reviews[idx] = review;
+      const updatedReviews = state.reviews;
       return {
         ...state,
         pending: false,
         error: false,
         success: true,
-        reviews: [...filteredReviews, review],
+        reviews: [...updatedReviews],
       };
     },
     [LIKE_REVIEW_FAILURE]: (state, action) => {

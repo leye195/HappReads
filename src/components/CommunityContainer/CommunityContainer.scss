@@ -31,6 +31,13 @@
           border-radius: 10px;
           border: 3px solid #e3e3e3;
         }
+        .like {
+          text-align: center;
+          .heart {
+            color: pink;
+            cursor: pointer;
+          }
+        }
       }
 
       .second-col {
@@ -120,7 +127,6 @@
 @include tablet {
   .community-container {
     .reviews {
-      width: 60%;
       .row {
         &::before {
           content: "";

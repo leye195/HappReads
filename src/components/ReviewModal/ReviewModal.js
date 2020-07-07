@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import classname from "classnames/bind";
 import style from "./ReviewModal.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { check } from "../../reducer/login";
 import { editReview } from "../../reducer/review";
+import { getAtk } from "../../utills";
 
 const cx = classname.bind(style);
 const ReviewModal = ({ review, handleClose }) => {
   const [content, setContent] = useState(review?.content || "");
   const dispatch = useDispatch();
-  const { profile } = useSelector((state) => state.login);
+  const { isLoggedIn } = useSelector((state) => state.login);
 
-  const checkUser = async () => {
-    const atk = localStorage.getItem("atk");
+  const checkUser = useCallback(async () => {
+    const atk = getAtk();
     if (atk) {
       try {
         dispatch(check(atk));
@@ -20,38 +21,41 @@ const ReviewModal = ({ review, handleClose }) => {
         console.log(error);
       }
     }
-  };
-  const handleEditReview = async (rid, content) => {
-    try {
-      const {
-        value: { status },
-      } = await dispatch(editReview(rid, content)); //await editReview(rid, content);
-      if (status === 200) {
-        checkUser();
-        handleClose();
+  }, [dispatch]);
+  const handleEditReview = useCallback(
+    async (rid, content) => {
+      try {
+        const {
+          value: { status },
+        } = await dispatch(editReview(rid, content)); //await editReview(rid, content);
+        if (status === 200) {
+          checkUser();
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { content } = this.state;
-    const {
-      review: { _id: rid },
-      profile,
-    } = this.props;
-    if (profile !== {}) {
-      handleEditReview(rid, content);
-    }
-  };
+    },
+    [checkUser, dispatch]
+  );
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (isLoggedIn) {
+        handleEditReview(review._id, content);
+      }
+    },
+    [content, isLoggedIn, review, handleEditReview]
+  );
   const handleChange = (e) => {
     const { target } = e;
     setContent(target.value);
   };
+  useEffect(() => {
+    return () => {};
+  });
   return (
-    <div className={cx(["review-modal", "modal-container"])}>
-      <div className="modal-overlay">
+    <section className={cx(["review-modal", "modal-container"])}>
+      <section className="modal-overlay">
         <div className="modal">
           <div className={cx("form-container")}>
             <img
@@ -69,8 +73,8 @@ const ReviewModal = ({ review, handleClose }) => {
             </form>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
 export default ReviewModal;

@@ -3,12 +3,12 @@
   @include flex(row, none, none);
   margin: 5px;
   border-bottom: 1px solid #e3e3e3;
-  animation: fadeIn 1.5s ease-out;
   div:nth-child(1) {
     img {
       height: 100px;
     }
   }
+
   div:nth-child(2) {
     margin: 5px;
     width: 100%;
@@ -16,49 +16,53 @@
       height: 100%;
       width: 100%;
       @include flex(column, none, center);
+      .like-container {
+        @include flex(row, center, none);
+        margin-top: 5px;
+        span {
+          margin-right: 5px;
+          &.likebtn {
+            cursor: pointer;
+            svg {
+              stroke: $white-grey;
+              stroke-width: 20px;
+              path {
+                fill: $white-grey;
+              }
+
+              & path:hover {
+                fill: $pink;
+              }
+              cursor: pointer;
+            }
+          }
+        }
+      }
     }
   }
+
   .review-book,
   .review-text {
     margin-bottom: 10px;
     white-space: pre-wrap;
     line-height: 1.4;
   }
+
   .review-date {
     color: $dark-grey;
   }
+
   .review-edit,
   .review-remove {
     cursor: pointer;
   }
 }
+
 @include mobile {
   .user-review {
     .review-container {
       div:nth-child(2) {
         div {
-          .like-container {
-            display: flex;
-            align-items: center;
-            margin-top: 5px;
-            span {
-              margin-right: 5px;
-              &.likebtn {
-                cursor: pointer;
-                svg {
-                  stroke: $white-grey;
-                  stroke-width: 20px;
-                  path {
-                    fill: $white-grey;
-                  }
-                  & path:hover {
-                    fill: $pink;
-                  }
-                  cursor: pointer;
-                }
-              }
-            }
-          }
           .review-like,
           .review-date,
           .review-book,
@@ -70,33 +74,12 @@
     }
   }
 }
+
 @include tablet {
   .user-review {
     .review-container {
       div:nth-child(2) {
         div {
-          .like-container {
-            display: flex;
-            align-items: center;
-            margin-top: 5px;
-            span {
-              margin-right: 5px;
-              &.likebtn {
-                cursor: pointer;
-                svg {
-                  stroke: $white-grey;
-                  stroke-width: 20px;
-                  path {
-                    fill: $white-grey;
-                  }
-                  & path:hover {
-                    fill: $pink;
-                  }
-                  cursor: pointer;
-                }
-              }
-            }
-          }
           .review-like,
           .review-date,
           .review-book,
@@ -108,33 +91,12 @@
     }
   }
 }
+
 @include desktop {
   .user-review {
     .review-container {
       div:nth-child(2) {
         div {
-          .like-container {
-            display: flex;
-            align-items: center;
-            margin-top: 5px;
-            span {
-              margin-right: 5px;
-              &.likebtn {
-                cursor: pointer;
-                svg {
-                  stroke: $white-grey;
-                  stroke-width: 20px;
-                  path {
-                    fill: $white-grey;
-                  }
-                  & path:hover {
-                    fill: $pink;
-                  }
-                  cursor: pointer;
-                }
-              }
-            }
-          }
           .review-like,
           .review-date,
           .review-book,

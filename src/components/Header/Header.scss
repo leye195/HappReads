@@ -4,7 +4,7 @@
   @include flex(row, center, space-between);
   top: 0;
   width: 100%;
-  height: 100%;
+  height: 70px;
   z-index: 1;
   transition: all 0.3s ease-out;
   .nav {
@@ -12,18 +12,34 @@
     background-color: $header-bg-color;
     border-bottom: 2px solid $white-grey;
     width: 100%;
-  }
+    height: 100%;
+    .title {
+      cursor: pointer;
+      a {
+        color: #bdc100;
+        .fr {
+          font-weight: 100;
+        }
 
-  .title {
-    cursor: pointer;
-    a {
-      color: #bdc100;
-      .fr {
-        font-weight: 100;
+        .en {
+          font-weight: 600;
+        }
       }
+    }
 
-      .en {
-        font-weight: 600;
+    .menu-container {
+      @include flex(row, center, center);
+      .community {
+        text-align: center;
+        font-weight: 800;
+        border: 1px solid white;
+        border-radius: 20px;
+        padding: 5px;
+        background-color: white;
+        cursor: pointer;
+        p {
+          white-space: pre;
+        }
       }
     }
   }
@@ -31,12 +47,17 @@
   .ul {
     @include flex(row, center, none);
     li {
-      margin: 10px;
+      margin: 5px;
       cursor: pointer;
       position: relative;
       @include flex(column, none, none);
       span {
         font-size: 35px;
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
       }
 
       .menu {
@@ -122,18 +143,11 @@
       margin: 10px;
     }
 
-    .menu-container {
-      @include flex(row, center, center);
-    }
-
     .community {
-      cursor: pointer;
       font-size: 0.75rem;
-      font-weight: 800;
-      border: 1px solid white;
-      border-radius: 20px;
-      padding: 7px;
-      background-color: white;
+      p {
+        font-size: 0.45rem;
+      }
     }
 
     .ul {
@@ -147,19 +161,6 @@
     .title {
       font-size: 25px;
       margin: 10px;
-    }
-
-    .menu-container {
-      @include flex(row, center, center);
-    }
-
-    .community {
-      cursor: pointer;
-      font-weight: 800;
-      border: 1px solid white;
-      border-radius: 20px;
-      padding: 7px;
-      background-color: white;
     }
 
     .ul {

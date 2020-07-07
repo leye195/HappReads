@@ -1,67 +1,37 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import classnames from "classnames/bind";
 import style from "./CommunityContainer.scss";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getReviews } from "../../reducer/review";
+import { v4 } from "uuid";
 import moment from "moment";
 import Loading from "../Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 const cx = classnames.bind(style);
-const CommunityContainer = ({ path }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [more, setMore] = useState(false);
-  const [page, setPage] = useState(1);
-  const { reviews, loadReviewsPending, loadReviewsDone } = useSelector(
-    (state) => state.review
-  );
-  const dispatch = useDispatch();
-  const loadReviews = useCallback(
-    async (page = 1) => {
-      try {
-        dispatch(
-          getReviews({
-            limit: 5,
-            page,
-          })
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    [dispatch]
-  );
-  const toggleMore = useCallback(() => {
-    setMore((cur) => !cur);
-  }, []);
-  const loadMore = useCallback(
-    (e) => {
-      console.log("lood more");
-      loadReviews(page + 1);
-      setPage((cur) => cur + 1);
-    },
-    [loadReviews, page]
-  );
-  useEffect(() => {
-    setIsLoading(true);
-    loadReviews();
-    setIsLoading(false);
-  }, [loadReviews]);
-  const content = (path, info = []) => {
+const CommunityContainer = ({
+  path,
+  isLoading,
+  reviews,
+  loadReviewsPending,
+  loadReviewsDone,
+  loadMore,
+  toggleMore,
+  more,
+  handleLike,
+}) => {
+  const content = (path) => {
     if (path === "reviews") {
       return (
         <>
-          {info.length === 0 && (
+          {reviews.length === 0 && (
             <p style={{ textAlign: "center" }}>최근 리뷰가 없습니다.</p>
           )}
           {
             <>
-              {info.length > 0 &&
-                info.map((review) => {
+              {reviews.length > 0 &&
+                reviews.map((review) => {
                   return (
-                    <section
-                      key={review && review._id}
-                      className={cx(["card", "row"])}
-                    >
+                    <section key={v4()} className={cx(["card", "row"])}>
                       <section className={cx("first-col")}>
                         <Link
                           to={`/book/${
@@ -73,6 +43,14 @@ const CommunityContainer = ({ path }) => {
                             alt={review && review.book && review.book.title}
                           />
                         </Link>
+                        <p className={cx("like")}>
+                          <FontAwesomeIcon
+                            className={cx("heart")}
+                            icon={faHeart}
+                            onClick={handleLike(review)}
+                          />{" "}
+                          {review && review.likes && review.likes.length} 좋아요
+                        </p>
                       </section>
                       <section className={cx("second-col")}>
                         <p className={cx("date")}>
@@ -144,9 +122,7 @@ const CommunityContainer = ({ path }) => {
   ) : (
     <section className={cx("community-container")}>
       {path === "reviews" && (
-        <section className={cx("reviews")}>
-          {content("reviews", reviews)}
-        </section>
+        <section className={cx("reviews")}>{content("reviews")}</section>
       )}
     </section>
   );

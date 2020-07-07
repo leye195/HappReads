@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa";
 import { postReview, postLike } from "../../reducer/review";
 import { check } from "../../reducer/login";
+import { getAtk } from "../../utills";
 
 const cx = classnames.bind(style);
 const Review = () => {
@@ -18,7 +19,7 @@ const Review = () => {
   const { reviews } = useSelector((state) => state.review);
   const { book } = useSelector((state) => state.books);
   const checkUser = useCallback(async () => {
-    const atk = localStorage.getItem("atk");
+    const atk = getAtk();
     if (atk) {
       try {
         dispatch(check(atk));
@@ -52,7 +53,7 @@ const Review = () => {
         handlePostReview(input);
         setInput("");
       } else {
-        alert("로그인 필요한 서비스 입니다");
+        alert("로그인이 필요합니다");
       }
     },
     [isLoggedIn, input, handlePostReview]
@@ -66,12 +67,13 @@ const Review = () => {
         } = await dispatch(postLike(type, id, me?.user?._id));
         if (status === 200) {
           target.style.fill = "pink";
+          checkUser();
         }
       } catch (error) {
         console.log(error);
       }
     },
-    [dispatch, me]
+    [dispatch, me, checkUser]
   );
   const handleLike = useCallback(
     (e) => {
@@ -84,9 +86,9 @@ const Review = () => {
   const toggleMore = useCallback(() => {
     setMore((cur) => !cur);
   }, []);
-  const reviewTag = (item, handleLike) => {
+  const reviewTag = (item) => {
     return (
-      <article key={v4()}>
+      <article key={v4()} className={cx("review-item")}>
         <div>
           <Link to={item.reviewer ? `/profile/${item.reviewer._id}` : ""}>
             <img
@@ -124,10 +126,7 @@ const Review = () => {
           >
             <FaHeart />
           </span>
-          <span>{item.likes.length} likes</span>
-          {item.content.length > 20 && (
-            <span style={{ marginLeft: "5px", marginRight: "5px" }}>·</span>
-          )}
+          <span>{item.likes.length} 좋아요</span>
         </div>
       </article>
     );
@@ -144,7 +143,7 @@ const Review = () => {
       <section className={cx("review-list-wrapper")}>
         {reviews
           ? reviews.map((item) => {
-              return reviewTag(item, handleLike);
+              return reviewTag(item);
             })
           : null}
       </section>

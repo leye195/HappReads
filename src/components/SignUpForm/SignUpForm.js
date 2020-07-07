@@ -65,7 +65,7 @@ const SignUpForm = ({ handleSignUp }) => {
           placeholder="비밀번호 재입력"
           required
         />
-        <input type="submit" value="SignUp" />
+        <input type="submit" value="가입" />
       </form>
     </section>
   );

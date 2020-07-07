@@ -10,7 +10,6 @@ const readURL = (file) => {
   document.querySelector(".preview-img").src = render;
 };
 const UserEdit = ({ profile, isOpen, handleClose }) => {
-  console.log(profile);
   const [content, setContent] = useState({
     seletedImg: null,
     avatarUrl: profile ? profile.avatarUrl : undefined,
@@ -39,7 +38,6 @@ const UserEdit = ({ profile, isOpen, handleClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     submitEdit();
-    //form data post 요청 진행
   };
   const handleFile = useCallback(
     (e) => {
@@ -95,7 +93,7 @@ const UserEdit = ({ profile, isOpen, handleClose }) => {
     [content, setContent]
   );
   return (
-    <div className={cx("user-edit", isOpen ? "close" : "open")}>
+    <section className={cx("user-edit", isOpen ? "close" : "open")}>
       <div className={cx("x-button")}>
         <p onClick={handleClose}>
           <span role="img" aria-label="close">
@@ -103,7 +101,7 @@ const UserEdit = ({ profile, isOpen, handleClose }) => {
           </span>
         </p>
       </div>
-      <div className={cx("form-container")}>
+      <section className={cx("form-container")}>
         <form onSubmit={handleSubmit}>
           <div className={cx("upload-btn-wrapper")}>
             <img
@@ -150,8 +148,8 @@ const UserEdit = ({ profile, isOpen, handleClose }) => {
           <input type="submit" value="수정" />
         </form>
         <button onClick={handleClose}>취소</button>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
 

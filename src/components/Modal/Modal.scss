@@ -27,6 +27,9 @@
       height: auto !important;
       padding: 30px 0;
     }
+    @include tablet {
+      width: 60vw;
+    }
 
     @include flex(column, center, center);
     .exit {
@@ -35,6 +38,7 @@
       top: 10px;
       margin: 10px;
       cursor: pointer;
+      z-index: 100;
     }
 
     img {
@@ -59,9 +63,25 @@
     }
 
     .select {
-      height: 20px;
-      width: 100%;
+      padding: 3px;
       margin: 10px;
+      border: 3px solid #e3e3e3;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      width: 80%;
+      background: white;
+      box-shadow: 0px 0px 3px 0px black;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      cursor: pointer;
+      /* For IE <= 11 */
+      &::-ms-expand {
+        display: none;
+      }
+      &:hover {
+        color: $sun-flower;
+      }
     }
 
     .button-container {
