@@ -1,6 +1,6 @@
-# HappY Readers (Good Readers) Front
+# HappReads Front
 
-### Front 사용 기술:
+### Front
 
 - React
 - SCSS (CSS-Preprocessor)
