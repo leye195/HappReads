@@ -2,10 +2,10 @@ import { handleActions } from "redux-actions";
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
-axios.defaults.baseURL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8080/"
-    : "https://happread.herokuapp.com/";
+const URL =
+  //process.env.NODE_ENV === "development"
+  //? "http://localhost:8080/"
+  "https://happread.herokuapp.com/";
 
 export const GET_BOOKS = "GET_BOOKS"; //책 리스트
 export const GET_BOOKS_PENGIND = "GET_BOOKS_PENDING";
@@ -62,33 +62,34 @@ export const POST_RATE_PENDING = "POST_RATE_PENDING";
 export const POST_RATE_SUCCESS = "POST_RATE_SUCCESS";
 export const POST_RATE_FAILURE = "POST_RATE_FAILURE";
 
+console.log(URL);
 const requestAllBooks = (type, page) => {
-  return axios.get(`books/type/${decodeURI(type)}?page=${page}`);
+  return axios.get(`${URL}books/type/${decodeURI(type)}?page=${page}`);
 };
 const requestSliderBooks = () => {
-  return axios.get(`book/sliders`);
+  return axios.get(`${URL}book/sliders`);
 };
 const requestgetBooks = (query, type, page) => {
-  return axios.get(`book/search?q=${decodeURI(query)}&type=${0}`);
+  return axios.get(`${URL}book/search?q=${decodeURI(query)}&type=${0}`);
 };
 const requestInfo = (id) => {
-  return axios.get(`book/${id}`);
+  return axios.get(`${URL}book/${id}`);
 };
 const requestPostRate = (id, name, vote) => {
-  return axios.post(`book/${id}`, {
+  return axios.post(`${URL}book/${id}`, {
     vote,
     name,
   });
 };
 const requestRecentBooks = () => {
-  return axios.get(`books/recent`);
+  return axios.get(`${URL}books/recent`);
 };
 const requestPopularBooks = () => {
-  return axios.get(`books/popular`);
+  return axios.get(`${URL}books/popular`);
 };
 const requestEditBook = (data) => {
   const { _id, title, contents, genres } = data;
-  return axios.put(`book/${_id}`, {
+  return axios.put(`${URL}book/${_id}`, {
     title,
     contents,
     genres,
