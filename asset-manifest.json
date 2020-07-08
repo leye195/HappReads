@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/HappReads-front/static/css/main.d2162ff5.chunk.css",
+    "main.css": "/HappReads-front/static/css/main.f07ec174.chunk.css",
     "main.js": "/HappReads-front/static/js/main.35bcdaed.chunk.js",
     "main.js.map": "/HappReads-front/static/js/main.35bcdaed.chunk.js.map",
     "runtime-main.js": "/HappReads-front/static/js/runtime-main.a81acd66.js",
@@ -9,10 +9,10 @@
     "static/js/2.ff816375.chunk.js": "/HappReads-front/static/js/2.ff816375.chunk.js",
     "static/js/2.ff816375.chunk.js.map": "/HappReads-front/static/js/2.ff816375.chunk.js.map",
     "index.html": "/HappReads-front/index.html",
-    "precache-manifest.1484d73dff8d5153bd65c88b67a00680.js": "/HappReads-front/precache-manifest.1484d73dff8d5153bd65c88b67a00680.js",
+    "precache-manifest.ebd6e27db11584f32f3f060cc7f046d6.js": "/HappReads-front/precache-manifest.ebd6e27db11584f32f3f060cc7f046d6.js",
     "service-worker.js": "/HappReads-front/service-worker.js",
     "static/css/2.c628167a.chunk.css.map": "/HappReads-front/static/css/2.c628167a.chunk.css.map",
-    "static/css/main.d2162ff5.chunk.css.map": "/HappReads-front/static/css/main.d2162ff5.chunk.css.map",
+    "static/css/main.f07ec174.chunk.css.map": "/HappReads-front/static/css/main.f07ec174.chunk.css.map",
     "static/js/2.ff816375.chunk.js.LICENSE.txt": "/HappReads-front/static/js/2.ff816375.chunk.js.LICENSE.txt",
     "static/media/go_back.png": "/HappReads-front/static/media/go_back.62137145.png",
     "static/media/slick-theme.css": "/HappReads-front/static/media/slick.f97e3bbf.svg",
@@ -22,7 +22,7 @@
     "static/js/runtime-main.a81acd66.js",
     "static/css/2.c628167a.chunk.css",
     "static/js/2.ff816375.chunk.js",
-    "static/css/main.d2162ff5.chunk.css",
+    "static/css/main.f07ec174.chunk.css",
     "static/js/main.35bcdaed.chunk.js"
   ]
 }
