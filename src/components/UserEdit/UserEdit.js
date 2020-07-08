@@ -38,7 +38,9 @@ const UserEdit = ({ profile, isOpen, handleClose }) => {
       } = await dispatch(editProfile(formData));
       if (status === 200) {
         window.location.href = `${
-          process.env.NODE_ENV === "development" ? "/me" : "/heapreads/me"
+          process.env.NODE_ENV === "development"
+            ? "/me"
+            : "/HappReads-front/#/me"
         }`;
       }
     } catch (error) {
@@ -47,6 +49,7 @@ const UserEdit = ({ profile, isOpen, handleClose }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    alert(e.target.dataset);
     submitEdit();
   };
   const handleFile = useCallback(
@@ -156,8 +159,10 @@ const UserEdit = ({ profile, isOpen, handleClose }) => {
             onChange={handleIntro}
           />
           <input type="submit" value="수정" />
+          <button onClick={handleClose} data-value={"cancel"}>
+            취소
+          </button>
         </form>
-        <button onClick={handleClose}>취소</button>
       </section>
     </section>
   );

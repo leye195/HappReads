@@ -15,7 +15,8 @@ const UserProfile = ({ profile, from }) => {
   const handleOpen = useCallback(() => {
     setIsOpen(true);
   }, []);
-  const handleCancel = useCallback(() => {
+  const handleCancel = useCallback((e) => {
+    e.preventDefault();
     setIsOpen(false);
   }, []);
   const handleSetIdx = useCallback(

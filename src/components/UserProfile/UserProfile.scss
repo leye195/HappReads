@@ -10,6 +10,7 @@
     .info {
       @include flex(column, center, center);
       img {
+        border: 3px solid $sun-flower;
         border-radius: 50%;
         animation: fadeIn 1.5s ease-out;
         cursor: pointer;
@@ -210,6 +211,7 @@
 
 .open-modal {
   display: block;
+  z-index: 100;
 }
 
 .close-modal {

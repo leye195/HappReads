@@ -40,7 +40,8 @@ const BookList = ({ from, booklist, type, handleMore, done }) => {
                 })}
               {booklist.filter((book) => book?.genres?.includes(type)).length >
                 0 &&
-                done === false && (
+                done === false &&
+                booklist.length % 15 !== 0 && (
                   <div className={cx("more-book-btn")} onClick={handleMore}>
                     <p>더 보기 +</p>
                   </div>

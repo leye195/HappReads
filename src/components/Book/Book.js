@@ -42,7 +42,7 @@ const Book = (props) => {
           <p className={cx("ser-contents")}>
             {book && book.contents
               ? book.contents.length > 100
-                ? book.contents.substr(0, 100)
+                ? `${book.contents.substr(0, 100)}...`
                 : book.contents
               : "입력된 내용이 없습니다"}
           </p>

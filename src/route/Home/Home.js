@@ -60,11 +60,7 @@ const Home = () => {
         }
         keywords={`책, 책 공유, 책 리뷰, HappReads, happreads`}
       />
-      {isLoading ||
-      allBookPending ||
-      sliderPending ||
-      recentPending ||
-      popularPending ? (
+      {isLoading || sliderPending || recentPending || popularPending ? (
         <Loading />
       ) : (
         <>
