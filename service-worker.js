@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/HappReads-front/precache-manifest.57694ce4b0b24f4204c250eb309b7367.js"
+  "/HappReads-front/precache-manifest.44f6e3bee073edd3ad29b2a2210d9b2d.js"
 );
 
 self.addEventListener('message', (event) => {
