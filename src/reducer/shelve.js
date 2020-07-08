@@ -1,5 +1,11 @@
 import { handleActions } from "redux-actions";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8080/"
+    : "https://happread.herokuapp.com/";
 
 const POST_SHELVE = "POST_SHELVE";
 const POST_SHELVE_PENDING = "POST_SHELVE_PENDING";
@@ -7,7 +13,7 @@ const POST_SHELVE_SUCCESS = "POST_SHELVE_SUCCESS";
 const POST_SHELVE_FAILURE = "POST_SHELVE_FAILURE";
 
 const requsetPostShelve = (email, id, type) => {
-  return axios.post(`http://localhost:8080/shelve`, {
+  return axios.post(`shelve`, {
     email,
     id,
     type,

@@ -27,6 +27,7 @@ const Home = () => {
     recentBooks,
     popularBooks,
   } = useSelector((state) => state.books);
+
   useEffect(() => {
     setIsLoading(true);
     dispatch(getAllBooks("전체", 1));

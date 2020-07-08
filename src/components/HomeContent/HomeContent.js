@@ -80,6 +80,7 @@ const HomeContent = ({
                   ))
                 : category.map((item) => (
                     <li
+                      key={v4()}
                       className={cx(
                         `book-category-li`,
                         `${type === item ? `selected` : ""}`

@@ -4,7 +4,6 @@ import { v4 } from "uuid";
 import BookList from "../BookList";
 import style from "./UserProfile.scss";
 import classnames from "classnames/bind";
-import im from "../../img/1.jpg";
 import UserEdit from "../UserEdit";
 import UserReview from "../UserReview/UserReview";
 

@@ -1,5 +1,11 @@
 import { handleActions } from "redux-actions";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8080/"
+    : "https://happread.herokuapp.com/";
 
 export const GET_REVIEWS = "GET_REVIEWS";
 export const GET_REVIEWS_PENDING = "GET_REVIEWS_PENDING";
@@ -27,15 +33,15 @@ export const LIKE_REVIEW_SUCCESS = "LIKE_REVIEW_SUCCESS";
 export const LIKE_REVIEW_FAILURE = "LIKE_REVIEW_FAILURE";
 
 const requestGetReviews = (limit = 1, page = 1) => {
-  return axios.get(`http://localhost:8080/reviews?limit=${limit}&page=${page}`);
+  return axios.get(`reviews?limit=${limit}&page=${page}`);
 };
 const requestGetReview = (id) => {
   //console.log(id);
-  return axios.get(`http://localhost:8080/book/${id}/review`);
+  return axios.get(`book/${id}/review`);
 };
 const requestPostReview = (id, name, content, book) => {
   //console.log(isbn, name, content);
-  return axios.post(`http://localhost:8080/book/${id}/review`, {
+  return axios.post(`book/${id}/review`, {
     name,
     content,
     book,
@@ -43,13 +49,13 @@ const requestPostReview = (id, name, content, book) => {
 };
 
 const requestEditReview = (rid, content) => {
-  return axios.post(`http://localhost:8080/book/review/${rid}`, {
+  return axios.post(`book/review/${rid}`, {
     content,
   });
 };
 
 const requestLikeReview = (type, id, uid) => {
-  return axios.post(`http://localhost:8080/review/like`, {
+  return axios.post(`review/like`, {
     type,
     id,
     uid,

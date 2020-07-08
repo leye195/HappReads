@@ -1,5 +1,11 @@
 import { handleActions } from "redux-actions";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8080/"
+    : "https://happread.herokuapp.com/";
 
 export const USER_CHECK = "USER_CHECK";
 export const USER_CHECK_PENDING = "USER_CHECK_PENDING";
@@ -32,13 +38,13 @@ export const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
 export const DELETE_REVIEW_FAILURE = "DELETE_REVIEW_FAILURE";
 
 const requestLogin = (id, pw) => {
-  return axios.post(`http://localhost:8080/login`, {
+  return axios.post(`login`, {
     email: id,
     password: pw,
   });
 };
 const requestLogout = () => {
-  return axios.post(`http://localhost:8080/logout`);
+  return axios.post(`logout`);
 };
 const requestCheck = (atk) => {
   const api = axios.create({
@@ -46,11 +52,11 @@ const requestCheck = (atk) => {
       Authorization: `${atk}`,
     },
   });
-  return api.post(`http://localhost:8080/profile`);
+  return api.post(`profile`);
 };
 
 const requsetPostShelve = (email, id, type) => {
-  return axios.post(`http://localhost:8080/shelve`, {
+  return axios.post(`shelve`, {
     email,
     id,
     type,
@@ -58,12 +64,12 @@ const requsetPostShelve = (email, id, type) => {
 };
 const requestDeleteShelve = (uid, id, type) => {
   console.log(uid, id, type);
-  return axios.delete(`http://localhost:8080/shelve`, {
+  return axios.delete(`shelve`, {
     data: { uid, id, type },
   });
 };
 const requestDeleteReview = (id, rid, uid) => {
-  return axios.delete(`http://localhost:8080/book/${id}/review/${rid}`, {
+  return axios.delete(`book/${id}/review/${rid}`, {
     data: {
       uid,
     },

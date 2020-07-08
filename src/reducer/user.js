@@ -1,7 +1,11 @@
 import { handleActions } from "redux-actions";
 import axios from "axios";
-
-const URL = `http://localhost:8080`;
+import dotenv from "dotenv";
+dotenv.config();
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8080/"
+    : "https://happread.herokuapp.com/";
 
 export const GET_USER = "GET_USER";
 export const GET_USER_PENDING = "GET_USER_PENDING";
@@ -19,13 +23,13 @@ export const GET_TOP_REVIEWERS_SUCCESS = "GET_TOP_REVIEWERS_SUCCESS";
 export const GET_TOP_REVIEWERS_FAILURE = "GET_TOP_REVIEWERS_FAILURE";
 
 const requestUser = (id) => {
-  return axios.get(`${URL}/profile/${id}`);
+  return axios.get(`profile/${id}`);
 };
 const requestTopReaders = (type) => {
-  return axios.get(`${URL}/rank/reader/${type}`);
+  return axios.get(`rank/reader/${type}`);
 };
 const requestTopReviewers = (type) => {
-  return axios.get(`${URL}/rank/reviewer/${type}`);
+  return axios.get(`rank/reviewer/${type}`);
 };
 
 export const getUser = (id) => ({
