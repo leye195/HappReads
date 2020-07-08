@@ -5,6 +5,8 @@ import Helmet from "../../components/Helmet";
 import { login } from "../../reducer/login";
 import { Redirect } from "react-router";
 import Notice from "../../components/Notice";
+import dotenv from "dotenv";
+dotenv.config();
 const Login = () => {
   const { isLoggedIn, loginPending, loginSuccess, loginError } = useSelector(
     (state) => state.login
@@ -14,7 +16,6 @@ const Login = () => {
     localStorage.setItem("atk", t);
   };
   const handleLogin = async (email, password) => {
-    //const { loginRequest } = this.props;
     try {
       const {
         value: { data, status },
@@ -27,7 +28,7 @@ const Login = () => {
     }
   };
   if (isLoggedIn === true) {
-    return <Redirect to="/" />;
+    return <Redirect to={"/"} />;
   }
   return (
     <>

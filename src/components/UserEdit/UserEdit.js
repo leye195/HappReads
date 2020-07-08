@@ -1,8 +1,11 @@
 import React, { useState, useCallback } from "react";
 import style from "./UserEdit.scss";
 import classnames from "classnames/bind";
-import axios from "axios";
 import { getAvartUrl } from "../../utills";
+import { useDispatch } from "react-redux";
+import dotenv from "dotenv";
+import { editProfile } from "../../reducer/login";
+dotenv.config();
 
 const cx = classnames.bind(style);
 const readURL = (file) => {
@@ -10,6 +13,7 @@ const readURL = (file) => {
   document.querySelector(".preview-img").src = render;
 };
 const UserEdit = ({ profile, isOpen, handleClose }) => {
+  const dispatch = useDispatch();
   const [content, setContent] = useState({
     seletedImg: null,
     avatarUrl: profile ? profile.avatarUrl : undefined,
@@ -29,8 +33,14 @@ const UserEdit = ({ profile, isOpen, handleClose }) => {
     formData.append("interest", interest);
     formData.append("intro", intro);
     try {
-      await axios.post(`http://localhost:8080/edit`, formData);
-      window.location.href = "/me";
+      const {
+        value: { status },
+      } = await dispatch(editProfile(formData));
+      if (status === 200) {
+        window.location.href = `${
+          process.env.NODE_ENV === "development" ? "/me" : "/heapreads/me"
+        }`;
+      }
     } catch (error) {
       console.log(error);
     }

@@ -34,57 +34,6 @@
   }
 }
 
-.ser-bg {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding: 15px;
-  padding-bottom: 0px;
-  border-bottom: 1px solid #e3e3e3;
-  &:not(:last-child) {
-    border-bottom: 1px solid $dark-grey;
-  }
-
-  .ser-book {
-    width: 160px;
-    height: 185px;
-    position: relative;
-    img {
-      width: 90%;
-      height: 150px;
-      border-radius: 5px;
-      border: 1px solid #e3e3e37d;
-    }
-  }
-
-  .ser-info {
-    width: 100%;
-    .ser-title {
-      line-height: 25px;
-    }
-
-    .ser-author {
-      display: block;
-      font-size: 12px;
-      line-height: 20px;
-      margin: 5px 0;
-    }
-
-    .ser-contents {
-      font-weight: lighter;
-      line-height: 1.4;
-      white-space: break-spaces;
-    }
-
-    .ser-score {
-      margin-top: 10px;
-      span {
-        font-size: 12px;
-      }
-    }
-  }
-}
-
 .shelve {
   @include flex(row, none, space-between);
   margin: 10px;

@@ -37,6 +37,11 @@ export const DELETE_REVIEW_PENDING = "DELETE_REVIEW_PENDING";
 export const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
 export const DELETE_REVIEW_FAILURE = "DELETE_REVIEW_FAILURE";
 
+export const EDIT_PROFILE = "EDIT_PROFILE";
+export const EDIT_PROFILE_PENDING = "EDIT_PROFILE_PENDING";
+export const EDIT_PROFILE_SUCCESS = "EDIT_PROFILE_SUCCESS";
+export const EDIT_PROFILE_FAILURE = "EDIT_PROFILE_FAILURE";
+
 const requestLogin = (id, pw) => {
   return axios.post(`login`, {
     email: id,
@@ -75,10 +80,17 @@ const requestDeleteReview = (id, rid, uid) => {
     },
   });
 };
+const requestEditProfile = (data) => {
+  return axios.post(`edit`, data);
+};
 
 export const check = (atk) => ({
   type: USER_CHECK,
   payload: requestCheck(atk),
+});
+export const editProfile = (data) => ({
+  type: EDIT_PROFILE,
+  payload: requestEditProfile(data),
 });
 export const logout = () => ({
   type: LOGOUT,

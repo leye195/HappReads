@@ -17,13 +17,28 @@
           opacity: 0.7;
         }
       }
+
+      .profile-edit {
+        margin-bottom: 10px;
+        p {
+          padding: 5px;
+          font-size: 0.6rem;
+          background-color: $blue;
+          border-radius: 10px;
+          color: white;
+          cursor: pointer;
+        }
+      }
+
       h1 {
         margin: 10px;
       }
+
       .intro {
         margin: 10px;
         font-size: 0.8rem;
       }
+
       .rate-review {
         margin-top: 0px;
         text-align: center;
@@ -35,7 +50,17 @@
     }
   }
   .catalog-list {
+    @include flex(row, center, center);
     margin-top: 20px;
+    text-align: center;
+    li {
+      border-bottom: 2px solid $dark-grey;
+      margin: 5px;
+      cursor: pointer;
+      &.active {
+        border-bottom: 2px solid $sun-flower;
+      }
+    }
   }
   .uploaded,
   .book-shelve,
@@ -49,6 +74,39 @@
     //width: 95%;
     @include flex(column, none, none);
   }
+
+  .book-shelve-head {
+    @include flex(row, center, space-between);
+    span {
+      cursor: pointer;
+    }
+    .add-container {
+      @include flex(row, center, center);
+      .add-btn {
+        @include flex(row, none, none);
+        svg {
+          margin-right: 5px;
+          margin-top: 1px;
+        }
+      }
+    }
+  }
+
+  .book-shelve-body {
+    padding-bottom: 10px;
+    .big-container {
+      margin-top: 10px;
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      div {
+        color: $dark-grey;
+        cursor: pointer;
+        margin: 5px;
+      }
+    }
+  }
+
   .uploaded-head,
   .book-shelve-head,
   .recent-head,
@@ -73,6 +131,11 @@
   .want-read-body,
   .read-body {
     padding-bottom: 10px;
+    &.uploaded-body {
+      overflow-x: scroll;
+      margin-left: 5px;
+      margin-top: 5px;
+    }
     .recent-empty {
       color: $dark-grey;
       margin: 10px 5px;
@@ -81,6 +144,7 @@
 }
 .uploaded-list {
   @include flex(row, none, none);
+  display: inline-flex;
   overflow-x: scroll;
   .uploaded-img-wrapper {
     position: relative;
@@ -89,6 +153,7 @@
       height: 100%;
       width: 100%;
     }
+
     &::after {
       background: linear-gradient(
         to right,
@@ -105,6 +170,7 @@
       height: 100%;
       width: 100%;
     }
+
     .to-detail {
       z-index: 100;
       position: absolute;
@@ -121,6 +187,7 @@
         background-color: #1f1f1f5e;
         font-weight: 100;
       }
+
       a {
         @include flex(row, center, center);
         color: white;
@@ -130,6 +197,7 @@
     }
   }
 }
+
 .modal-overay {
   position: fixed;
   top: 0;
@@ -139,13 +207,16 @@
   background-color: rgba(0, 0, 0, 0.22);
   animation: fadeIn 1.5s ease-out both;
 }
+
 .open-modal {
   display: block;
 }
+
 .close-modal {
   visibility: hidden;
   display: none;
 }
+
 @include mobile {
   .user-profile {
     .profile-wrapper {
@@ -154,31 +225,9 @@
           width: 10vw;
           height: 10vw;
         }
-        .profile-edit {
-          margin-bottom: 10px;
-          p {
-            background-color: $blue;
-            padding: 5px;
-            border-radius: 10px;
-            font-size: 0.6rem;
-            color: white;
-            cursor: pointer;
-          }
-        }
       }
     }
-    .catalog-list {
-      @include flex(row, center, center);
-      text-align: center;
-      li {
-        border-bottom: 2px solid $dark-grey;
-        margin: 5px;
-        cursor: pointer;
-        &.active {
-          border-bottom: 2px solid $sun-flower;
-        }
-      }
-    }
+
     .uploaded,
     .book-shelve,
     .currently-reading,
@@ -188,14 +237,8 @@
       width: 95%;
     }
     .book-shelve-head {
-      @include flex(row, center, space-between);
-      span {
-        cursor: pointer;
-      }
       .add-container {
-        @include flex(row, center, center);
         .add-btn {
-          @include flex(row, none, none);
           svg {
             margin-right: 5px;
             margin-top: 1px;
@@ -203,26 +246,14 @@
         }
       }
     }
-    .book-shelve-body {
-      padding-bottom: 10px;
-      .big-container {
-        margin-top: 10px;
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-        div {
-          color: $dark-grey;
-          cursor: pointer;
-          margin: 5px;
-        }
-      }
-    }
+
     .uploaded-img-wrapper {
       height: 6rem;
       width: 6rem;
     }
   }
 }
+
 @include tablet {
   .user-profile {
     .profile-wrapper {
@@ -231,31 +262,9 @@
           width: 10vw;
           height: 10vw;
         }
-        .profile-edit {
-          margin-bottom: 10px;
-          p {
-            background-color: $blue;
-            padding: 5px;
-            border-radius: 10px;
-            font-size: 0.6rem;
-            color: white;
-            cursor: pointer;
-          }
-        }
       }
     }
-    .catalog-list {
-      @include flex(row, center, center);
-      text-align: center;
-      li {
-        border-bottom: 2px solid $dark-grey;
-        margin: 5px;
-        cursor: pointer;
-        &.active {
-          border-bottom: 2px solid $sun-flower;
-        }
-      }
-    }
+
     .uploaded,
     .book-shelve,
     .currently-reading,
@@ -264,42 +273,14 @@
     .recent-update {
       width: 85%;
     }
-    .book-shelve-head {
-      @include flex(row, center, space-between);
-      span {
-        cursor: pointer;
-      }
-      .add-container {
-        @include flex(row, center, center);
-        .add-btn {
-          @include flex(row, none, none);
-          svg {
-            margin-right: 5px;
-            margin-top: 1px;
-          }
-        }
-      }
-    }
-    .book-shelve-body {
-      padding-bottom: 10px;
-      .big-container {
-        margin-top: 10px;
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-        div {
-          color: $dark-grey;
-          cursor: pointer;
-          margin: 5px;
-        }
-      }
-    }
+
     .uploaded-img-wrapper {
       height: 15vw;
       width: 10vw;
     }
   }
 }
+
 @include desktop {
   .user-profile {
     .profile-wrapper {
@@ -308,31 +289,9 @@
           width: 6.5vw;
           height: 6.5vw;
         }
-        .profile-edit {
-          margin-bottom: 10px;
-          p {
-            background-color: $blue;
-            padding: 5px;
-            border-radius: 10px;
-            font-size: 0.6rem;
-            color: white;
-            cursor: pointer;
-          }
-        }
       }
     }
-    .catalog-list {
-      @include flex(row, center, center);
-      text-align: center;
-      li {
-        border-bottom: 2px solid $dark-grey;
-        margin: 5px;
-        cursor: pointer;
-        &.active {
-          border-bottom: 2px solid $sun-flower;
-        }
-      }
-    }
+
     .uploaded,
     .book-shelve,
     .currently-reading,
@@ -341,36 +300,7 @@
     .recent-update {
       width: 70%;
     }
-    .book-shelve-head {
-      @include flex(row, center, space-between);
-      span {
-        cursor: pointer;
-      }
-      .add-container {
-        @include flex(row, center, center);
-        .add-btn {
-          @include flex(row, none, none);
-          svg {
-            margin-right: 5px;
-            margin-top: 1px;
-          }
-        }
-      }
-    }
-    .book-shelve-body {
-      padding-bottom: 10px;
-      .big-container {
-        margin-top: 10px;
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-        div {
-          color: $dark-grey;
-          cursor: pointer;
-          margin: 5px;
-        }
-      }
-    }
+
     .uploaded-img-wrapper {
       height: 20vh;
       width: 10vw;

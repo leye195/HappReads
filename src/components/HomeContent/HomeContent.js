@@ -57,7 +57,7 @@ const HomeContent = ({
       <SlickList books={sliderBooks} />
       <VerticalScroll
         title={"최근 공유된 책"}
-        books={recentBooks.slice(0, 8)}
+        books={recentBooks.slice(0, 15)}
       />
       <VerticalScroll title={"평점 좋은 책"} books={popularBooks} />
       <section className={cx("books-wrapper")}>

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../../reducer/signup";
 import { Redirect } from "react-router";
 import Helmet from "../../components/Helmet";
+import dotenv from "dotenv";
+dotenv.config();
 const SignUp = ({ history }) => {
   const dispatch = useDispatch();
   const { signup_pending, signup_success, signup_error } = useSelector(
@@ -14,7 +16,11 @@ const SignUp = ({ history }) => {
     dispatch(userSignup(email, p));
   };
   if (isLoggedIn) {
-    return <Redirect to="/" />;
+    return (
+      <Redirect
+        to={process.env.NODE_ENV === "development" ? "/" : "/HappReads-front"}
+      />
+    );
   }
   if (signup_success) {
     return <Redirect to="/login" />;

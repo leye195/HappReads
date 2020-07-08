@@ -8,14 +8,17 @@
     margin: 10px;
     font-weight: 700;
   }
+
   .facebook {
     @include base-button(blue);
     @include flex(row, center, center);
   }
+
   .github {
     @include base-button(black);
     @include flex(row, center, center);
   }
+
   .icon {
     font-size: 25px;
     margin-right: 10px;

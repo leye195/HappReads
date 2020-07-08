@@ -24,7 +24,7 @@ const CommunityContainer = ({
       return (
         <>
           {reviews.length === 0 && (
-            <p style={{ textAlign: "center" }}>최근 리뷰가 없습니다.</p>
+            <p className={cx("empty")}>최근 리뷰가 없습니다.</p>
           )}
           {
             <>

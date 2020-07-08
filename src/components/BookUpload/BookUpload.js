@@ -4,6 +4,8 @@ import style from "./BookUpload.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 import { postUpload } from "../../reducer/upload";
+import dotenv from "dotenv";
+dotenv.config();
 const cx = classnames.bind(style);
 const BookUpload = () => {
   const [content, setContent] = useState({
@@ -115,7 +117,9 @@ const BookUpload = () => {
         value: { status },
       } = await dispatch(postUpload(formData));
       if (status === 200) {
-        window.location.href = "/";
+        window.location.href = `${
+          process.env.NODE_ENV === "development" ? `/` : `/HappReads-front`
+        }`;
       }
     },
     [content, profile, dispatch]

@@ -3,9 +3,9 @@ import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 const URL =
-  //process.env.NODE_ENV === "development"
-  //? "http://localhost:8080/"
-  "https://happread.herokuapp.com/";
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8080/"
+    : "https://happread.herokuapp.com/";
 
 export const GET_BOOKS = "GET_BOOKS"; //책 리스트
 export const GET_BOOKS_PENGIND = "GET_BOOKS_PENDING";
@@ -135,7 +135,8 @@ export const postRate = (id, name, vote) => ({
 
 const initialState = {
   allBookPending: false,
-  allBookPerror: false,
+  allBookSuccess: false,
+  allBookError: false,
   allBookDone: false,
   books: [],
   morePending: false,
@@ -164,6 +165,9 @@ const initialState = {
   editBookPending: false,
   editBookSuccess: false,
   editBookFailure: false,
+  searchPending: false,
+  searchSuccess: false,
+  searchFailure: false,
 };
 
 export default handleActions(
@@ -198,8 +202,10 @@ export default handleActions(
     [GET_BOOKS_PENGIND]: (state, action) => {
       return {
         ...state,
-        pending: true,
-        error: false,
+        allBookPending: true,
+        allBookError: false,
+        allBookSuccess: false,
+        allBookDone: false,
       };
     },
     [GET_BOOKS_SUCCESS]: (state, action) => {
@@ -209,7 +215,7 @@ export default handleActions(
       return {
         ...state,
         allBookPending: false,
-        allBookError: false,
+        allBookSuccess: true,
         allBookDone: books.length < 15 ? true : false,
         books:
           state.books === undefined || parseInt(page, 10) === 1
@@ -220,15 +226,17 @@ export default handleActions(
     [GET_BOOKS_FAILURE]: (state, action) => {
       return {
         ...state,
-        pending: false,
-        error: true,
+        allBookPending: false,
+        allBookError: true,
       };
     },
     [GET_SEARCH_BOOKS_PENGIND]: (state, action) => {
       return {
         ...state,
-        pending: true,
-        error: false,
+        books: [],
+        searchPending: true,
+        searchSuccess: false,
+        searchFailure: false,
       };
     },
     [GET_SEARCH_BOOKS_SUCCESS]: (state, action) => {
@@ -237,9 +245,16 @@ export default handleActions(
       } = action.payload;
       return {
         ...state,
-        pending: false,
-        error: false,
+        searchPending: false,
+        searchSuccess: true,
         books: books,
+      };
+    },
+    [GET_SEARCH_BOOKS_FAILURE]: (state, action) => {
+      return {
+        ...state,
+        searchPending: false,
+        searchFailure: true,
       };
     },
     [GET_MORE_BOOKS_PENGIND]: (state, action) => {

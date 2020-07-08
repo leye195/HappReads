@@ -12,6 +12,11 @@
   .reviews {
     margin: 0 auto;
     padding: 0 5px;
+    .empty {
+      text-align: center;
+      padding: 10px;
+      font-weight: 800;
+    }
     .card {
       @include card(15px);
       width: 80vw;

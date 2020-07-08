@@ -1,6 +1,6 @@
 # HappReads Front
 
-Link: https://happreads.netlify.app/
+Link: https://leye195.github.io/HappReads-front/
 
 ### Front
 

@@ -40,7 +40,11 @@ const Book = (props) => {
           </Link>
           <p className={cx("ser-author")}>{formatAuthors(book.authors)}</p>
           <p className={cx("ser-contents")}>
-            {book && book.contents ? book.contents : "입력된 내용이 없습니다"}
+            {book && book.contents
+              ? book.contents.length > 100
+                ? book.contents.substr(0, 100)
+                : book.contents
+              : "입력된 내용이 없습니다"}
           </p>
         </div>
       </li>
@@ -48,7 +52,7 @@ const Book = (props) => {
   } else if (from === "profile") {
     const {
       book: { book },
-      profile: { user },
+      //profile: { user },
     } = props;
     const isMe = window.location.href.endsWith("/me");
     const handleDelete = (type) => () => {
