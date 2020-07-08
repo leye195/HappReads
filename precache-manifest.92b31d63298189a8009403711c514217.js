@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a21c3d01dded77861e8f9c0e9a86ffda",
+    "revision": "3980c53317748e57f9c3565d6912251e",
     "url": "/HappReads-front/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/HappReads-front/static/css/2.c628167a.chunk.css"
   },
   {
-    "revision": "0e32565dce795ee91623",
-    "url": "/HappReads-front/static/css/main.243c445e.chunk.css"
+    "revision": "bdb2af3abba2fa0fbb80",
+    "url": "/HappReads-front/static/css/main.d2162ff5.chunk.css"
   },
   {
     "revision": "292b0db6f3a94282699e",
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/HappReads-front/static/js/2.ff816375.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0e32565dce795ee91623",
+    "revision": "bdb2af3abba2fa0fbb80",
     "url": "/HappReads-front/static/js/main.3e866b8e.chunk.js"
   },
   {
