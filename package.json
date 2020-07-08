@@ -51,7 +51,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "hompage": "https://happreads.netlify.app/",
+  "hompage": "https://leye195.github.io/HappReads-front",
   "browserslist": {
     "production": [
       ">0.2%",
