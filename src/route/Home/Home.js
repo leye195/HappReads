@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import HomeSection from "../../components/HomeSection";
 import HomeContent from "../../components/HomeContent";
 import { useDispatch, useSelector } from "react-redux";
+import Helmet from "../../components/Helmet";
+
 import {
   getAllBooks,
   getSliderBooks,
@@ -50,6 +52,13 @@ const Home = () => {
   }, [dispatch, page, allBookDone]);
   return (
     <main>
+      <Helmet
+        title={`Home | HappReads`}
+        description={
+          "책들을 공유 그리고 리뷰하며 읽어보지 못한 새로운 책을 발견하세요!!"
+        }
+        keywords={`책, 책 공유, 책 리뷰, HappReads, happreads`}
+      />
       {isLoading ||
       allBookPending ||
       sliderPending ||

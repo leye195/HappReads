@@ -1,5 +1,7 @@
 # HappReads Front
 
+Link: https://happreads.netlify.app/
+
 ### Front
 
 - React
@@ -17,7 +19,6 @@
 - Detail [x]
 - Search [x]
 - Upload [x]
-- Edit [x]
 
 ### ScreenShot
 

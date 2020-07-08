@@ -7,7 +7,6 @@ import Profile from "./route/Profile";
 import Detail from "./route/Detail";
 import Footer from "./components/Footer";
 import Search from "./route/Search";
-import Edit from "./route/Edit/Edit";
 import Upload from "./route/Upload/Upload";
 import Header from "./components/Header";
 import NoMatch from "./route/NoMatch";
@@ -25,7 +24,6 @@ function App() {
         <Route path="/login" component={Login}></Route>
         <Route path="/search" component={Search}></Route>
         <Route path="/signup" component={SignUp}></Route>
-        <Route path="/edit" component={Edit}></Route>
         <Route path="/me" component={Profile}></Route>
         <Route path="/upload" component={Upload}></Route>
         <Route path="/community/reviews" component={Community}></Route>

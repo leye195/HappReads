@@ -3,6 +3,7 @@ import Category from "../../components/Category";
 import CommunityContainer from "../../components/CommunityContainer/CommunityContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { getReviews, postLike } from "../../reducer/review";
+import Helmet from "../../components/Helmet";
 const Community = ({ history: { location } }) => {
   const { pathname } = location;
   const path = pathname.substr(1).split("/")[1];
@@ -58,6 +59,10 @@ const Community = ({ history: { location } }) => {
   }, [loadReviews, dispatch, page]);
   return (
     <>
+      <Helmet
+        title={"Book Reviews | HappReads"}
+        keywords={"책 리뷰, 리뷰, 최근 리뷰"}
+      />
       <Category path={path} />
       <CommunityContainer
         path={path}

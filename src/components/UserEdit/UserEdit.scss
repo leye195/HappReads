@@ -5,6 +5,7 @@
   box-shadow: $box-shadow;
   border-radius: 5px;
   background: white;
+  z-index: 100;
   &.open {
     animation: showModal 0.7s ease-out both;
   }

@@ -113,7 +113,7 @@ const UserProfile = ({ profile, from }) => {
           <div className={cx("info")}>
             <img
               src={profile && profile !== undefined ? profile.avatarUrl : ""}
-              alt={im}
+              alt={profile && profile !== undefined ? profile.email : ""}
             />
             <h1>{profile && profile !== undefined ? profile.email : ""}</h1>
             <div className={cx("profile-edit")}>

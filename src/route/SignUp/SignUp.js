@@ -3,6 +3,7 @@ import SignUpForm from "../../components/SignUpForm";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../../reducer/signup";
 import { Redirect } from "react-router";
+import Helmet from "../../components/Helmet";
 const SignUp = ({ history }) => {
   const dispatch = useDispatch();
   const { signup_pending, signup_success, signup_error } = useSelector(
@@ -18,15 +19,17 @@ const SignUp = ({ history }) => {
   if (signup_success) {
     return <Redirect to="/login" />;
   }
-  console.log(signup_success);
   return (
-    <SignUpForm
-      history={history}
-      handleSignUp={handleSignUp}
-      signup_pending={signup_pending}
-      signup_success={signup_success}
-      signup_error={signup_error}
-    />
+    <>
+      <Helmet title={`SignUp | HappReads`} />
+      <SignUpForm
+        history={history}
+        handleSignUp={handleSignUp}
+        signup_pending={signup_pending}
+        signup_success={signup_success}
+        signup_error={signup_error}
+      />
+    </>
   );
 };
 export default SignUp;

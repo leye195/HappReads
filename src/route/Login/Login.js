@@ -1,6 +1,7 @@
 import React from "react";
 import LoginForm from "../../components/LoginForm";
 import { useSelector, useDispatch } from "react-redux";
+import Helmet from "../../components/Helmet";
 import { login } from "../../reducer/login";
 import { Redirect } from "react-router";
 import Notice from "../../components/Notice";
@@ -30,6 +31,7 @@ const Login = () => {
   }
   return (
     <>
+      <Helmet title={`Login | HappReads`} />
       {loginError && (
         <Notice type={"error"}>
           등록되지 않은 이메일 혹은 비밀번호가 틀렸습니다
