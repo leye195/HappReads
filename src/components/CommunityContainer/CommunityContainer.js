@@ -16,11 +16,12 @@ const CommunityContainer = ({
   loadReviewsDone,
   loadMore,
   toggleMore,
-  more,
+  selected,
   handleLike,
 }) => {
   const content = (path) => {
     if (path === "reviews") {
+      console.log(selected);
       return (
         <>
           {reviews.length === 0 && (
@@ -86,18 +87,23 @@ const CommunityContainer = ({
                           />
                           <article>
                             <p className={cx("content-text")}>
-                              {more === false &&
-                              review &&
+                              {review &&
                               review.content &&
-                              review.content.length >= 50
+                              review.content.length >= 50 &&
+                              review._id &&
+                              selected[review._id] === false
                                 ? `${review.content.substring(0, 50)}...`
                                 : review.content}
                             </p>
                             {review &&
                             review.content &&
                             review.content.length >= 50 ? (
-                              <p className={cx("more")} onClick={toggleMore}>
-                                {more ? "줄이기" : "더보기"}
+                              <p
+                                className={cx("more")}
+                                onClick={toggleMore}
+                                data-id={review._id}
+                              >
+                                {selected[review._id] ? "줄이기" : "더보기"}
                               </p>
                             ) : null}
                           </article>

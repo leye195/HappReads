@@ -8,7 +8,7 @@ const Community = ({ history: { location } }) => {
   const { pathname } = location;
   const path = pathname.substr(1).split("/")[1];
   const [isLoading, setIsLoading] = useState(true);
-  const [more, setMore] = useState(false);
+  const [selected, setSelected] = useState({});
   const [page, setPage] = useState(1);
   const { reviews, loadReviewsPending, loadReviewsDone } = useSelector(
     (state) => state.review
@@ -30,9 +30,24 @@ const Community = ({ history: { location } }) => {
     },
     [dispatch]
   );
-  const toggleMore = useCallback(() => {
-    setMore((cur) => !cur);
-  }, []);
+  const toggleMore = useCallback(
+    (e) => {
+      const {
+        target: { dataset },
+      } = e;
+      if (
+        selected[dataset["id"]] === undefined ||
+        selected[dataset["id"]] === false
+      ) {
+        const tmp = { ...selected, [dataset["id"]]: true };
+        setSelected(tmp);
+      } else {
+        const tmp = { ...selected, [dataset["id"]]: false };
+        setSelected(tmp);
+      }
+    },
+    [selected]
+  );
   const loadMore = useCallback(
     (e) => {
       console.log("lood more");
@@ -56,6 +71,7 @@ const Community = ({ history: { location } }) => {
     setIsLoading(true);
     loadReviews();
     setIsLoading(false);
+    return () => {};
   }, [loadReviews, dispatch, page]);
   return (
     <>
@@ -71,7 +87,7 @@ const Community = ({ history: { location } }) => {
         loadingReviewsDone={loadReviewsDone}
         loadReviewsPending={loadReviewsPending}
         loadMore={loadMore}
-        more={more}
+        selected={selected}
         toggleMore={toggleMore}
         handleLike={handleLike}
       />

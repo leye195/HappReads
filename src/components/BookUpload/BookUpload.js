@@ -19,7 +19,7 @@ const BookUpload = () => {
   });
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.login);
-  const { pending, error, success } = useSelector((state) => state.upload);
+  //const { pending, error, success } = useSelector((state) => state.upload);
   const handleAuthorChange = useCallback(
     (e) => {
       const { target } = e;

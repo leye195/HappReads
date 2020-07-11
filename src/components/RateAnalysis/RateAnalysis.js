@@ -1,11 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import style from "./RateAnalysis.scss";
 import classnames from "classnames/bind";
 import { select, scaleLinear, scaleBand, axisBottom, axisRight, max } from "d3";
 const cx = classnames.bind(style);
 const RateAnalysis = ({ votes }) => {
   const svgRef = useRef();
-  const render = () => {
+  const render = useCallback(() => {
     const {
       width: {
         baseVal: { value: outerWidth },
@@ -14,7 +14,6 @@ const RateAnalysis = ({ votes }) => {
         baseVal: { value: outerHeight },
       },
     } = svgRef.current;
-    //console.log(outerWidth, outerHeight);
     const margin = { left: 20, top: 20, right: 20, bottom: 20 };
     const innerWidth = outerWidth - margin.left - margin.right;
     const innerHeight = outerHeight - margin.top - margin.bottom;
@@ -40,26 +39,26 @@ const RateAnalysis = ({ votes }) => {
       .append("g")
       .attr("class", "graph")
       .attr("transform", `translate(${margin.left},${margin.top})`);
-    //console.log(outerHeight, margin.top, margin.bottom);
     const xAxis = g
       .append("g")
       .attr("class", "xaxis")
       .attr("transform", "translate(0,130)")
       .transition()
-      .duration(500)
-      .call(axisBottom(xScale));
+      .duration(500);
+    xAxis.call(axisBottom(xScale));
     const yAxis = g
       .append("g")
       .attr("class", "yaxis")
       .attr("transform", "translate(0,130)")
       .transition()
-      .duration(500)
-      .call(axisRight(yScale));
+      .duration(500);
+    yAxis.call(axisRight(yScale));
     const rects = g
       .append("g")
       .attr("class", "rect-container")
       .selectAll("rect")
-      .data(data)
+      .data(data);
+    rects
       .enter()
       .append("rect")
       .attr("height", (d) => 0)
@@ -72,7 +71,7 @@ const RateAnalysis = ({ votes }) => {
       .attr("y", (d) => yScale(d["count"]))
       .attr("height", (d) => innerHeight - yScale(d["count"]));
     //rects.exit(); //.remove();
-  };
+  }, [votes]);
   useEffect(() => {
     if (votes) {
       if (svgRef.current.hasChildNodes()) {
@@ -81,7 +80,7 @@ const RateAnalysis = ({ votes }) => {
       }
       render();
     }
-  }, [votes]);
+  }, [votes, render]);
 
   return (
     <section className={cx("rate-bar")}>

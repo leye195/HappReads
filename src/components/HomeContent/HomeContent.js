@@ -19,7 +19,7 @@ const HomeContent = ({
   type,
   done,
 }) => {
-  const [isMobile, setIsMobile] = useState(false);
+  //const [isMobile, setIsMobile] = useState(false);
   const [hide, setHide] = useState(true);
   const [category, setCategory] = useState([
     "전체",
@@ -33,23 +33,23 @@ const HomeContent = ({
     "정치",
     "기타",
   ]);
-  const checkSize = () => {
+  /*const checkSize = () => {
     const innerWidth = window.innerWidth;
     if (innerWidth >= 320 && innerWidth <= 425) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
     }
-  };
+  };*/
   const toggleHide = () => {
     setHide((cur) => !cur);
   };
 
   useEffect(() => {
-    checkSize();
-    window.addEventListener("resize", checkSize);
+    //checkSize();
+    //window.addEventListener("resize", checkSize);
     return () => {
-      window.removeEventListener("resize", checkSize);
+      //window.removeEventListener("resize", checkSize);
     };
   });
   return (

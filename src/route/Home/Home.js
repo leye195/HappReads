@@ -18,7 +18,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const {
     allBookDone,
-    allBookPending,
     sliderPending,
     recentPending,
     popularPending,
