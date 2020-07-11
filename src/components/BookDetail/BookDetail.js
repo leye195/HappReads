@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { v4 } from "uuid";
 import { formatAuthors, getAvg } from "../../utills";
 import Notice from "../Notice";
+import RateAnalysis from "../RateAnalysis/RateAnalysis";
 
 const cx = classnames.bind(style);
 const options = [
@@ -157,6 +158,7 @@ const BookDetail = ({
                     {reviews ? reviews.length : 0} 리뷰
                   </span>
                 </section>
+                <RateAnalysis votes={book.votes} />
                 <section className={cx("discription")}>
                   <h5>책 소개</h5>
                   <p>

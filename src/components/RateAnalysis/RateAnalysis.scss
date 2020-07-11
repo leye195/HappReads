@@ -1,0 +1,10 @@
+@import "../../styles/utils.scss";
+.rate-bar {
+  height: 180px;
+  @include mobile {
+    @include flex(row, center, center);
+  }
+  .yaxis {
+    transform: translate(-26px, 0px);
+  }
+}
