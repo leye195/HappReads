@@ -59,7 +59,7 @@ const BookShelve = () => {
             <td>{moment(item.createdAt).format("YY년MM월DD일 HH:MM:SS")}</td>
             <td className={cx("settings uploaded")}>
               <p onClick={handleOpen(item)}>수정</p>
-              <p onClick={onDeleteShelve}>X</p>
+              <p onClick={onDeleteShelve(user._id, item._id)}>X</p>
             </td>
           </tr>
         );
@@ -69,7 +69,7 @@ const BookShelve = () => {
     return null;
   };
   const onDeleteShelve = useCallback(
-    async (uid, bid, type) => {
+    (uid, bid, type) => async (e) => {
       try {
         const response = await dispatch(deleteShelve(uid, bid, type)); //await deleteShelve(uid, bid, type);
         const {

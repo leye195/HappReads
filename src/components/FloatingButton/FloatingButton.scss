@@ -13,10 +13,14 @@
   height: 50px;
   box-shadow: 1px 1px 1px #8c8c8c63;
   cursor: pointer;
+  @include mobile {
+    transform: translate(-10px, -50px);
+  }
+
   &.hide {
     opacity: 0;
     animation: fadeOut 0.3s ease-out;
-    visibility: hidden;
+    //visibility: hidden;
   }
   &.show {
     opacity: 1;

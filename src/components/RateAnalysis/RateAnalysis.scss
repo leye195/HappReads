@@ -3,7 +3,17 @@
   height: 180px;
   @include mobile {
     @include flex(row, center, center);
+    border: 3px solid #f1c40f;
+    border-radius: 10px;
+    margin-bottom: 10px;
   }
+
+  @include tablet {
+    @include flex(row, center, center);
+    border: 3px solid #f1c40f;
+    border-radius: 10px;
+  }
+
   .yaxis {
     transform: translate(-26px, 0px);
   }

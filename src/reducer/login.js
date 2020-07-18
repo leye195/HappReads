@@ -67,8 +67,8 @@ const requsetPostShelve = (email, id, type) => {
     type,
   });
 };
-const requestDeleteShelve = (uid, id, type) => {
-  console.log(uid, id, type);
+const requestDeleteShelve = (uid, id, type = null) => {
+  //console.log(uid, id, type);
   return axios.delete(`shelve`, {
     data: { uid, id, type },
   });

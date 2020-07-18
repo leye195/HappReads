@@ -1,13 +1,24 @@
 @import "../../styles/utils.scss";
+.progress-container {
+  width: 100vw;
+  height: 3px;
+  .progress {
+    width: 0%;
+  }
+}
+
+.input-empty {
+  border: 1px solid red !important;
+}
+
 .book-upload {
   padding-top: 5vh;
   .form-container {
     height: 100%;
     width: 100vw;
     padding-top: 20px;
-    form {
+    .form {
       @include flex(column, center, center);
-      width: 90vw;
       .upload-btn-wrapper {
         position: relative;
         overflow: hidden;
@@ -18,14 +29,12 @@
         .preview-img {
           @include mobile {
             width: 90vw;
-            height: 30vh;
           }
           width: 20rem;
-          height: 20rem;
+          height: 350px;
           border: 1px solid $white-grey;
           border-radius: 10px;
           background: #e3e3e3;
-          margin-top: 20px;
           content: none;
         }
 
@@ -67,14 +76,13 @@
       margin: 5px;
       padding: 5px;
       border: 1px solid $white-grey;
-
-      &[type="submit"] {
-        @include base-button($blue);
-        margin-left: 0;
-        margin-right: 0;
-        padding: 10px;
-        width: 100%;
-      }
+    }
+    .submit {
+      @include base-button($blue);
+      margin-left: 0;
+      margin-right: 0;
+      padding: 10px;
+      width: 100%;
     }
 
     .authors {

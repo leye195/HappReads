@@ -56,8 +56,10 @@
     }
 
     .review-item {
-      padding: 5px;
+      padding: 10px;
       margin-bottom: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
       a {
         display: inline-flex;
         align-items: center;
@@ -170,11 +172,16 @@
 
 @include desktop {
   .review {
-    p {
+    .review-title {
       font-size: 1.1rem;
+      width: 80%;
+      margin: auto;
     }
 
     .form-container {
+      width: 80%;
+      margin: auto;
+      padding: 0px 10px;
       form {
         textarea {
           width: 90vw;
@@ -187,6 +194,11 @@
           padding: 5px;
         }
       }
+    }
+
+    .review-item {
+      width: 80%;
+      margin: 0 auto;
     }
   }
 }

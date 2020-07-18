@@ -37,16 +37,55 @@
       }
     }
   }
+  .book-info-wrapper {
+    @include flex(column, none, none);
+    .bookmeta {
+      @include flex(row, center, flex-start);
+      margin-bottom: 10px;
+      span {
+        margin-right: 10px;
+      }
+      .score {
+        @include flex(row, center, center);
+        svg {
+          margin-bottom: 5px;
+          margin-right: 5px;
+          color: $sun-flower;
+        }
+        .angle-down {
+          cursor: pointer;
+        }
+      }
+    }
+    .add {
+      @include flex(column, none, flex-start);
+      .select {
+        width: 120px;
+      }
+      .want-read {
+        @include flex(row, center, center);
+        @include base-button(#27ae60);
+        margin-left: 0;
+        width: 80px;
+        span {
+          margin-right: 5px;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
   .title,
   .author,
   .discription {
     margin-bottom: 15px;
   }
+
   .author {
     strong {
       font-weight: bold;
     }
   }
+
   .discription {
     display: inline;
     line-height: 20px;
@@ -54,6 +93,7 @@
     min-height: 3rem;
     font-weight: bold;
   }
+
   .rate-wrapper {
     margin-top: 10px;
     span {
@@ -62,6 +102,7 @@
     }
   }
 }
+
 @include mobile {
   .book-detail {
     .book-rater-list {
@@ -84,52 +125,28 @@
         }
       }
       .book-content {
-        @include flex(column, none, none);
         margin-top: 30px;
         width: 100%;
-        .bookmeta {
-          @include flex(row, center, flex-start);
-          margin-bottom: 10px;
-          span {
-            margin-right: 10px;
-          }
-          .score {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            svg {
-              margin-bottom: 5px;
-              margin-right: 5px;
-              color: $sun-flower;
-            }
-            .angle-down {
-              cursor: pointer;
-            }
-          }
-        }
         .title {
           font-size: 1.1rem;
         }
-        .add {
-          @include flex(column, none, flex-start);
-          .select {
-            width: 120px;
-          }
-          .want-read {
-            @include flex(row, center, center);
-            @include base-button(#27ae60);
-            margin-left: 0;
-            width: 80px;
-            span {
-              margin-right: 5px;
-              margin-top: 5px;
-            }
+        .want-read {
+          @include base-button(#27ae60);
+          @include flex(row, center, center);
+          margin-left: 0;
+          width: 110px;
+          height: 30px;
+          font-size: 1.1rem;
+          span {
+            margin-right: 5px;
+            margin-top: 0px;
           }
         }
       }
     }
   }
 }
+
 @include tablet {
   .book-detail {
     .book-rater-list {
@@ -137,6 +154,7 @@
         position: fixed;
       }
     }
+
     .book-info-wrapper {
       @include flex(column, center, center);
       padding: 30px 30px;
@@ -154,53 +172,18 @@
           border-radius: 10px;
         }
       }
+
       .book-content {
-        @include flex(column, none, none);
         margin-top: 30px;
         width: 70%;
-        .bookmeta {
-          @include flex(row, center, flex-start);
-          margin-bottom: 10px;
-          span {
-            margin-right: 10px;
-          }
-          .score {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            svg {
-              margin-bottom: 5px;
-              margin-right: 5px;
-              color: $sun-flower;
-            }
-            .angle-down {
-              cursor: pointer;
-            }
-          }
-        }
         .title {
           font-size: 1.2rem;
-        }
-        .add {
-          @include flex(column, none, flex-start);
-          .select {
-            width: 120px;
-          }
-          .want-read {
-            @include flex(row, center, center);
-            @include base-button(#27ae60);
-            margin-left: 0;
-            width: 80px;
-            span {
-              margin-right: 5px;
-              margin-top: 5px;
-            }
-          }
         }
       }
     }
   }
 }
+
 @include desktop {
   .book-detail {
     .book-rater-list {
@@ -208,67 +191,34 @@
         position: fixed;
       }
     }
+
     .book-info-wrapper {
       @include flex(row, none, center);
-      padding: 30px 10px;
+      width: 80%;
+      padding: 0px 10px;
+      margin: 0 auto;
       .img-col {
         @include flex(column, center, none);
+        padding: 30px 0px;
         margin-right: 30px;
-        width: 30%;
         img {
-          width: 250px;
-          height: 400px;
-          margin-left: 10px;
+          width: 300px;
+          height: 500px;
           cursor: pointer;
           animation: fadeIn 1s ease-out;
           border: 3px solid #e3e3e3;
           border-radius: 10px;
         }
       }
+
       .book-content {
-        display: flex;
-        flex-direction: column;
-        margin-right: 100px;
+        margin-right: 10px;
         margin-bottom: 15px;
-        width: 70%;
-        .bookmeta {
-          @include flex(row, center, flex-start);
-          margin-bottom: 10px;
-          span {
-            margin-right: 10px;
-          }
-          .score {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            svg {
-              margin-bottom: 5px;
-              margin-right: 5px;
-              color: $sun-flower;
-            }
-            .angle-down {
-              cursor: pointer;
-            }
-          }
-        }
+        padding: 30px 0px;
+        flex: 1;
+
         .title {
           font-size: 1.5rem;
-        }
-        .add {
-          @include flex(column, none, flex-start);
-          .select {
-            width: 120px;
-          }
-          .want-read {
-            @include flex(row, center, center);
-            @include base-button(#27ae60);
-            margin-left: 0;
-            width: 80px;
-            span {
-              margin-right: 5px;
-              margin-top: 5px;
-            }
-          }
         }
       }
     }

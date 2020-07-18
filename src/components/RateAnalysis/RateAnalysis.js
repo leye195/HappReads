@@ -1,10 +1,12 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import style from "./RateAnalysis.scss";
 import classnames from "classnames/bind";
 import { select, scaleLinear, scaleBand, axisBottom, axisRight, max } from "d3";
 const cx = classnames.bind(style);
 const RateAnalysis = ({ votes }) => {
   const svgRef = useRef();
+  const [device, setDevice] = useState(null);
+
   const render = useCallback(() => {
     const {
       width: {
@@ -70,9 +72,21 @@ const RateAnalysis = ({ votes }) => {
       .duration(500)
       .attr("y", (d) => yScale(d["count"]))
       .attr("height", (d) => innerHeight - yScale(d["count"]));
-    //rects.exit(); //.remove();
+    rects.exit().remove();
   }, [votes]);
+
+  const checkSize = () => {
+    const innerWidth = window.innerWidth;
+    if (innerWidth <= 425) {
+      setDevice("mobile");
+    } else if (innerWidth > 425 && innerWidth <= 767) {
+      setDevice("tablet");
+    } else {
+      setDevice("desktop");
+    }
+  };
   useEffect(() => {
+    svgRef.current.innerHTML = "";
     if (votes) {
       if (svgRef.current.hasChildNodes()) {
         const rectContainer = document.querySelector(".rect-container");
@@ -80,14 +94,21 @@ const RateAnalysis = ({ votes }) => {
       }
       render();
     }
-  }, [votes, render]);
+    window.addEventListener("resize", checkSize);
+    checkSize();
+    return () => {
+      window.removeEventListener("resize", checkSize);
+    };
+  }, [votes, render, device]);
 
   return (
     <section className={cx("rate-bar")}>
       <svg
         className={cx("svg-container")}
         ref={svgRef}
-        width={"200"}
+        width={
+          device === "mobile" ? "250" : device === "tablet" ? "300" : "400"
+        }
         height={"170"}
       ></svg>
     </section>

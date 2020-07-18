@@ -1,76 +1,46 @@
 @import "../../styles/utils.scss";
+.category {
+  position: relative;
+  ul {
+    @include flex(row, center, none);
+    text-align: center;
+    li {
+      flex: 1;
+      font-weight: 800;
+      background-color: $sun-flower;
+      color: white;
+    }
+  }
+}
+
 @include mobile {
   .category {
-    position: relative;
     top: -7px;
     ul {
-      @include flex(row, center, none);
-      text-align: center;
       padding-top: 10px;
       li {
-        flex: 1;
         padding: 10px;
-        cursor: pointer;
         font-size: 0.9rem;
-        &:first-child {
-          font-weight: 800;
-          background-color: $sun-flower;
-          a {
-            color: white;
-          }
-        }
-
-        &:not(:first-child):hover {
-          color: $sun-flower;
-        }
       }
     }
   }
 }
+
 @include tablet {
   .category {
     ul {
-      @include flex(row, center, none);
-      text-align: center;
       li {
-        flex: 1;
         padding: 15px;
-        cursor: pointer;
-        &:first-child {
-          font-weight: 800;
-          background-color: $sun-flower;
-          a {
-            color: white;
-          }
-        }
-
-        &:not(:first-child):hover {
-          color: $sun-flower;
-        }
       }
     }
   }
 }
+
 @include desktop {
   .category {
     ul {
-      @include flex(row, center, none);
-      text-align: center;
       li {
-        flex: 1;
         padding: 15px;
-        cursor: pointer;
-        &:first-child {
-          font-weight: 800;
-          background-color: $sun-flower;
-          a {
-            color: white;
-          }
-        }
-
-        &:not(:first-child):hover {
-          color: $sun-flower;
-        }
       }
     }
   }
