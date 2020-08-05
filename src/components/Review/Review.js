@@ -50,8 +50,10 @@ const Review = () => {
     (e) => {
       e.preventDefault();
       if (isLoggedIn) {
-        handlePostReview(input);
-        setInput("");
+        if (input.length > 0) {
+          handlePostReview(input);
+          setInput("");
+        }
       } else {
         alert("로그인이 필요합니다");
       }
@@ -86,6 +88,11 @@ const Review = () => {
   const toggleMore = useCallback(() => {
     setMore((cur) => !cur);
   }, []);
+  const textAreaResize = (e) => {
+    const { target } = e;
+    target.style.height = `40px`;
+    target.style.height = `${target.scrollHeight}px`;
+  };
   const reviewTag = (item) => {
     return (
       <article key={v4()} className={cx("review-item")}>
@@ -136,7 +143,12 @@ const Review = () => {
       <p className={cx("review-title")}>리뷰</p>
       <section className={cx("form-container")}>
         <form onSubmit={handleSubmit}>
-          <textarea onChange={handleChange} value={input} />
+          <textarea
+            onChange={handleChange}
+            value={input}
+            onKeyDown={textAreaResize}
+            onKeyUp={textAreaResize}
+          />
           <input type="submit" value="등록" />
         </form>
       </section>

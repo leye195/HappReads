@@ -20,7 +20,6 @@ const cx = classnames.bind(style);
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
   const dispatch = useDispatch();
   const { isLoggedIn, profile } = useSelector((state) => state.login);
   const checkUser = useCallback(async () => {
@@ -39,8 +38,7 @@ const Header = () => {
     } = await dispatch(logout());
     if (status === 200) {
       localStorage.removeItem("atk");
-      //setIsLogOut(true);
-      window.location.reload();
+      window.location.href = "/";
     }
   }, [dispatch]);
   const checkSize = (e) => {

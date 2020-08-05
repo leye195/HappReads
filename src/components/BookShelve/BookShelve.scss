@@ -44,8 +44,11 @@
       border-left-color: transparent;
       border-right-color: transparent;
       tr {
-        &:nth-child(1) {
-          width: 20%;
+        th {
+          padding-right: 0px;
+          &:nth-child(1) {
+            width: 20%;
+          }
         }
       }
     }
@@ -128,6 +131,9 @@
             &:nth-child(5) {
               width: 20%;
             }
+            &:nth-child(6) {
+              width: 10%;
+            }
           }
         }
       }
@@ -136,6 +142,7 @@
         tr {
           td {
             @include table-text-align(5px, center, 0.5rem);
+            padding-right: 0px;
             word-break: keep-all;
             &:nth-child(1) {
               img {
@@ -166,6 +173,7 @@
 
             &:nth-child(6) {
               padding: 5px;
+              width: 10%;
             }
           }
         }

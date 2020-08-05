@@ -10,10 +10,12 @@
   }
 
   .form-container {
-    height: 100px;
+    height: max-content;
     form {
-      @include flex(row, center, center);
+      @include flex(column, none, none);
       width: 100%;
+      margin-top: 10px;
+      margin-bottom: 10px;
       textarea {
         all: unset;
         resize: none;
@@ -21,8 +23,6 @@
         padding: 5px;
         font-size: 1.2rem;
         border: 1px solid $white-grey;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
       }
 
       input {
@@ -32,14 +32,12 @@
         &[type="submit"] {
           all: unset;
           height: 100%;
-          padding-left: 5px;
-          padding-right: 5px;
-          background-color: $blue;
+          text-align: center;
+          padding: 10px;
+          background-color: $sun-flower;
           color: white;
           cursor: pointer;
           white-space: pre;
-          border-bottom-right-radius: 10px;
-          border-top-right-radius: 10px;
         }
       }
     }
@@ -136,9 +134,6 @@
     .form-container {
       form {
         textarea {
-          width: 70vw;
-          border-top-left-radius: 20px;
-          border-bottom-left-radius: 20px;
           height: 40px;
           font-size: 1.2rem;
         }
@@ -156,7 +151,6 @@
     .form-container {
       form {
         textarea {
-          width: 90vw;
           height: 35px;
         }
 
@@ -184,10 +178,8 @@
       padding: 0px 10px;
       form {
         textarea {
-          width: 90vw;
           height: 40px;
         }
-
         input {
           height: 30px;
           flex-grow: 1;
