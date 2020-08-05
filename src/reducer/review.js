@@ -92,6 +92,7 @@ const initialState = {
   loadReviewsError: false,
   loadReviewsSuccess: false,
   loadReviewsDone: false,
+  hasMore: false,
   postReviewPending: false,
   postReviewSuccess: false,
   postReviewError: false,
@@ -109,7 +110,7 @@ export default handleActions(
     },
     [GET_REVIEWS_SUCCESS]: (state, action) => {
       const {
-        data: { reviews, page },
+        data: { reviews, page, hasMore },
       } = action.payload;
       return {
         ...state,
@@ -117,7 +118,7 @@ export default handleActions(
           parseInt(page) !== 1 ? [...state.reviews, ...reviews] : [...reviews],
         loadReviewsPending: false,
         loadReviewsSuccess: true,
-        loadReviewsDone: reviews.length % 5 !== 0 ? true : false,
+        hasMore,
       };
     },
     [GET_REVIEWS_FAILURE]: (state, action) => {

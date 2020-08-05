@@ -19,7 +19,6 @@ import {
 const cx = classnames.bind(style);
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
-  //const [isLogOut, setIsLogOut] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   const dispatch = useDispatch();

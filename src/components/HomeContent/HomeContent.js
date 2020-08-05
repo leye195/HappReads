@@ -62,7 +62,9 @@ const HomeContent = ({
       <VerticalScroll title={"평점 좋은 책"} books={popularBooks} />
       <section className={cx("books-wrapper")}>
         <section className={cx("book-category-section")}>
-          <div className={cx("book-category-div")}>
+          <div
+            className={cx(["book-category-div", `${hide ? `hide` : `more`}`])}
+          >
             <ul className={cx("book-category-ul")}>
               {hide
                 ? category.slice(0, 7).map((item) => (

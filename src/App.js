@@ -13,6 +13,7 @@ import NoMatch from "./route/NoMatch";
 import BookShelve from "./components/BookShelve/BookShelve";
 import Community from "./route/Community";
 import FloatingButton from "./components/FloatingButton/FloatingButton";
+import "./styles/globalStyle.scss";
 
 function App() {
   return (

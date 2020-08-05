@@ -4,24 +4,21 @@ import style from "./CommunityContainer.scss";
 import { Link } from "react-router-dom";
 import { v4 } from "uuid";
 import moment from "moment";
-import Loading from "../Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 const cx = classnames.bind(style);
 const CommunityContainer = ({
   path,
-  isLoading,
-  reviews,
-  loadReviewsPending,
-  loadReviewsDone,
   loadMore,
   toggleMore,
   selected,
   handleLike,
+  hasMore,
 }) => {
+  const { reviews } = useSelector((state) => state.review);
   const content = (path) => {
     if (path === "reviews") {
-      console.log(selected);
       return (
         <>
           {reviews.length === 0 && (
@@ -91,9 +88,9 @@ const CommunityContainer = ({
                               review.content &&
                               review.content.length >= 50 &&
                               review._id &&
-                              selected[review._id] === false
-                                ? `${review.content.substring(0, 50)}...`
-                                : review.content}
+                              selected[review._id] === true
+                                ? review.content
+                                : `${review.content.substring(0, 50)}...`}
                             </p>
                             {review &&
                             review.content &&
@@ -112,7 +109,7 @@ const CommunityContainer = ({
                     </section>
                   );
                 })}
-              {loadReviewsDone === false && (
+              {hasMore && (
                 <button className={cx("load-more-btn")} onClick={loadMore}>
                   더 보기
                 </button>
@@ -123,9 +120,7 @@ const CommunityContainer = ({
       );
     }
   };
-  return isLoading || loadReviewsPending ? (
-    <Loading />
-  ) : (
+  return (
     <section className={cx("community-container")}>
       {path === "reviews" && (
         <section className={cx("reviews")}>{content("reviews")}</section>

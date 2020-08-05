@@ -21,17 +21,23 @@ const SlickList = ({ books }) => {
   });
   const checkSize = useCallback(() => {
     const innerWidth = window.innerWidth;
-    if (innerWidth >= 320 && innerWidth <= 425) {
+    if (innerWidth >= 0 && innerWidth <= 425) {
       setSettings({
         ...settings,
         slidesToShow: 2,
         slidesToScroll: 2,
       });
-    } else {
+    } else if (innerWidth >= 426 && innerWidth <= 1024) {
       setSettings({
         ...settings,
         slidesToShow: 4,
         slidesToScroll: 4,
+      });
+    } else {
+      setSettings({
+        ...settings,
+        slidesToShow: 6,
+        slidesToScroll: 6,
       });
     }
   }, [settings]);

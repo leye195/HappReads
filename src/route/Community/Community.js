@@ -10,13 +10,11 @@ const Community = ({ history: { location } }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [selected, setSelected] = useState({});
   const [page, setPage] = useState(1);
-  const { reviews, loadReviewsPending, loadReviewsDone } = useSelector(
-    (state) => state.review
-  );
+  const { hasMore } = useSelector((state) => state.review);
   const { profile, isLoggedIn } = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const loadReviews = useCallback(
-    async (page = 1) => {
+    (page = 1) => {
       try {
         dispatch(
           getReviews({
@@ -50,7 +48,6 @@ const Community = ({ history: { location } }) => {
   );
   const loadMore = useCallback(
     (e) => {
-      console.log("lood more");
       loadReviews(page + 1);
       setPage((cur) => cur + 1);
     },
@@ -72,7 +69,7 @@ const Community = ({ history: { location } }) => {
     loadReviews();
     setIsLoading(false);
     return () => {};
-  }, [loadReviews, dispatch, page]);
+  }, [loadReviews, dispatch]);
   return (
     <>
       <Helmet
@@ -82,10 +79,7 @@ const Community = ({ history: { location } }) => {
       <Category path={path} />
       <CommunityContainer
         path={path}
-        isLoading={isLoading}
-        reviews={reviews}
-        loadingReviewsDone={loadReviewsDone}
-        loadReviewsPending={loadReviewsPending}
+        hasMore={hasMore}
         loadMore={loadMore}
         selected={selected}
         toggleMore={toggleMore}

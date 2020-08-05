@@ -6,14 +6,12 @@ const cx = classnames.bind(style);
 const SocialLogin = ({ type }) => {
   return (
     <div className={cx("social-login")}>
-      <h2>
-        {type === "login" ? "Login to HappReads" : "Sign up for HappReads"}
-      </h2>
+      <h2>{type === "login" ? "로그인" : "회원가입"}</h2>
       <button className={cx("github", "button")}>
         <span className={cx("icon")}>
           <FaGithubSquare />
         </span>
-        Github으로 로그인
+        <span>Github으로 시작하기</span>
       </button>
     </div>
   );

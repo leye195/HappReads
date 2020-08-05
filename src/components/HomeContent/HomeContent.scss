@@ -7,19 +7,25 @@
     min-height: 400px;
     .book-category-section {
       text-align: center;
+      transition: all 0.5s ease-in-out;
       .book-category-div {
         @include flex(row, center, center);
         margin-bottom: 10px;
         border-radius: 10px;
         box-shadow: 0px 0px 3px 1px #c3c3c3;
-        height: 100%;
+        transition: all 0.5s ease-in-out;
+        &.hide {
+          height: 60px;
+        }
+        &.more {
+          height: 120px;
+        }
         .book-category-ul {
           width: 95%;
           display: grid;
           grid-template-columns: repeat(7, auto);
           grid-template-rows: (40px);
           gap: 9px;
-          transition: all 0.5s ease-out;
           li {
             @include flex(row, center, center);
             padding: 3px;
@@ -63,6 +69,8 @@
     .book-category-div {
       border-bottom: 1px solid #e3e3e3;
       padding: 5px 0;
+      width: 90%;
+      margin: 10px auto;
       li {
         padding: 4px !important;
         font-size: 0.72rem;

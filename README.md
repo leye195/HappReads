@@ -12,7 +12,7 @@ Link: https://leye195.github.io/HappReads-front/
 ### Screen
 
 - [x] Home
-- [x] Loginm
+- [x] Login
 - [x] SignUp
 - [x] Profile
 - [x] NoMatch
