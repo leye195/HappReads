@@ -49,6 +49,7 @@
       margin: 5px;
       cursor: pointer;
       position: relative;
+      white-space: pre;
       @include flex(column, none, none);
       span {
         font-size: 35px;
