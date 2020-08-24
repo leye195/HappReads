@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import style from "./Review.scss";
 import classnames from "classnames/bind";
 import moment from "moment";
@@ -9,11 +9,14 @@ import { FaHeart } from "react-icons/fa";
 import { postReview, postLike } from "../../reducer/review";
 import { check } from "../../reducer/login";
 import { getAtk } from "../../utills";
+import { timer } from "d3";
 
 const cx = classnames.bind(style);
 const Review = () => {
   const [input, setInput] = useState("");
   const [more, setMore] = useState(false);
+  const timerRef = useRef(null);
+  const submitRef = useRef(null);
   const dispatch = useDispatch();
   const { isLoggedIn, profile: me } = useSelector((state) => state.login);
   const { reviews } = useSelector((state) => state.review);
@@ -89,9 +92,16 @@ const Review = () => {
     setMore((cur) => !cur);
   }, []);
   const textAreaResize = (e) => {
-    const { target } = e;
-    target.style.height = `40px`;
-    target.style.height = `${target.scrollHeight}px`;
+    const { target, key } = e;
+    target.style.height = `auto`;
+    if (target.value.length === 0) target.style.height = `50px`;
+    if (key !== "Backspace") {
+      if (target.scrollHeight <= 500) {
+        target.style.height = `${target.scrollHeight}px`;
+      } else {
+        target.style.height = `500px`;
+      }
+    }
   };
   const reviewTag = (item) => {
     return (
@@ -147,9 +157,9 @@ const Review = () => {
             onChange={handleChange}
             value={input}
             onKeyDown={textAreaResize}
-            onKeyUp={textAreaResize}
+            maxLength={500}
           />
-          <input type="submit" value="등록" />
+          <input type="submit" value="등록" ref={submitRef} />
         </form>
       </section>
       <section className={cx("review-list-wrapper")}>
