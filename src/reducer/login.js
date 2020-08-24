@@ -22,6 +22,7 @@ export const LOGOUT_PENDING = "LOGOUT_PENDING";
 export const LOGOUT_SUCCESS = "LOGOUR_SUCCESS";
 export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 
+export const POST_SHELVE_INIT = "POST_SHELVE_INIT";
 export const POST_SHELVE = "POST_SHELVE";
 export const POST_SHELVE_PENDING = "POST_SHELVE_PENDING";
 export const POST_SHELVE_SUCCESS = "POST_SHELVE_SUCCESS";
@@ -111,6 +112,14 @@ export const deleteShelve = (uid, bid, type) => ({
 export const deleteReview = (id, rid, uid) => ({
   type: DELETE_REVIEW,
   payload: requestDeleteReview(id, rid, uid),
+});
+export const initPostShelve = () => ({
+  type: POST_SHELVE_INIT,
+  payload: {
+    postShelvePending: false,
+    postShelveSuccess: false,
+    postShelveError: false,
+  },
 });
 
 const initialState = {
@@ -211,6 +220,15 @@ export default handleActions(
         logoutPending: false,
         logoutError: true,
         logoutSuccess: false,
+      };
+    },
+    [POST_SHELVE_INIT]: (state, action) => {
+      console.log(action.payload);
+      return {
+        ...state,
+        postShelveSuccess: false,
+        postShelveError: false,
+        postShelvePending: false,
       };
     },
     //POST_SHELVE

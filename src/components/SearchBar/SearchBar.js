@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 import style from "./SearchBar.scss";
 import classnames from "classnames/bind";
 import { FaSearch } from "react-icons/fa";
+
 const cx = classnames.bind(style);
 const SearchBar = ({ history, getBooks }) => {
   const [keyword, setKeyword] = useState("");

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import classname from "classnames/bind";
 import style from "./ReviewModal.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,9 +50,6 @@ const ReviewModal = ({ review, handleClose }) => {
     const { target } = e;
     setContent(target.value);
   };
-  useEffect(() => {
-    return () => {};
-  });
   return (
     <section className={cx(["review-modal", "modal-container"])}>
       <section className="modal-overlay">

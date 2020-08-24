@@ -9,13 +9,11 @@ import { FaHeart } from "react-icons/fa";
 import { postReview, postLike } from "../../reducer/review";
 import { check } from "../../reducer/login";
 import { getAtk } from "../../utills";
-import { timer } from "d3";
 
 const cx = classnames.bind(style);
 const Review = () => {
   const [input, setInput] = useState("");
   const [more, setMore] = useState(false);
-  const timerRef = useRef(null);
   const submitRef = useRef(null);
   const dispatch = useDispatch();
   const { isLoggedIn, profile: me } = useSelector((state) => state.login);
@@ -103,7 +101,7 @@ const Review = () => {
       }
     }
   };
-  const reviewTag = (item) => {
+  const ReviewTag = ({ item }) => {
     return (
       <article key={v4()} className={cx("review-item")}>
         <div>
@@ -154,6 +152,7 @@ const Review = () => {
       <section className={cx("form-container")}>
         <form onSubmit={handleSubmit}>
           <textarea
+            placeholder="책 리뷰를 입력해주세요"
             onChange={handleChange}
             value={input}
             onKeyDown={textAreaResize}
@@ -164,9 +163,7 @@ const Review = () => {
       </section>
       <section className={cx("review-list-wrapper")}>
         {reviews
-          ? reviews.map((item) => {
-              return reviewTag(item);
-            })
+          ? reviews.map((item) => <ReviewTag key={v4()} item={item} />)
           : null}
       </section>
     </section>

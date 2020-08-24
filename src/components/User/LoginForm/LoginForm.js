@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import style from "./LoginForm.scss";
+import style from "../Form.scss";
 import classnames from "classnames/bind";
-import SocialLogin from "../SocialLogin/SocialLogin";
+import SocialLogin from "../../SocialLogin/SocialLogin";
+
 const cx = classnames.bind(style);
 const LoginForm = ({ loginRequest, login_success, login_pending }) => {
   const [email, setEmail] = useState("");

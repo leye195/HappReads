@@ -1,11 +1,11 @@
-@import "../../styles/utils.scss";
+@import "../../../styles/utils.scss";
 .home-section {
   @include flex(column, center, center);
   position: relative;
   height: 35vh;
   width: 100%;
   z-index: 0;
-  background-image: url("../../img/tom-hermans-9BoqXzEeQqM-unsplash.jpg"); //url("https://i.ibb.co/dJLxwK6/tom-hermans-9-Boq-Xz-Ee-Qq-M-unsplash.jpg");
+  background-image: url("../../../img/tom-hermans-9BoqXzEeQqM-unsplash.jpg"); //url("https://i.ibb.co/dJLxwK6/tom-hermans-9-Boq-Xz-Ee-Qq-M-unsplash.jpg");
   object-fit: cover;
   animation: fadeIn 1.5s ease-out;
   background-repeat: no-repeat;

@@ -1,14 +1,14 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { v4 } from "uuid";
 import BookList from "../BookList";
 import style from "./UserProfile.scss";
 import classnames from "classnames/bind";
 import UserEdit from "../UserEdit";
-import UserReview from "../UserReview/UserReview";
+import UserReview from "../UserReview";
 
 const cx = classnames.bind(style);
-const UserProfile = ({ profile, from }) => {
+const UserProfile = ({ profile, from, type }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [idx, setIdx] = useState(0);
   const [isMe, setIsMe] = useState(from === "/me");
@@ -26,10 +26,14 @@ const UserProfile = ({ profile, from }) => {
     []
   );
   useEffect(() => {
+    if (type.includes("?type=reviews")) {
+      setIdx(1);
+    }
     setIsMe(from === "/me");
     return () => {};
-  }, [from]);
-  const getList = (from, profile, type) => {
+  }, [from, type]);
+
+  const UserBookList = ({ from, profile, type }) => {
     if (type !== "uploaded") {
       return from === "/me" ? (
         profile && profile[type]?.length > 0 ? (
@@ -90,7 +94,7 @@ const UserProfile = ({ profile, from }) => {
       );
     }
   };
-  const openEdit = (isOpen, handleClose, profile) => {
+  const OpenEdit = ({ isOpen, handleClose, profile }) => {
     return (
       <>
         <div
@@ -146,134 +150,146 @@ const UserProfile = ({ profile, from }) => {
               className={idx === 0 ? cx("active") : ""}
               onClick={handleSetIdx(0)}
             >
-              책
+              <NavLink to={`/me`}>책</NavLink>
             </li>
             <li
               className={idx === 1 ? cx("active") : ""}
               onClick={handleSetIdx(1)}
             >
-              리뷰
+              <NavLink to={`/me?type=reviews`}>리뷰</NavLink>
             </li>
           </ul>
-          <section
-            style={idx === 0 ? { display: "block" } : { display: "none" }}
-          >
-            <section className={cx("uploaded")}>
-              <div className={cx("uploaded-head")}>
-                {from === "/me" ? (
-                  <Link
-                    to={
-                      profile && profile !== undefined
-                        ? `shelve/${profile?._id}`
-                        : `/`
-                    }
-                  >
+          {idx === 0 && (
+            <section>
+              <section className={cx("uploaded")}>
+                <div className={cx("uploaded-head")}>
+                  {from === "/me" ? (
+                    <Link
+                      to={
+                        profile && profile !== undefined
+                          ? `shelve/${profile?._id}`
+                          : `/`
+                      }
+                    >
+                      <h2>업로드 한 책</h2>
+                    </Link>
+                  ) : (
                     <h2>업로드 한 책</h2>
-                  </Link>
-                ) : (
-                  <h2>업로드 한 책</h2>
-                )}
-              </div>
-              <div
-                className={cx("uploaded-body")}
-                style={{ marginLeft: "5px", marginTop: "5px" }}
-              >
-                {getList(from, profile, "uploaded")}
-              </div>
+                  )}
+                </div>
+                <div
+                  className={cx("uploaded-body")}
+                  style={{ marginLeft: "5px", marginTop: "5px" }}
+                >
+                  <UserBookList
+                    from={from}
+                    profile={profile}
+                    type={"uploaded"}
+                  />
+                </div>
+              </section>
+              <section className={cx("want-read")}>
+                <div className={cx("want-read-head")}>
+                  {from === "/me" ? (
+                    <h2>
+                      읽을 책 (
+                      {profile && profile !== undefined
+                        ? profile?.want_read?.length
+                        : 0}
+                      )
+                    </h2>
+                  ) : (
+                    <h2>
+                      읽을 책 (
+                      {profile && profile !== undefined
+                        ? profile?.want_read?.length
+                        : 0}
+                      )
+                    </h2>
+                  )}
+                </div>
+                <div className={cx("want-read-body")}>
+                  <UserBookList
+                    from={from}
+                    profile={profile}
+                    type={"want_read"}
+                  />
+                </div>
+                <div></div>
+              </section>
+              <section className={cx("currently-reading")}>
+                <div className={cx("currently-head")}>
+                  {from === "/me" ? (
+                    <h2>
+                      현재 읽고 있는 책 (
+                      {profile && profile !== undefined
+                        ? profile?.reading?.length
+                        : 0}
+                      )
+                    </h2>
+                  ) : (
+                    <h2>
+                      현재 읽고 있는 책 (
+                      {profile && profile !== undefined
+                        ? profile?.reading?.length
+                        : 0}
+                      )
+                    </h2>
+                  )}
+                </div>
+                <div className={cx("currently-body")}>
+                  <UserBookList
+                    from={from}
+                    profile={profile}
+                    type={"reading"}
+                  />
+                </div>
+              </section>
+              <section className={cx("read")}>
+                <div className={cx("read-head")}>
+                  {from === "/me" ? (
+                    <h2>
+                      읽은 책 (
+                      {profile && profile !== undefined
+                        ? profile?.read?.length
+                        : 0}
+                      )
+                    </h2>
+                  ) : (
+                    <h2>
+                      읽은 책 (
+                      {profile && profile !== undefined
+                        ? profile?.read?.length
+                        : 0}
+                      )
+                    </h2>
+                  )}
+                </div>
+                <div className={cx("read-body")}>
+                  <UserBookList from={from} profile={profile} type={"read"} />
+                </div>
+              </section>
             </section>
-            <section className={cx("want-read")}>
-              <div className={cx("want-read-head")}>
-                {from === "/me" ? (
-                  <h2>
-                    읽을 책 (
-                    {profile && profile !== undefined
-                      ? profile?.want_read?.length
-                      : 0}
-                    )
-                  </h2>
-                ) : (
-                  <h2>
-                    읽을 책 (
-                    {profile && profile !== undefined
-                      ? profile?.want_read?.length
-                      : 0}
-                    )
-                  </h2>
-                )}
-              </div>
-              <div className={cx("want-read-body")}>
-                {getList(from, profile, "want_read")}
-              </div>
-              <div></div>
+          )}
+          {idx === 1 && (
+            <section>
+              <section className={cx("recent-update")}>
+                <div className={cx("recent-head")}>
+                  <h2>리뷰</h2>
+                </div>
+                <div className={cx("recent-body")}>
+                  {profile && profile !== undefined ? (
+                    <UserReview key={v4()} profile={profile} isMe={isMe} />
+                  ) : (
+                    "리뷰 없음"
+                  )}
+                </div>
+              </section>
             </section>
-            <section className={cx("currently-reading")}>
-              <div className={cx("currently-head")}>
-                {from === "/me" ? (
-                  <h2>
-                    현재 읽고 있는 책 (
-                    {profile && profile !== undefined
-                      ? profile?.reading?.length
-                      : 0}
-                    )
-                  </h2>
-                ) : (
-                  <h2>
-                    현재 읽고 있는 책 (
-                    {profile && profile !== undefined
-                      ? profile?.reading?.length
-                      : 0}
-                    )
-                  </h2>
-                )}
-              </div>
-              <div className={cx("currently-body")}>
-                {getList(from, profile, "reading")}
-              </div>
-            </section>
-            <section className={cx("read")}>
-              <div className={cx("read-head")}>
-                {from === "/me" ? (
-                  <h2>
-                    읽은 책 (
-                    {profile && profile !== undefined
-                      ? profile?.read?.length
-                      : 0}
-                    )
-                  </h2>
-                ) : (
-                  <h2>
-                    읽은 책 (
-                    {profile && profile !== undefined
-                      ? profile?.read?.length
-                      : 0}
-                    )
-                  </h2>
-                )}
-              </div>
-              <div className={cx("read-body")}>
-                {getList(from, profile, "read")}
-              </div>
-            </section>
-          </section>
-          <section
-            style={idx === 1 ? { display: "block" } : { display: "none" }}
-          >
-            <section className={cx("recent-update")}>
-              <div className={cx("recent-head")}>
-                <h2>리뷰</h2>
-              </div>
-              <div className={cx("recent-body")}>
-                {profile && profile !== undefined ? (
-                  <UserReview key={v4()} profile={profile} isMe={isMe} />
-                ) : (
-                  "리뷰 없음"
-                )}
-              </div>
-            </section>
-          </section>
+          )}
         </section>
       </section>
-      {openEdit(isOpen, handleCancel, profile)}
+      <OpenEdit isOpen={isOpen} handleClose={handleCancel} profile={profile} />
     </>
   );
 };

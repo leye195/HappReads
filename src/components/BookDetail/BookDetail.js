@@ -7,7 +7,7 @@ import Select from "react-select";
 import Rater from "../Rater";
 import Review from "../Review";
 import { useDispatch } from "react-redux";
-import { postShelve } from "../../reducer/login";
+import { postShelve, initPostShelve } from "../../reducer/login";
 import { Link } from "react-router-dom";
 import { v4 } from "uuid";
 import { formatAuthors, getAvg } from "../../utills";
@@ -36,8 +36,6 @@ const BookDetail = ({
   book,
   postVote,
   reviews,
-  postShelveError,
-  postShelveSuccess,
   isLoggedIn,
 }) => {
   const [selected, setSelected] = useState({
@@ -45,6 +43,7 @@ const BookDetail = ({
     label: "읽기",
   });
   const [status, setStatus] = useState("읽기");
+  const [isAddSuccess, setIsAddSuccess] = useState(false);
   const dispatch = useDispatch();
   const getStatus = useCallback(() => {
     const { profile } = user;
@@ -92,6 +91,7 @@ const BookDetail = ({
         user: { email },
       } = user;
       dispatch(postShelve(email, book._id, value));
+      setIsAddSuccess(true);
     } else {
       alert("로그인이 필요한 서비스 입니다");
     }
@@ -107,13 +107,10 @@ const BookDetail = ({
     <>
       {book ? (
         <>
-          {postShelveSuccess && (
+          {isAddSuccess && (
             <Notice
               type={"success"}
             >{`${selected.label}목록에 추가됬습니다`}</Notice>
-          )}
-          {postShelveError && (
-            <Notice type={"error"}>{`목록 추가에 실패했습니다`}</Notice>
           )}
           <section className={cx("book-detail")}>
             <section className={cx("book-rater-list")}>
@@ -121,7 +118,24 @@ const BookDetail = ({
                 <li className={"star"}>
                   <FaStar />
                 </li>
-                {book &&
+                {
+                  book?.votes?.length > 0 ? (
+                    book?.votes?.map((vote) => (
+                      <li key={v4()} className={"book-rater"}>
+                        <Link to={`/profile/${vote.voter._id}`}>
+                          <img
+                            src={vote.voter.avatarUrl}
+                            alt={vote.voter.emails}
+                          />
+                        </Link>
+                      </li>
+                    ))
+                  ) : (
+                    <p className={"book-rater-empty"}>
+                      아직 아무도 점수를 주지 않았습니다...
+                    </p>
+                  )
+                  /*book &&
                   book.votes &&
                   book.votes.map((vote) => (
                     <li key={v4()} className={"book-rater"}>
@@ -132,7 +146,8 @@ const BookDetail = ({
                         />
                       </Link>
                     </li>
-                  ))}
+                  ))*/
+                }
               </ul>
             </section>
             <section className={cx("book-info-wrapper")}>

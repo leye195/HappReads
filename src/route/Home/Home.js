@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import HomeSection from "../../components/HomeSection";
-import HomeContent from "../../components/HomeContent";
+import HomeSection from "../../components/Home/HomeSection";
+import HomeContent from "../../components/Home/HomeContent";
 import { useDispatch, useSelector } from "react-redux";
 import Helmet from "../../components/Helmet";
 

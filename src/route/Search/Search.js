@@ -61,7 +61,15 @@ const Search = ({ location }) => {
       ) : (
         <section className={cx("search-result-container")}>
           <h1 className="search-keyword">검색 키워드: {query}</h1>
-          <BookList booklist={books} from="search" />
+          {books.length > 0 ? (
+            <BookList booklist={books} from="search" />
+          ) : (
+            <>
+              <div className="empty">
+                <p>검색 결과가 없습니다.</p>
+              </div>
+            </>
+          )}
         </section>
       )}
     </>

@@ -6,6 +6,7 @@ import { v4 } from "uuid";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
+
 const cx = classnames.bind(style);
 const VerticalScroll = ({ title, books }) => {
   return (

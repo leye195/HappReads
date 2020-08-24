@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import style from "./UserReview.scss";
 import classnames from "classnames/bind";
 import moment from "moment";
@@ -19,9 +19,6 @@ const UserReview = ({ profile, isMe }) => {
   const { profile: me, pending: userloading, isLoggedIn } = useSelector(
     (state) => state.login
   );
-  useEffect(() => {
-    return () => {};
-  });
   const loadUser = useCallback(() => {
     if (isMe) {
       const atk = getAtk();
@@ -69,8 +66,6 @@ const UserReview = ({ profile, isMe }) => {
   );
   const handleLike = useCallback(
     (id) => (e) => {
-      //const { currentTarget } = e;
-      //const id = currentTarget.getAttribute("data-value");
       if (isLoggedIn) {
         handlePostLike("like", id);
       } else {
@@ -90,14 +85,14 @@ const UserReview = ({ profile, isMe }) => {
     setIsOpen(false);
     setReview(null);
   }, []);
-  const getReview = (
+  const Reviews = ({
     review,
     handleLike,
     handleDelete,
     handleEdit,
     mid, //
-    uid //user.id
-  ) => {
+    uid, //user.id
+  }) => {
     return (
       <section className={cx("review-container")} id={review._id} key={v4()}>
         <div>
@@ -156,16 +151,16 @@ const UserReview = ({ profile, isMe }) => {
       {userloading === false &&
         profile &&
         profile.reviews &&
-        profile.reviews.map((review) => {
-          return getReview(
-            review,
-            handleLike,
-            handleDelete,
-            handleEdit,
-            me.user._id,
-            profile._id
-          );
-        })}
+        profile.reviews.map((review) => (
+          <Reviews
+            review={review}
+            handleLike={handleLike}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+            mid={me.user._id}
+            uid={profile._id}
+          />
+        ))}
       {isOpen && <ReviewModal review={review} handleClose={handleClose} />}
     </div>
   );

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import style from "./HomeContent.scss";
 import classnames from "classnames/bind";
-import SlickList from "../SlickList";
-import BookList from "../BookList";
-import VerticalScroll from "../VerticalScroll";
+import SlickList from "../../SlickList";
+import BookList from "../../BookList";
+import VerticalScroll from "../../VerticalScroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { v4 } from "uuid";

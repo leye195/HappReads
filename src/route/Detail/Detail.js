@@ -10,12 +10,7 @@ const Detail = ({ match }) => {
   const dispatch = useDispatch();
   const { book, bookPending } = useSelector((state) => state.books);
   const { reviews } = useSelector((state) => state.review);
-  const {
-    profile,
-    isLoggedIn,
-    postShelveSuccess,
-    postShelveError,
-  } = useSelector((state) => state.login);
+  const { profile, isLoggedIn } = useSelector((state) => state.login);
   const getBook = useCallback(
     async (id) => {
       try {
@@ -55,8 +50,6 @@ const Detail = ({ match }) => {
           votes={book?.votes || []}
           reviews={reviews}
           profile={profile}
-          postShelveSuccess={postShelveSuccess}
-          postShelveError={postShelveError}
           isLoggedIn={isLoggedIn}
         />
       )}

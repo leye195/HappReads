@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../../components/LoginForm";
+import LoginForm from "../../components/User/LoginForm";
 import { useSelector, useDispatch } from "react-redux";
 import Helmet from "../../components/Helmet";
 import { login } from "../../reducer/login";

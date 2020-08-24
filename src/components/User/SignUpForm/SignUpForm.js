@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from "react";
-import style from "./SignUpForm.scss";
+import style from "../Form.scss";
 import classnames from "classnames/bind";
-import SocialLogin from "../SocialLogin/SocialLogin";
+import SocialLogin from "../../SocialLogin/SocialLogin";
+
 const cx = classnames.bind(style);
 const SignUpForm = ({ handleSignUp }) => {
   const [email, setEmail] = useState("");

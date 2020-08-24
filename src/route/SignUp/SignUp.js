@@ -1,5 +1,5 @@
 import React from "react";
-import SignUpForm from "../../components/SignUpForm";
+import SignUpForm from "../../components/User/SignUpForm";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../../reducer/signup";
 import { Redirect } from "react-router";

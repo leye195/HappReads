@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../../reducer/user";
 import Helmet from "../../components/Helmet";
 import Loading from "../../components/Loading";
-const Profile = ({ history: { location } }) => {
+const Profile = ({ history: { location }, history }) => {
   const [loading, setIsLoading] = useState(true);
   const { isLoggedIn, profile, pending } = useSelector((state) => state.login);
   const { profile: user, pending: userPending } = useSelector(
@@ -39,6 +39,7 @@ const Profile = ({ history: { location } }) => {
           isLoggedIn={isLoggedIn}
           profile={location.pathname === "/me" ? profile?.user : user}
           from={location.pathname}
+          type={location.search}
         />
       )}
     </>
