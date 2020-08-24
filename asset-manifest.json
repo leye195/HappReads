@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/HappReads-front/static/css/main.ef27ceb2.chunk.css",
-    "main.js": "/HappReads-front/static/js/main.237ae403.chunk.js",
-    "main.js.map": "/HappReads-front/static/js/main.237ae403.chunk.js.map",
+    "main.css": "/HappReads-front/static/css/main.f0f64732.chunk.css",
+    "main.js": "/HappReads-front/static/js/main.943f4fbb.chunk.js",
+    "main.js.map": "/HappReads-front/static/js/main.943f4fbb.chunk.js.map",
     "runtime-main.js": "/HappReads-front/static/js/runtime-main.a81acd66.js",
     "runtime-main.js.map": "/HappReads-front/static/js/runtime-main.a81acd66.js.map",
     "static/css/2.c628167a.chunk.css": "/HappReads-front/static/css/2.c628167a.chunk.css",
-    "static/js/2.1940a1ca.chunk.js": "/HappReads-front/static/js/2.1940a1ca.chunk.js",
-    "static/js/2.1940a1ca.chunk.js.map": "/HappReads-front/static/js/2.1940a1ca.chunk.js.map",
+    "static/js/2.596b978b.chunk.js": "/HappReads-front/static/js/2.596b978b.chunk.js",
+    "static/js/2.596b978b.chunk.js.map": "/HappReads-front/static/js/2.596b978b.chunk.js.map",
     "index.html": "/HappReads-front/index.html",
-    "precache-manifest.ee5084313f51ac1e1c93873b12e7e57f.js": "/HappReads-front/precache-manifest.ee5084313f51ac1e1c93873b12e7e57f.js",
+    "precache-manifest.989266c8bb9b2fc5be8f189072d47d35.js": "/HappReads-front/precache-manifest.989266c8bb9b2fc5be8f189072d47d35.js",
     "service-worker.js": "/HappReads-front/service-worker.js",
     "static/css/2.c628167a.chunk.css.map": "/HappReads-front/static/css/2.c628167a.chunk.css.map",
-    "static/css/main.ef27ceb2.chunk.css.map": "/HappReads-front/static/css/main.ef27ceb2.chunk.css.map",
-    "static/js/2.1940a1ca.chunk.js.LICENSE.txt": "/HappReads-front/static/js/2.1940a1ca.chunk.js.LICENSE.txt",
+    "static/css/main.f0f64732.chunk.css.map": "/HappReads-front/static/css/main.f0f64732.chunk.css.map",
+    "static/js/2.596b978b.chunk.js.LICENSE.txt": "/HappReads-front/static/js/2.596b978b.chunk.js.LICENSE.txt",
     "static/media/go_back.png": "/HappReads-front/static/media/go_back.62137145.png",
     "static/media/slick-theme.css": "/HappReads-front/static/media/slick.f97e3bbf.svg",
     "static/media/HomeSection.scss": "/HappReads-front/static/media/tom-hermans-9BoqXzEeQqM-unsplash.443a2189.jpg"
@@ -21,8 +21,8 @@
   "entrypoints": [
     "static/js/runtime-main.a81acd66.js",
     "static/css/2.c628167a.chunk.css",
-    "static/js/2.1940a1ca.chunk.js",
-    "static/css/main.ef27ceb2.chunk.css",
-    "static/js/main.237ae403.chunk.js"
+    "static/js/2.596b978b.chunk.js",
+    "static/css/main.f0f64732.chunk.css",
+    "static/js/main.943f4fbb.chunk.js"
   ]
 }
