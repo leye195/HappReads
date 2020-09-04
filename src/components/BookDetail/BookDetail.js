@@ -7,7 +7,7 @@ import Select from "react-select";
 import Rater from "../Rater";
 import Review from "../Review";
 import { useDispatch } from "react-redux";
-import { postShelve, initPostShelve } from "../../reducer/login";
+import { postShelve } from "../../reducer/login";
 import { Link } from "react-router-dom";
 import { v4 } from "uuid";
 import { formatAuthors, getAvg } from "../../utills";
@@ -66,10 +66,10 @@ const BookDetail = ({
       }
     }
   }, [id, user]);
-  const checkStatus = (arr, isbn) => {
+  /*const checkStatus = (arr, isbn) => {
     if (arr.filter((item) => item.isbn === isbn).length > 0) return true;
     return false;
-  };
+  };*/
   const checkUserVote = () => {
     const { profile } = user;
     let cur = "0";

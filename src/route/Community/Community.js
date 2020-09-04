@@ -84,6 +84,7 @@ const Community = ({ history: { location } }) => {
         selected={selected}
         toggleMore={toggleMore}
         handleLike={handleLike}
+        isLoading={isLoading}
       />
     </>
   );

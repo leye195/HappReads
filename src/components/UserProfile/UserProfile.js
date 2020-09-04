@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { v4 } from "uuid";
 import BookList from "../BookList";
 import style from "./UserProfile.scss";
@@ -9,6 +9,7 @@ import UserReview from "../UserReview";
 
 const cx = classnames.bind(style);
 const UserProfile = ({ profile, from, type }) => {
+  const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [idx, setIdx] = useState(0);
   const [isMe, setIsMe] = useState(from === "/me");
@@ -32,7 +33,6 @@ const UserProfile = ({ profile, from, type }) => {
     setIsMe(from === "/me");
     return () => {};
   }, [from, type]);
-
   const UserBookList = ({ from, profile, type }) => {
     if (type !== "uploaded") {
       return from === "/me" ? (
@@ -150,13 +150,13 @@ const UserProfile = ({ profile, from, type }) => {
               className={idx === 0 ? cx("active") : ""}
               onClick={handleSetIdx(0)}
             >
-              <NavLink to={`/me`}>책</NavLink>
+              <NavLink to={pathname}>책</NavLink>
             </li>
             <li
               className={idx === 1 ? cx("active") : ""}
               onClick={handleSetIdx(1)}
             >
-              <NavLink to={`/me?type=reviews`}>리뷰</NavLink>
+              <NavLink to={`${pathname}?type=reviews`}>리뷰</NavLink>
             </li>
           </ul>
           {idx === 0 && (
@@ -279,7 +279,7 @@ const UserProfile = ({ profile, from, type }) => {
                 </div>
                 <div className={cx("recent-body")}>
                   {profile && profile !== undefined ? (
-                    <UserReview key={v4()} profile={profile} isMe={isMe} />
+                    <UserReview profile={profile} isMe={isMe} />
                   ) : (
                     "리뷰 없음"
                   )}

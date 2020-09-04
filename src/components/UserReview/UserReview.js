@@ -153,6 +153,7 @@ const UserReview = ({ profile, isMe }) => {
         profile.reviews &&
         profile.reviews.map((review) => (
           <Reviews
+            key={v4()}
             review={review}
             handleLike={handleLike}
             handleDelete={handleDelete}

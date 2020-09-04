@@ -15,6 +15,7 @@ const Review = () => {
   const [input, setInput] = useState("");
   const [more, setMore] = useState(false);
   const submitRef = useRef(null);
+  const formRef = useRef(null);
   const dispatch = useDispatch();
   const { isLoggedIn, profile: me } = useSelector((state) => state.login);
   const { reviews } = useSelector((state) => state.review);
@@ -91,14 +92,20 @@ const Review = () => {
   }, []);
   const textAreaResize = (e) => {
     const { target, key } = e;
-    target.style.height = `auto`;
     if (target.value.length === 0) target.style.height = `50px`;
+    else {
+      target.style.height = `auto`;
+    }
     if (key !== "Backspace") {
-      if (target.scrollHeight <= 500) {
+      console.log(target.scrollHeight);
+      if (target.scrollHeight <= 130) {
         target.style.height = `${target.scrollHeight}px`;
       } else {
-        target.style.height = `500px`;
+        target.style.height = `${130}px`;
       }
+    } else {
+      target.style.height = `${target.scrollHeight}px`;
+      if (target.value.length === 0) target.style.height = `50px`;
     }
   };
   const ReviewTag = ({ item }) => {
@@ -154,8 +161,8 @@ const Review = () => {
           <textarea
             placeholder="책 리뷰를 입력해주세요"
             onChange={handleChange}
+            onInput={textAreaResize}
             value={input}
-            onKeyDown={textAreaResize}
             maxLength={500}
           />
           <input type="submit" value="등록" ref={submitRef} />
