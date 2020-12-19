@@ -8,6 +8,7 @@ import {
   FaUserAlt,
   FaSignInAlt,
   FaUserPlus,
+  FaSearch
 } from "react-icons/fa";
 import classnames from "classnames/bind";
 import SearchBar from "../SearchBar";
@@ -94,7 +95,7 @@ const Header = () => {
           <div className={cx("nav-menu-container")}>
             <div className={cx("nav-menu-link")}>
               <Link to={"/search?p="}>
-                <FaBookReader />
+                <FaSearch />
                 <p>도서</p>
               </Link>
               <Link to={"/community/reviews"}>
@@ -153,6 +154,11 @@ const Header = () => {
               <li className={cx("mobile-menu-item")}>
                 <Link to="/upload">
                   <FaUpload /> 책 업로드
+                </Link>
+              </li>
+              <li className={cx("mobile-menu-item")}>
+                <Link to={"/search?p="}>
+                  <FaSearch /> 도서
                 </Link>
               </li>
               <li className={cx("mobile-menu-item")}>
