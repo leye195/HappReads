@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import style from "./Book.scss";
-import classnames from "classnames/bind";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { connect } from "react-redux";
+import classnames from "classnames/bind";
 import * as actions from "../../reducer/login";
 import Modal from "../Modal";
+import style from "./Book.scss";
+
 const cx = classnames.bind(style);
+const isMe = window.location.href.includes("/me");
+
 const Book = (props) => {
   const { from, type } = props;
   const [isOpen, setOpen] = useState(false);
+
   const formatAuthors = (authors) => {
     let format = "";
     authors.forEach((ele) => {
@@ -17,6 +21,7 @@ const Book = (props) => {
     });
     return format;
   };
+
   if (from === "home") {
     const { book } = props;
     return (
@@ -52,9 +57,7 @@ const Book = (props) => {
   } else if (from === "profile") {
     const {
       book: { book },
-      //profile: { user },
     } = props;
-    const isMe = window.location.href.endsWith("/me");
     const handleDelete = (type) => () => {
       const {
         deleteShelve,
@@ -66,20 +69,19 @@ const Book = (props) => {
     const handleEdit = () => {
       setOpen((cur) => !cur);
     };
+
     return (
       <div className={cx("shelve")}>
         <Link to={`/book/${book?._id}`}>
           <p className={cx("title")}>{book?.title}</p>
         </Link>
-        {isMe ? (
+        {isMe && (
           <div className={cx("setting-btns")}>
             <div className={cx("edit-container")}>
               <span className={cx("edit")} onClick={handleEdit}>
                 <FaEdit />
               </span>
-              {isOpen ? (
-                <Modal type={type} item={book} handleCancel={handleEdit} />
-              ) : null}
+              {isOpen && <Modal type={type} item={book} handleCancel={handleEdit} />}
             </div>
             <div>
               <span className={cx("delete")} onClick={handleDelete(type)}>
@@ -87,7 +89,7 @@ const Book = (props) => {
               </span>
             </div>
           </div>
-        ) : null}
+        )}
       </div>
     );
   }

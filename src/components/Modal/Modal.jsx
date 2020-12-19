@@ -10,19 +10,21 @@ const convertType = {
   want_read: "읽을 책",
   reading: "읽는중",
 };
+
 const Modal = ({ handleSubmit, handleCancel, item, type }) => {
-  const [to, setTo] = useState(convertType[type]);
+  const [to, setTo] = useState(type);
   const [book, setBook] = useState({ ...item });
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.login);
+
   const handleSelect = useCallback((e) => {
     const { target } = e;
     setTo(target.options[target.selectedIndex].value);
   }, []);
-  const handleChange = useCallback(
-    async (e) => {
+
+  const handleClick = useCallback(
+    async () => {
       const { user } = profile;
-      //서버에 수정 요청 전송 코드입력
       try {
         dispatch(postShelve(user.email, item._id, to));
       } catch (error) {
@@ -31,6 +33,7 @@ const Modal = ({ handleSubmit, handleCancel, item, type }) => {
     },
     [item, to, profile, dispatch]
   );
+
   const changeTitle = useCallback(
     (e) => {
       const { target } = e;
@@ -41,6 +44,7 @@ const Modal = ({ handleSubmit, handleCancel, item, type }) => {
     },
     [book]
   );
+
   const changeGenres = useCallback(
     (e) => {
       const { target } = e;
@@ -51,6 +55,7 @@ const Modal = ({ handleSubmit, handleCancel, item, type }) => {
     },
     [book]
   );
+  
   const changeContents = useCallback(
     (e) => {
       const { target } = e;
@@ -61,6 +66,7 @@ const Modal = ({ handleSubmit, handleCancel, item, type }) => {
     },
     [book]
   );
+
   return (
     <div className="modal-container">
       <div className="modal-overlay"></div>
@@ -70,7 +76,7 @@ const Modal = ({ handleSubmit, handleCancel, item, type }) => {
             ❌
           </span>
         </p>
-        {type !== undefined ? (
+        {type ? (
           <>
             <img src={item.thumbnail} alt={item.id} />
             <div className={cx("status-wrapper")}>
@@ -80,7 +86,7 @@ const Modal = ({ handleSubmit, handleCancel, item, type }) => {
               </div>
               <select
                 className={cx("select")}
-                defaultValue={to}
+                value={to}
                 onChange={handleSelect}
               >
                 <option value={"want_read"}>읽을 책</option>
@@ -88,7 +94,7 @@ const Modal = ({ handleSubmit, handleCancel, item, type }) => {
                 <option value={"read"}>읽음</option>
               </select>
               <div className={cx("button-container")}>
-                <button className={cx("ok-btn")} onClick={handleChange}>
+                <button className={cx("ok-btn")} onClick={handleClick}>
                   수정
                 </button>
                 <button className={cx("cancel-btn")} onClick={handleCancel}>
@@ -121,7 +127,7 @@ const Modal = ({ handleSubmit, handleCancel, item, type }) => {
                 placeholder="요약"
                 onChange={changeContents}
               />
-              <button className={"ok-btn"}>수정</button>
+              <button className={"ok-btn"} type="submit">수정</button>
             </form>
           </div>
         )}

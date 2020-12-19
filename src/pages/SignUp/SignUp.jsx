@@ -1,11 +1,13 @@
 import React from "react";
-import SignUpForm from "../../components/User/SignUpForm";
-import { useDispatch, useSelector } from "react-redux";
-import { userSignup } from "../../reducer/signup";
 import { Redirect } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import SignUpForm from "../../components/User/SignUpForm";
+import { userSignup } from "../../reducer/signup";
 import Helmet from "../../components/Helmet";
 import dotenv from "dotenv";
+
 dotenv.config();
+
 const SignUp = ({ history }) => {
   const dispatch = useDispatch();
   const { signup_pending, signup_success, signup_error } = useSelector(

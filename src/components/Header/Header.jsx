@@ -117,7 +117,7 @@ const Header = () => {
                     <div className={cx("dropdown-menu", `${showMenu ? "show" : ""}`)}>
                       <ul>
                         <li className={cx("dropdown-item")}>
-                          <Link to="/me">프로필</Link>
+                          <Link to="/me/books">프로필</Link>
                         </li>
                         <li className={cx("dropdown-item")}>
                           <Link to="/upload">책 업로드</Link>
@@ -147,7 +147,7 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <li className={cx("mobile-menu-item")}>
-                <Link to="/me">
+                <Link to="/me/books">
                   <FaUserAlt /> 프로필
                 </Link>
               </li>

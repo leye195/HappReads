@@ -112,7 +112,7 @@ const Review = () => {
     return (
       <article key={v4()} className={cx("review-item")}>
         <div>
-          <Link to={item.reviewer ? `/profile/${item.reviewer._id}` : ""}>
+          <Link to={item.reviewer ? `/profile/${item.reviewer._id}/books` : ""}>
             <img
               className={cx("user-img")}
               src={item.reviewer ? item.reviewer.avatarUrl : ""}

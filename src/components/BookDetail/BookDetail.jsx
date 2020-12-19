@@ -122,7 +122,7 @@ const BookDetail = ({
                   book?.votes?.length > 0 ? (
                     book?.votes?.map((vote) => (
                       <li key={v4()} className={"book-rater"}>
-                        <Link to={`/profile/${vote.voter._id}`}>
+                        <Link to={`/profile/${vote.voter._id}/books`}>
                           <img
                             src={vote.voter.avatarUrl}
                             alt={vote.voter.emails}
