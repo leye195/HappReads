@@ -27,6 +27,7 @@ Link: https://leye195.github.io/HappReads-front/
 - [x] Set up Components and Scss Styling
 - [x] Redux Action Processing
 - [x] Connect to [BackEnd-Server](https://github.com/leye195/HappReads-Back)
+- [ ] Refactoring (진행중)
 
 ### ScreenShot
 
