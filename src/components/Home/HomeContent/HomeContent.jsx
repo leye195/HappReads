@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import style from "./HomeContent.scss";
 import classnames from "classnames/bind";
 import SlickList from "../../SlickList";
@@ -7,6 +7,8 @@ import VerticalScroll from "../../VerticalScroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { v4 } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBooks } from "../../../reducer/books";
 
 const category = [
   "전체",
@@ -25,7 +27,6 @@ const cx = classnames.bind(style);
 const HomeContent = ({
   booklist,
   handleClick,
-  handleMore,
   sliderBooks,
   recentBooks,
   popularBooks,
@@ -34,6 +35,23 @@ const HomeContent = ({
 }) => {
   //const [isMobile, setIsMobile] = useState(false);
   const [hide, setHide] = useState(true);
+  const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const {
+    allBookDone,
+  } = useSelector((state) => state.books);
+
+  const loadMoreRef = useRef(null);
+
+  const handleMore = () => {
+    if (!allBookDone) {
+      dispatch(getAllBooks("전체", page + 1));
+      setPage(page + 1);
+    }
+    if(loadMoreRef.current){
+      loadMoreRef.current.blur();
+    }
+  };
 
   const toggleHide = () => {
     setHide((cur) => !cur);
@@ -96,6 +114,7 @@ const HomeContent = ({
           from={"home"}
           type={type}
           done={done}
+          ref={loadMoreRef}
         />
       </section>
     </section>

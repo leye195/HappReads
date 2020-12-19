@@ -14,7 +14,6 @@ import Loading from "../../components/Loading";
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [type, setType] = useState("전체");
-  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const {
     allBookDone,
@@ -44,12 +43,7 @@ const Home = () => {
     },
     [setType]
   );
-  const handleMore = useCallback(() => {
-    if (!allBookDone) {
-      dispatch(getAllBooks("전체", page + 1));
-      setPage(page + 1);
-    }
-  }, [dispatch, page, allBookDone]);
+
   return (
     <main>
       <Helmet
@@ -70,10 +64,8 @@ const Home = () => {
             recentBooks={recentBooks}
             popularBooks={popularBooks}
             handleClick={handleClick}
-            handleMore={handleMore}
             done={allBookDone}
             type={type}
-            page={page}
           />
         </>
       )}

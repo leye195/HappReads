@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classnames from "classnames/bind";
 import BookList from "../../components/BookList";
@@ -15,49 +15,33 @@ const Search = ({ location }) => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-  const { books, searchPending } = useSelector((state) => state.books);
+  const { books, searchPending, moreDone } = useSelector((state) => state.books);
 
-  const getMoreBooks = useCallback(
-    async (q, type, page = 1) => {
-      try {
-        dispatch(getMore(q, type, page));
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    [dispatch]
-  );
+  const loadMoreRef = useRef(null);
 
-  const handleScroll = useCallback(() => {
-    const { innerHeight } = window;
-    const { scrollHeight } = document.body;
-    const scrollTop =
-      (document.documentElement && document.documentElement.scrollTop) ||
-      document.body.scrollTop;
-    const { search } = location;
-    const q = decodeURI(search)
-      .split("=")[1]
-      .replace(/[%20]/gi, " ")
-      .split("&")[0];
-    if (scrollHeight - innerHeight - scrollTop < 100) {
-      //스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
-      setPage(page + 1);
-      //console.log(q);
-      //console.log("Search Next");
+  const handleLoadMore = () => {
+    setPage(page+1);
+    if(loadMoreRef.current) {
+      console.log(loadMoreRef.current);
+      loadMoreRef.current.blur();
     }
-  }, [location, setPage, page]);
+  }
 
   useEffect(() => {
-    setIsLoading(true);
     const { search } = location;
     const q = decodeURI(search)
       .split("=")[1]
       .replace(/[%20]/gi, " ")
       .split("&")[0];
     setQuery(q);
-    dispatch(getBooks(q, 0, page));
-    setIsLoading(false);
-  }, [dispatch, location, handleScroll, page]);
+    if(page===1){
+      setIsLoading(true);
+      dispatch(getBooks(q, 0, page));
+      setIsLoading(false);
+    } else {
+      dispatch(getMore(q,0,page))
+    }
+  }, [dispatch, location, page]);
 
   return (
     <>
@@ -69,7 +53,7 @@ const Search = ({ location }) => {
         <h1 className="search-keyword"> {query? `검색 키워드: ${query}`:`도서 목록`}</h1>
         <section className={cx("search-result-container")}>
           {books.length > 0 ? (
-            <BookList booklist={books} from="search" />
+            <BookList booklist={books} done={moreDone} from="search" ref={loadMoreRef} handleMore={handleLoadMore} />
           ) : (
             <>
               <div className="empty">

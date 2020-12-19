@@ -1,16 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, {forwardRef} from "react";
 import { Link } from "react-router-dom";
 import { ChasingDots } from "better-react-spinkit";
 import { v4 } from "uuid";
 import classnames from "classnames/bind";
 import Book from "../Book/Book";
-
+import LoadMore from "../LoadMore/LoadMore";
 import style from "./BookList.scss";
 
 const cx = classnames.bind(style);
 
-const BookList = ({ from, booklist, type, handleMore, done }) => {
+const BookList = forwardRef(({ from, booklist, type, handleMore, done },ref) => {
   if (from === "home") {
     return (
       <section className={cx("book-list")}>
@@ -26,7 +25,7 @@ const BookList = ({ from, booklist, type, handleMore, done }) => {
               })}
               {done === false && (
                 <div className={cx("more-book-btn")} onClick={handleMore}>
-                  <p>더 보기 +</p>
+                  <LoadMore text={"더 보기+"} ref={ref}/>
                 </div>
               )}
             </>
@@ -46,7 +45,7 @@ const BookList = ({ from, booklist, type, handleMore, done }) => {
                 done === false &&
                 booklist.length % 15 !== 0 && (
                   <div className={cx("more-book-btn")} onClick={handleMore}>
-                    <p>더 보기 +</p>
+                    <LoadMore text={"더 보기+"} ref={ref}/>
                   </div>
                 )}
             </>
@@ -63,7 +62,11 @@ const BookList = ({ from, booklist, type, handleMore, done }) => {
           {booklist.map((book) => {
             return <Book book={book} from={from} key={v4()} />;
           })}
+          {!done&&<li className="ser-load-more">
+            <LoadMore text={"더 보기+"} ref={ref} handleClick={handleMore}/>
+          </li>}
         </ul>
+
       </section>
     );
   } else if (from === "profile") {
@@ -77,6 +80,6 @@ const BookList = ({ from, booklist, type, handleMore, done }) => {
       </section>
     );
   }
-};
+});
 
-export default connect(null, null)(BookList);
+export default BookList;

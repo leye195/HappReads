@@ -69,8 +69,8 @@ const requestAllBooks = (type, page) => {
 const requestSliderBooks = () => {
   return axios.get(`${URL}book/sliders`);
 };
-const requestgetBooks = (query, type, page) => {
-  return axios.get(`${URL}book/search?q=${decodeURI(query)}&type=${0}`);
+const requestgetBooks = (query, type=1, page=1) => {
+  return axios.get(`${URL}book/search?q=${decodeURI(query)}&type=${type}&page=${page}`);
 };
 const requestInfo = (id) => {
   return axios.get(`${URL}book/${id}`);
@@ -141,6 +141,7 @@ const initialState = {
   books: [],
   morePending: false,
   moreError: "",
+  moreDone: false,
   sliderBooks: [],
   sliderPending: false,
   sliderError: false,
@@ -266,13 +267,15 @@ export default handleActions(
     },
     [GET_MORE_BOOKS_SUCCESS]: (state, action) => {
       const {
-        data: { documents },
+        data: { books },
       } = action.payload;
+
       return {
         ...state,
         morePending: false,
         moreError: false,
-        books: [...state.books, ...documents],
+        moreDone: books.length < 10,
+        books: [...state.books, ...books],
       };
     },
     [GET_MORE_BOOKS_FAILURE]: (state, action) => {
