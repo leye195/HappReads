@@ -1,16 +1,18 @@
 import React, { useEffect, useCallback, useState } from "react";
-import UserProfile from "../../components/UserProfile";
 import { useSelector, useDispatch } from "react-redux";
+import UserProfile from "../../components/UserProfile";
 import { getUser } from "../../reducer/user";
 import Helmet from "../../components/Helmet";
 import Loading from "../../components/Loading";
-const Profile = ({ history: { location }, history }) => {
+
+const Profile = ({ history: { location } }) => {
   const [loading, setIsLoading] = useState(true);
   const { isLoggedIn, profile, pending } = useSelector((state) => state.login);
   const { profile: user, pending: userPending } = useSelector(
     (state) => state.user
   );
   const dispatch = useDispatch();
+
   const getProfile = useCallback(
     async (id) => {
       try {
@@ -21,6 +23,7 @@ const Profile = ({ history: { location }, history }) => {
     },
     [dispatch]
   );
+
   useEffect(() => {
     setIsLoading(true);
     if (location.pathname !== "/me") {
@@ -29,6 +32,7 @@ const Profile = ({ history: { location }, history }) => {
     }
     setIsLoading(false);
   }, [getProfile, location.pathname]);
+
   return (
     <>
       <Helmet title={`Profile | HappReads`} />

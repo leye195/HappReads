@@ -2,13 +2,27 @@
 .home-content {
   @include base-height;
   padding-bottom: 40px;
-  .books-wrapper {
+
+  & .books-wrapper {
     margin: 0 auto;
     min-height: 400px;
-    .book-category-section {
-      text-align: center;
-      transition: all 0.5s ease-in-out;
-      .book-category-div {
+    & .book-category {
+      &-section {
+        text-align: center;
+        transition: all 0.5s ease-in-out;
+      }
+      .more-container {
+        @include flex(column, center, center);
+        display: inline-flex;
+        margin-bottom: 10px;
+        cursor: pointer;
+        .more {
+          color: $sun-flower;
+          font-size: 1.5rem;
+        }
+      }
+
+      &-div {
         @include flex(row, center, center);
         margin-bottom: 10px;
         border-radius: 10px;
@@ -20,42 +34,35 @@
         &.more {
           height: 120px;
         }
-        .book-category-ul {
-          width: 95%;
-          display: grid;
-          grid-template-columns: repeat(7, auto);
-          grid-template-rows: (40px);
-          gap: 9px;
-          li {
-            @include flex(row, center, center);
-            padding: 3px;
-            margin: 2px;
-            width: 95%;
-            height: 50%;
-            justify-self: center;
-            align-self: center;
-            text-align: center;
-            border: 1px solid $sun-flower;
-            border-radius: 20px;
-            line-height: 2;
-            cursor: pointer;
-            transition: all 0.5s ease-out;
-            &.selected {
-              background-color: $sun-flower;
-              color: white;
-              transition: all 0.5s ease-out;
-            }
-          }
-        }
       }
-      .more-container {
-        @include flex(column, center, center);
-        display: inline-flex;
-        margin-bottom: 10px;
-        cursor: pointer;
-        .more {
-          color: $sun-flower;
-          font-size: 1.5rem;
+
+      &-ul {
+        width: 95%;
+        display: grid;
+        grid-template-columns: repeat(7, auto);
+        grid-template-rows: (40px);
+        gap: 9px;
+
+        & li {
+          @include flex(row, center, center);
+          justify-self: center;
+          align-self: center;
+          padding: 3px;
+          margin: 2px;
+          width: 95%;
+          height: 50%;
+          text-align: center;
+          border: 1px solid $sun-flower;
+          border-radius: 20px;
+          line-height: 2;
+          cursor: pointer;
+          transition: all 0.5s ease-out;
+
+          &.selected {
+            background-color: $sun-flower;
+            color: white;
+            transition: all 0.5s ease-out;
+          }
         }
       }
     }

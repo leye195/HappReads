@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
-import style from "./Search.scss";
+import { useDispatch, useSelector } from "react-redux";
 import classnames from "classnames/bind";
 import BookList from "../../components/BookList";
-import { getBooks, getMore } from "../../reducer/books";
-import { useDispatch, useSelector } from "react-redux";
 import Helmet from "../../components/Helmet";
 import Loading from "../../components/Loading";
+import { getBooks, getMore } from "../../reducer/books";
+
+import style from "./Search.scss";
+
 const cx = classnames.bind(style);
+
 const Search = ({ location }) => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
@@ -24,6 +27,7 @@ const Search = ({ location }) => {
     },
     [dispatch]
   );
+
   const handleScroll = useCallback(() => {
     const { innerHeight } = window;
     const { scrollHeight } = document.body;
@@ -42,6 +46,7 @@ const Search = ({ location }) => {
       //console.log("Search Next");
     }
   }, [location, setPage, page]);
+
   useEffect(() => {
     setIsLoading(true);
     const { search } = location;
@@ -53,14 +58,16 @@ const Search = ({ location }) => {
     dispatch(getBooks(q, 0, page));
     setIsLoading(false);
   }, [dispatch, location, handleScroll, page]);
+
   return (
     <>
       <Helmet title={`검색 | HappReads`} />
       {isLoading || searchPending ? (
         <Loading />
       ) : (
+        <>
+        <h1 className="search-keyword"> {query? `검색 키워드: ${query}`:`도서 목록`}</h1>
         <section className={cx("search-result-container")}>
-          <h1 className="search-keyword">검색 키워드: {query}</h1>
           {books.length > 0 ? (
             <BookList booklist={books} from="search" />
           ) : (
@@ -71,8 +78,10 @@ const Search = ({ location }) => {
             </>
           )}
         </section>
+        </>
       )}
     </>
   );
 };
+
 export default Search;

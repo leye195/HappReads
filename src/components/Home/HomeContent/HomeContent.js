@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import style from "./HomeContent.scss";
 import classnames from "classnames/bind";
 import SlickList from "../../SlickList";
@@ -7,6 +7,19 @@ import VerticalScroll from "../../VerticalScroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { v4 } from "uuid";
+
+const category = [
+  "전체",
+  "소설",
+  "IT",
+  "경제",
+  "교양",
+  "자기계발",
+  "과학",
+  "역사",
+  "정치",
+  "기타",
+]
 
 const cx = classnames.bind(style);
 const HomeContent = ({
@@ -21,37 +34,11 @@ const HomeContent = ({
 }) => {
   //const [isMobile, setIsMobile] = useState(false);
   const [hide, setHide] = useState(true);
-  const [category, setCategory] = useState([
-    "전체",
-    "소설",
-    "IT",
-    "경제",
-    "교양",
-    "자기계발",
-    "과학",
-    "역사",
-    "정치",
-    "기타",
-  ]);
-  /*const checkSize = () => {
-    const innerWidth = window.innerWidth;
-    if (innerWidth >= 320 && innerWidth <= 425) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };*/
+
   const toggleHide = () => {
     setHide((cur) => !cur);
   };
 
-  useEffect(() => {
-    //checkSize();
-    //window.addEventListener("resize", checkSize);
-    return () => {
-      //window.removeEventListener("resize", checkSize);
-    };
-  });
   return (
     <section className={cx("home-content")}>
       <SlickList books={sliderBooks} />

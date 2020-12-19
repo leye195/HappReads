@@ -1,8 +1,10 @@
 import React from "react";
 import moment from "moment";
-import style from "./Footer.scss";
 import classnames from "classnames/bind";
+import style from "./Footer.scss";
+
 const cx = classnames.bind(style);
+
 const Footer = () => {
   return (
     <footer className={cx("footer")}>

@@ -6,71 +6,97 @@
   width: 100%;
   z-index: 1;
   transition: all 0.3s ease-out;
+  @include desktop {
+    height: 70px;
+  }
+
   .nav {
     @include flex(row, center, space-around);
     background-color: $header-bg-color;
     border-bottom: 2px solid $white-grey;
     width: 100%;
     height: 100%;
-    .title {
+
+    &-title {
       cursor: pointer;
-      a {
+
+      & > a {
         color: #bdc100;
-        .fr {
+
+        & .fr {
           font-weight: 100;
         }
 
-        .en {
+        & .en {
           font-weight: 600;
         }
       }
+
+      @include desktop {
+        font-size: 25px;
+        margin: 10px;
+      }
     }
 
-    .menu-container {
+    &-menu-container {
       @include flex(row, center, center);
-      .community {
-        text-align: center;
+
+      & .nav-menu-link {
+        @include flex(row, center, center);
+        padding: 5px;
         font-weight: 800;
         border: 1px solid white;
         border-radius: 20px;
-        padding: 5px;
         background-color: white;
+        text-align: center;
         cursor: pointer;
-        p {
+        & a {
+          width: 50px;
+        }
+
+        & p {
           white-space: pre;
         }
       }
     }
   }
 
-  .ul {
+  .navbar-nav {
     @include flex(row, center, none);
+
     li {
+      @include flex(column, none, none);
       margin: 5px;
-      cursor: pointer;
       position: relative;
       white-space: pre;
-      @include flex(column, none, none);
-      span {
+      cursor: pointer;
+
+      & span {
         font-size: 35px;
-        img {
+        & img {
           width: 40px;
           height: 40px;
           border-radius: 50%;
         }
       }
 
-      .menu {
+      & .dropdown-menu {
         display: none;
         position: absolute;
         left: 0;
-        top: 5px;
+        top: 15px;
         transform: translateY(40px) translateX(-100px);
         width: 155px;
         background: white;
         box-shadow: 0px 2px 10px 2px #ababab;
         z-index: 10;
-        .callout {
+
+        & .dropdown-item {
+          margin: 0;
+          padding: 8px;
+        }
+
+        & .callout {
           position: absolute;
           width: 0;
           height: 0;
@@ -83,6 +109,10 @@
         }
       }
     }
+
+    @include desktop {
+      margin: 10px;
+    }
   }
 
   .login {
@@ -90,7 +120,7 @@
   }
 }
 
-@include mobile {
+@include tablet-down {
   .header {
     @include flex(column, center, none);
     height: 100%;
@@ -100,22 +130,23 @@
     }
 
     .nav.mobile {
-      position: relative;
       @include flex(row, none, space-around);
+      position: relative;
       width: 100%;
       height: 55px;
+
       .mobile-menu-bar {
-        height: 50%;
-        width: 10%;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        cursor: pointer;
+        width: 30px;
         z-index: 1;
-        li {
+        cursor: pointer;
+
+        & li {
           height: 5px;
           width: 100%;
-          margin: 0 auto;
+          margin: 2px;
           background: white;
         }
       }
@@ -125,6 +156,7 @@
       width: 100%;
       padding: 5px;
       background-color: $header-bg-color;
+
       .mobile-menu-item {
         padding: 5px 10px;
         font-weight: bold;
@@ -133,41 +165,6 @@
           margin-bottom: 5px;
         }
       }
-    }
-  }
-}
-
-@include tablet {
-  .header {
-    height: 70px;
-    .title {
-      font-size: 22px;
-      margin: 10px;
-    }
-
-    .community {
-      font-size: 0.75rem;
-      p {
-        font-size: 0.45rem;
-      }
-    }
-
-    .ul {
-      margin: 5px;
-    }
-  }
-}
-
-@include desktop {
-  .header {
-    height: 70px;
-    .title {
-      font-size: 25px;
-      margin: 10px;
-    }
-
-    .ul {
-      margin: 10px;
     }
   }
 }

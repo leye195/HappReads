@@ -12,6 +12,12 @@
   }
 }
 
+@mixin tablet-down {
+  @media (max-width: #{$breakpoint-tablet}) {
+    @content;
+  }
+}
+
 @mixin desktop {
   @media (min-width: #{$breakpoint-tablet + 1px}) {
     @content;

@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import HomeSection from "../../components/Home/HomeSection";
-import HomeContent from "../../components/Home/HomeContent";
 import { useDispatch, useSelector } from "react-redux";
 import Helmet from "../../components/Helmet";
-
+import HomeSection from "../../components/Home/HomeSection";
+import HomeContent from "../../components/Home/HomeContent";
 import {
   getAllBooks,
   getSliderBooks,
@@ -11,6 +10,7 @@ import {
   getPopularBooks,
 } from "../../reducer/books";
 import Loading from "../../components/Loading";
+
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [type, setType] = useState("전체");

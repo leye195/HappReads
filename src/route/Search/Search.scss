@@ -1,16 +1,17 @@
 @import "../../styles/utils.scss";
+
+.search-keyword {
+  padding: 15px;
+  font-weight: 800;
+  background-color: #f1c40f;
+  color: white;
+  text-align: center;
+}
+
 .search-result-container {
   margin: 10px;
   font-weight: bold;
-  .search-keyword {
-    width: 80vw;
-    margin: 0 auto;
-    text-align: center;
-    padding: 8px;
-    background: $header-bg-color;
-    color: #505050;
-    border-radius: 20px;
-  }
+
   .empty {
     min-height: 80vh;
     width: 80vw;

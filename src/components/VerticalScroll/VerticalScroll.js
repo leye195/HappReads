@@ -11,11 +11,11 @@ const cx = classnames.bind(style);
 const VerticalScroll = ({ title, books }) => {
   return (
     <section className={cx("vertical")}>
-      <p className={cx("title")}>
+      <p className={cx("vertical-item-title")}>
         {title}
         <FontAwesomeIcon className={cx("book-icon")} icon={faBook} />
       </p>
-      <section className={cx("list")}>
+      <section className={cx("vertical-item-list")}>
         {books?.map((book) => (
           <Link key={v4()} to={`/book/${book._id}`}>
             <Book book={book} from={"home"} />

@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
-import style from "./Header.scss";
-import { Link } from "react-router-dom";
-import classnames from "classnames/bind";
-import SearchBar from "../SearchBar";
 import { useSelector, useDispatch } from "react-redux";
-import { check, logout } from "../../reducer/login";
-import { getBooks } from "../../reducer/books";
-import { getAtk } from "../../utills";
+import { Link } from "react-router-dom";
 import {
   FaBookReader,
   FaSignOutAlt,
@@ -15,13 +9,22 @@ import {
   FaSignInAlt,
   FaUserPlus,
 } from "react-icons/fa";
+import classnames from "classnames/bind";
+import SearchBar from "../SearchBar";
+import { check, logout } from "../../reducer/login";
+import { getBooks } from "../../reducer/books";
+import { getAtk } from "../../utills";
+
+import style from "./Header.scss";
 
 const cx = classnames.bind(style);
+
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const dispatch = useDispatch();
   const { isLoggedIn, profile } = useSelector((state) => state.login);
+  
   const checkUser = useCallback(async () => {
     const atk = getAtk();
     if (atk) {
@@ -32,6 +35,7 @@ const Header = () => {
       }
     }
   }, [dispatch]);
+
   const handleLogout = useCallback(async () => {
     const {
       value: { status },
@@ -41,9 +45,10 @@ const Header = () => {
       window.location.href = "/";
     }
   }, [dispatch]);
+
   const checkSize = (e) => {
     const { innerWidth } = window;
-    if (innerWidth >= 320 && innerWidth <= 425) {
+    if (innerWidth < 768) {
       //console.log("isMobile");
       setIsMobile(true);
     } else {
@@ -51,22 +56,27 @@ const Header = () => {
       setIsMobile(false);
     }
   };
-  useEffect(() => {
+
+  useEffect(()=>{
     checkUser();
+  },[checkUser]);
+
+  useEffect(() => {
     checkSize();
     window.addEventListener("resize", checkSize);
     return () => {
       window.removeEventListener("resize", checkSize);
     };
-  }, [checkUser]);
+  }, []);
 
   const clickMenu = useCallback(() => {
     setShowMenu((cur) => !cur);
   }, [setShowMenu]);
+
   return (
     <header className={cx("header")}>
       <nav className={cx(["nav", isMobile && "mobile"])}>
-        <div className={cx("title")}>
+        <div className={cx("nav-title")}>
           <Link to={"/"}>
             <span className={cx("fr")}>Happ</span>
             <span className={cx("en")}>Reads</span>
@@ -81,14 +91,18 @@ const Header = () => {
           </ul>
         )}
         {isMobile === false && (
-          <div className={cx("menu-container")}>
-            <div className={cx("community")}>
+          <div className={cx("nav-menu-container")}>
+            <div className={cx("nav-menu-link")}>
+              <Link to={"/search?p="}>
+                <FaBookReader />
+                <p>도서</p>
+              </Link>
               <Link to={"/community/reviews"}>
                 <FaBookReader />
                 <p>책 리뷰</p>
               </Link>
             </div>
-            <ul className={cx("ul")}>
+            <ul className={cx("navbar-nav")}>
               {isLoggedIn ? (
                 <>
                   <li>
@@ -99,15 +113,15 @@ const Header = () => {
                         onClick={clickMenu}
                       />
                     </span>
-                    <div className={cx("menu", `${showMenu ? "show" : ""}`)}>
+                    <div className={cx("dropdown-menu", `${showMenu ? "show" : ""}`)}>
                       <ul>
-                        <li>
+                        <li className={cx("dropdown-item")}>
                           <Link to="/me">프로필</Link>
                         </li>
-                        <li>
+                        <li className={cx("dropdown-item")}>
                           <Link to="/upload">책 업로드</Link>
                         </li>
-                        <li onClick={handleLogout}>로그아웃</li>
+                        <li className={cx("dropdown-item")} onClick={handleLogout}>로그아웃</li>
                       </ul>
                       <div className={cx("callout")}></div>
                     </div>

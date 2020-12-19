@@ -1,12 +1,15 @@
 import React from "react";
-import style from "./BookList.scss";
-import classnames from "classnames/bind";
-import Book from "../Book/Book";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { ChasingDots } from "better-react-spinkit";
 import { v4 } from "uuid";
-import { connect } from "react-redux";
+import classnames from "classnames/bind";
+import Book from "../Book/Book";
+
+import style from "./BookList.scss";
+
 const cx = classnames.bind(style);
+
 const BookList = ({ from, booklist, type, handleMore, done }) => {
   if (from === "home") {
     return (

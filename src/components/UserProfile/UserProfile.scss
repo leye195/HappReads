@@ -1,25 +1,29 @@
 @import "../../styles/utils.scss";
 .user-profile {
   @include base-height;
-  padding-top: 60px;
-  .profile-wrapper {
+
+  &-wrapper {
     @include flex(row, center, center);
-    border-bottom: 5px solid #e3e3e3;
+    padding-top: 50px;
     margin-bottom: 10px;
     margin-top: 10;
-    .info {
+    border-bottom: 5px solid #e3e3e3;
+
+    & > .profile-info {
       @include flex(column, center, center);
-      img {
+
+      & img {
         border: 3px solid $sun-flower;
         border-radius: 50%;
         animation: fadeIn 1.5s ease-out;
         cursor: pointer;
+
         &:hover {
           opacity: 0.7;
         }
       }
 
-      .profile-edit {
+      & .profile-edit {
         margin-bottom: 10px;
         p {
           padding: 5px;
@@ -31,16 +35,16 @@
         }
       }
 
-      h1 {
+      & h1 {
         margin: 10px;
       }
 
-      .intro {
+      & .intro {
         margin: 10px;
         font-size: 0.8rem;
       }
 
-      .rate-review {
+      & .rate-review {
         margin-top: 0px;
         text-align: center;
         p {
@@ -50,11 +54,12 @@
       }
     }
   }
+
   .catalog-list {
     @include flex(row, center, center);
     margin-top: 20px;
     text-align: center;
-    li {
+    & li {
       border-bottom: 2px solid $dark-grey;
       margin: 5px;
       cursor: pointer;
@@ -63,22 +68,22 @@
       }
     }
   }
+
   .uploaded,
   .book-shelve,
   .currently-reading,
   .want-read,
   .read,
   .recent-update {
+    @include flex(column, none, none);
     margin: 0 auto;
     margin-top: 10px;
     padding-top: 10px;
-    //width: 95%;
-    @include flex(column, none, none);
   }
 
   .book-shelve-head {
     @include flex(row, center, space-between);
-    span {
+    & span {
       cursor: pointer;
     }
     .add-container {
@@ -131,70 +136,75 @@
   .currently-body,
   .want-read-body,
   .read-body {
-    padding-bottom: 10px;
+    padding-bottom: 6px;
+
     &.uploaded-body {
       overflow-x: scroll;
       margin-left: 5px;
       margin-top: 5px;
+
+      & > .uploaded-list {
+        @include flex(row, none, none);
+        display: inline-flex;
+
+        .uploaded-img-wrapper {
+          position: relative;
+          margin: 5px;
+
+          & .uploaded-img {
+            height: 100%;
+            width: 100%;
+          }
+
+          &::after {
+            background: linear-gradient(
+              to right,
+              rgba(0, 0, 0, 0.2) 0,
+              rgba(0, 0, 0, 0) 5%,
+              rgba(0, 0, 0, 0) 95%,
+              rgba(0, 0, 0, 0.2) 100%
+            );
+            border: solid 1px rgba(0, 0, 0, 0.1);
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+          }
+
+          .to-detail {
+            z-index: 100;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            left: 0;
+            height: 100%;
+            text-align: center;
+            font-size: 0.7rem;
+            opacity: 0;
+            cursor: pointer;
+
+            &:hover {
+              opacity: 1;
+              background-color: #1f1f1f5e;
+              font-weight: 100;
+            }
+
+            & > a {
+              @include flex(row, center, center);
+              color: white;
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
     }
+
     .recent-empty {
       color: $dark-grey;
       margin: 10px 5px;
-    }
-  }
-}
-.uploaded-list {
-  @include flex(row, none, none);
-  display: inline-flex;
-  overflow-x: scroll;
-  .uploaded-img-wrapper {
-    position: relative;
-    margin: 5px;
-    .uploaded-img {
-      height: 100%;
-      width: 100%;
-    }
-
-    &::after {
-      background: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.2) 0,
-        rgba(0, 0, 0, 0) 5%,
-        rgba(0, 0, 0, 0) 95%,
-        rgba(0, 0, 0, 0.2) 100%
-      );
-      border: solid 1px rgba(0, 0, 0, 0.1);
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 100%;
-    }
-
-    .to-detail {
-      z-index: 100;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      left: 0;
-      height: 100%;
-      text-align: center;
-      font-size: 0.7rem;
-      opacity: 0;
-      cursor: pointer;
-      &:hover {
-        opacity: 1;
-        background-color: #1f1f1f5e;
-        font-weight: 100;
-      }
-
-      a {
-        @include flex(row, center, center);
-        color: white;
-        width: 100%;
-        height: 100%;
-      }
     }
   }
 }
@@ -238,6 +248,7 @@
     .recent-update {
       width: 95%;
     }
+
     .book-shelve-head {
       .add-container {
         .add-btn {

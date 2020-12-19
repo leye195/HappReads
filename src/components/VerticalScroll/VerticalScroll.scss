@@ -5,27 +5,26 @@
   width: 80vw;
   margin: 20px auto;
   margin-bottom: 50px;
-  .title {
+
+  &-item-title {
     font-weight: bold;
-    .book-icon {
+    & > .book-icon {
       margin-left: 5px;
       color: $sun-flower;
     }
   }
-  .list {
+
+  &-item-list {
     display: flex;
+    margin-top: 10px;
     overflow-x: scroll;
     overflow-y: hidden;
-    margin-top: 10px;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera*/
-    }
-    a {
+
+    & > a {
       margin-right: 10px;
-      .book {
-        img {
+
+      & .book {
+        & > img {
           width: 100px;
         }
       }

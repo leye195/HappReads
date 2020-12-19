@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
-import style from "./UserReview.scss";
+import { Link } from "react-router-dom";
+import { FaHeart, FaTrash, FaEdit } from "react-icons/fa";
 import classnames from "classnames/bind";
 import moment from "moment";
 import { v4 } from "uuid";
@@ -7,11 +8,75 @@ import { useDispatch, useSelector } from "react-redux";
 import { postLike } from "../../reducer/review";
 import { deleteReview, check } from "../../reducer/login";
 import { getUser } from "../../reducer/user";
-import { FaHeart, FaTrash, FaEdit } from "react-icons/fa";
 import ReviewModal from "../ReviewModal";
 import { getAtk } from "../../utills";
-import { Link } from "react-router-dom";
+
+import style from "./UserReview.scss";
+
 const cx = classnames.bind(style);
+
+const Reviews = ({
+  review,
+  handleLike,
+  handleDelete,
+  handleEdit,
+  mid, //
+  uid, //user.id
+}) => {
+  return (
+    <section className={cx("user-review-container")} id={review._id} key={v4()}>
+      <div>
+        <Link to={`/book/${review.book?._id}`}>
+          <img
+            src={review.book !== undefined ? review.book.thumbnail : ""}
+            alt={review.book !== undefined ? review.book.title : ""}
+          />
+        </Link>
+      </div>
+      <div>
+        <div>
+          <p className={cx("user-review-book")}>
+            {review.book !== undefined ? review.book.title : ""}
+          </p>
+          <p className={cx("user-review-text")}>
+            {review.book !== undefined ? review.content : ""}
+          </p>
+          <p className={cx("user-review-date")}>
+            {moment(review.createdAt).format("YYYY년 MM월 DD일 HH:MM:SS")}
+          </p>
+          <p className={cx("like-container")}>
+            <span className={cx("review-like")}>
+              {review.likes.length} likes
+            </span>
+            <span className={cx("likebtn")} onClick={handleLike(review._id)}>
+              <FaHeart />
+            </span>
+          </p>
+        </div>
+      </div>
+      {uid === mid ? (
+        <>
+          <span
+            className={cx("review-edit")}
+            data-value={review._id}
+            onClick={handleEdit(review)}
+          >
+            <FaEdit />
+          </span>
+          <span
+            className={cx("review-remove")}
+            data-value={review._id}
+            data-bid={review.book._id}
+            onClick={handleDelete}
+          >
+            <FaTrash />
+          </span>
+        </>
+      ) : null}
+    </section>
+  );
+};
+
 const UserReview = ({ profile, isMe }) => {
   const [review, setReview] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -85,67 +150,7 @@ const UserReview = ({ profile, isMe }) => {
     setIsOpen(false);
     setReview(null);
   }, []);
-  const Reviews = ({
-    review,
-    handleLike,
-    handleDelete,
-    handleEdit,
-    mid, //
-    uid, //user.id
-  }) => {
-    return (
-      <section className={cx("review-container")} id={review._id} key={v4()}>
-        <div>
-          <Link to={`/book/${review.book?._id}`}>
-            <img
-              src={review.book !== undefined ? review.book.thumbnail : ""}
-              alt={review.book !== undefined ? review.book.title : ""}
-            />
-          </Link>
-        </div>
-        <div>
-          <div>
-            <p className={cx("review-book")}>
-              {review.book !== undefined ? review.book.title : ""}
-            </p>
-            <p className={cx("review-text")}>
-              {review.book !== undefined ? review.content : ""}
-            </p>
-            <p className={cx("review-date")}>
-              {moment(review.createdAt).format("YYYY년 MM월 DD일 HH:MM:SS")}
-            </p>
-            <p className={cx("like-container")}>
-              <span className={cx("review-like")}>
-                {review.likes.length} likes
-              </span>
-              <span className={cx("likebtn")} onClick={handleLike(review._id)}>
-                <FaHeart />
-              </span>
-            </p>
-          </div>
-        </div>
-        {uid === mid ? (
-          <>
-            <span
-              className={cx("review-edit")}
-              data-value={review._id}
-              onClick={handleEdit(review)}
-            >
-              <FaEdit />
-            </span>
-            <span
-              className={cx("review-remove")}
-              data-value={review._id}
-              data-bid={review.book._id}
-              onClick={handleDelete}
-            >
-              <FaTrash />
-            </span>
-          </>
-        ) : null}
-      </section>
-    );
-  };
+  
   return (
     <div className={cx("user-review")}>
       {userloading === false &&
