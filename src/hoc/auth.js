@@ -17,7 +17,7 @@ export default (SpecificComponent, option) => {
           if (option === false) props.history.push("/");
         }
       });
-    }, []);
+    }, [dispatch, props.history]);
 
     return <SpecificComponent {...props} user={user} />;
   };

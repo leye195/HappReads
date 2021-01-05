@@ -1,11 +1,6 @@
 import { handleActions } from "redux-actions";
-import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
-axios.defaults.baseURL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8080/"
-    : "https://happread.herokuapp.com/";
+import {api} from '../apis'; 
+
 
 export const USER_CHECK = "USER_CHECK";
 export const USER_CHECK_PENDING = "USER_CHECK_PENDING";
@@ -44,25 +39,20 @@ export const EDIT_PROFILE_SUCCESS = "EDIT_PROFILE_SUCCESS";
 export const EDIT_PROFILE_FAILURE = "EDIT_PROFILE_FAILURE";
 
 const requestLogin = (id, pw) => {
-  return axios.post(`login`, {
+  return api.post(`login`, {
     email: id,
     password: pw,
   });
 };
 const requestLogout = () => {
-  return axios.post(`logout`);
+  return api.post(`logout`);
 };
 const requestCheck = (atk) => {
-  const api = axios.create({
-    headers: {
-      Authorization: `${atk}`,
-    },
-  });
   return api.post(`profile`);
 };
 
 const requsetPostShelve = (email, id, type) => {
-  return axios.post(`shelve`, {
+  return api.post(`shelve`, {
     email,
     id,
     type,
@@ -70,19 +60,20 @@ const requsetPostShelve = (email, id, type) => {
 };
 const requestDeleteShelve = (uid, id, type = null) => {
   //console.log(uid, id, type);
-  return axios.delete(`shelve`, {
+  return api.delete(`shelve`, {
     data: { uid, id, type },
   });
 };
+
 const requestDeleteReview = (id, rid, uid) => {
-  return axios.delete(`book/${id}/review/${rid}`, {
+  return api.delete(`book/${id}/review/${rid}`, {
     data: {
       uid,
     },
   });
 };
 const requestEditProfile = (data) => {
-  return axios.post(`edit`, data);
+  return api.post(`edit`, data);
 };
 
 export const check = (atk) => ({
