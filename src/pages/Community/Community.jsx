@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Category from "../../components/Category";
 import CommunityContainer from "../../components/CommunityContainer/CommunityContainer";
-import { useSelector, useDispatch } from "react-redux";
 import { getReviews, postLike } from "../../reducer/review";
 import Helmet from "../../components/Helmet";
+
 const Community = ({ history: { location } }) => {
   const { pathname } = location;
   const path = pathname.substr(1).split("/")[1];
@@ -28,6 +29,7 @@ const Community = ({ history: { location } }) => {
     },
     [dispatch]
   );
+  
   const toggleMore = useCallback(
     (e) => {
       const {
@@ -46,6 +48,7 @@ const Community = ({ history: { location } }) => {
     },
     [selected]
   );
+
   const loadMore = useCallback(
     (e) => {
       loadReviews(page + 1);
@@ -53,6 +56,7 @@ const Community = ({ history: { location } }) => {
     },
     [loadReviews, page]
   );
+
   const handleLike = useCallback(
     (review) => () => {
       const { user } = profile;
@@ -64,12 +68,14 @@ const Community = ({ history: { location } }) => {
     },
     [profile, isLoggedIn, dispatch]
   );
+  
   useEffect(() => {
     setIsLoading(true);
     loadReviews();
     setIsLoading(false);
     return () => {};
   }, [loadReviews, dispatch]);
+
   return (
     <>
       <Helmet

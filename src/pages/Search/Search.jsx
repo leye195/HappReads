@@ -14,8 +14,8 @@ const Search = ({ location }) => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const dispatch = useDispatch();
   const { books, searchPending, moreDone } = useSelector((state) => state.books);
+  const dispatch = useDispatch();
 
   const loadMoreRef = useRef(null);
 

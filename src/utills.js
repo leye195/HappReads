@@ -1,5 +1,5 @@
 export const getAtk = () => {
-  const atk = localStorage.getItem("atk");
+  const atk =  sessionStorage.getItem("atk");
   return atk;
 };
 

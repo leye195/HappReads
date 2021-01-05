@@ -1,7 +1,10 @@
 import React, { useState, useCallback } from "react";
-import style from "../Form.scss";
+import { Link } from "react-router-dom";
 import classnames from "classnames/bind";
+
 import SocialLogin from "../../SocialLogin/SocialLogin";
+
+import style from "../Form.scss";
 
 const cx = classnames.bind(style);
 const SignUpForm = ({ handleSignUp }) => {
@@ -43,7 +46,8 @@ const SignUpForm = ({ handleSignUp }) => {
   );
   return (
     <section className={cx("signup-form", "form-container")}>
-      <SocialLogin type="signup" />
+      <h2>회원가입</h2>
+      <SocialLogin />
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -68,6 +72,9 @@ const SignUpForm = ({ handleSignUp }) => {
         />
         <input type="submit" value="가입" />
       </form>
+      <Link to="/login">
+        <button>로그인 이동</button>
+      </Link>
     </section>
   );
 };

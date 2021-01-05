@@ -8,9 +8,18 @@ import Helmet from "../../components/Helmet";
 const Detail = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-  const { book, bookPending } = useSelector((state) => state.books);
-  const { reviews } = useSelector((state) => state.review);
-  const { profile, isLoggedIn } = useSelector((state) => state.login);
+  const { book, bookPending, profile, isLoggedIn, reviews} = useSelector(({
+    books:{book, bookPending},
+    review:{reviews},
+    login:{profile, isLoggedIn}
+  }) => ({
+    book,
+    bookPending,
+    reviews,
+    profile,
+    isLoggedIn
+  }));
+
   const getBook = useCallback(
     async (id) => {
       try {
@@ -22,9 +31,11 @@ const Detail = ({ match }) => {
     },
     [dispatch]
   );
+
   const postVote = (id, name, vote) => {
     dispatch(postRate(id, name, vote));
   };
+  
   useEffect(() => {
     setIsLoading(true);
     const {
@@ -49,7 +60,7 @@ const Detail = ({ match }) => {
           postVote={postVote}
           votes={book?.votes || []}
           reviews={reviews}
-          profile={profile}
+          profile={profile||{}}
           isLoggedIn={isLoggedIn}
         />
       )}

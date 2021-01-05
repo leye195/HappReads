@@ -19,6 +19,7 @@ const SlickList = ({ books }) => {
     autoplay: true,
     autoplaySpeed: 4000,
   });
+
   const checkSize = useCallback(() => {
     const innerWidth = window.innerWidth;
     if (innerWidth >= 0 && innerWidth <= 425) {
@@ -27,20 +28,15 @@ const SlickList = ({ books }) => {
         slidesToShow: 2,
         slidesToScroll: 2,
       });
-    } else if (innerWidth >= 426 && innerWidth <= 1024) {
+    } else {
       setSettings({
         ...settings,
         slidesToShow: 4,
         slidesToScroll: 4,
       });
-    } else {
-      setSettings({
-        ...settings,
-        slidesToShow: 6,
-        slidesToScroll: 6,
-      });
-    }
+    } 
   }, [settings]);
+
   useEffect(() => {
     checkSize();
     window.addEventListener("resize", checkSize);
@@ -48,6 +44,7 @@ const SlickList = ({ books }) => {
       window.removeEventListener("resize", checkSize);
     };
   }, []);
+
   return (
     <section className={cx("slider-container")}>
       <Slider {...settings}>

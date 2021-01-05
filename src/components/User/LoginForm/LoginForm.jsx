@@ -1,13 +1,15 @@
 import React, { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import style from "../Form.scss";
 import classnames from "classnames/bind";
 import SocialLogin from "../../SocialLogin/SocialLogin";
+
+import style from "../Form.scss";
 
 const cx = classnames.bind(style);
 const LoginForm = ({ loginRequest, login_success, login_pending }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -15,15 +17,19 @@ const LoginForm = ({ loginRequest, login_success, login_pending }) => {
     },
     [email, password, loginRequest]
   );
+
   const handleEmail = useCallback((e) => {
     setEmail(e.target.value);
   }, []);
+
   const handlePassword = useCallback((e) => {
     setPassword(e.target.value);
   }, []);
+
   return (
     <>
       <div className={cx("login-form", "form-container")}>
+        <h2>로그인</h2>
         <SocialLogin type="login" />
         <form onSubmit={handleSubmit}>
           <input
@@ -43,7 +49,7 @@ const LoginForm = ({ loginRequest, login_success, login_pending }) => {
           <input type="submit" value="로그인" />
         </form>
         <Link to="/signup">
-          <button>가입</button>
+          <button>가입 이동</button>
         </Link>
       </div>
     </>

@@ -34,6 +34,7 @@ const Home = () => {
     dispatch(getPopularBooks());
     setIsLoading(false);
   }, [dispatch]);
+  
   const handleClick = useCallback(
     (e) => {
       const {

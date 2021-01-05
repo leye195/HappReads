@@ -1,6 +1,6 @@
 import React from 'react';
-import cx from "classnames";
 import UserReview from '../../components/UserReview';
+import cx from "classnames";
 
 const MyReview = ({profile,from}) => {
     return (
