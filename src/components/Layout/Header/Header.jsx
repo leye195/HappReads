@@ -11,10 +11,10 @@ import {
   FaSearch
 } from "react-icons/fa";
 import classnames from "classnames/bind";
-import SearchBar from "../SearchBar";
-import { check, logout } from "../../reducer/login";
-import { getBooks } from "../../reducer/books";
-import { getAtk } from "../../utills";
+import SearchBar from "../../SearchBar";
+import { check, logout } from "../../../reducer/login";
+import { getBooks } from "../../../reducer/books";
+import { getAtk } from "../../../utills";
 
 import style from "./Header.scss";
 
@@ -42,10 +42,14 @@ const Header = () => {
       value: { status },
     } = await dispatch(logout());
     if (status === 200) {
-      localStorage.removeItem("atk");
+      sessionStorage.removeItem("atk");
       window.location.href = "/";
     }
   }, [dispatch]);
+
+  const clickMenu = useCallback(() => {
+    setShowMenu((cur) => !cur);
+  }, [setShowMenu]);
 
   const checkSize = (e) => {
     const { innerWidth } = window;
@@ -70,9 +74,7 @@ const Header = () => {
     };
   }, []);
 
-  const clickMenu = useCallback(() => {
-    setShowMenu((cur) => !cur);
-  }, [setShowMenu]);
+
 
   return (
     <header className={cx("header")}>
