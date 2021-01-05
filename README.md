@@ -1,8 +1,9 @@
 # HappReads Front
 
 Link: https://leye195.github.io/HappReads-front/
+[구조 개선 및 코드 리팩토링 진행중]
 
-### Front
+### Front-End Stack
 
 - React
 - SCSS (CSS-Preprocessor)
